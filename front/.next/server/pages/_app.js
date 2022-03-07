@@ -125,7 +125,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _src_App_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_src_App_css__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-dev-runtime */ "react/jsx-dev-runtime");
 /* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__);
-var _jsxFileName = "C:\\Users\\swcha\\Desktop\\S06P21C206-master\\front\\pages\\_app.js";
+var _jsxFileName = "C:\\Users\\multicampus\\Desktop\\\uD2B9\uD654\uD504\uB85C\uC81D\uD2B8\\S06P22C206\\front\\pages\\_app.js";
 
 
 
