@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Layout, Menu, Input } from 'antd';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import { logoutAction } from '../reducers';
+import { logoutAction } from '../reducers/user';
 
 const { Header, Content, Footer } = Layout;
 

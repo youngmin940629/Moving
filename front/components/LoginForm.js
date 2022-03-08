@@ -3,7 +3,7 @@ import { Form, Input, Button, Checkbox } from 'antd';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { loginAction } from '../reducers';
+import { loginAction } from '../reducers/user';
 import Router from 'next/router';
 
 
@@ -50,7 +50,6 @@ const LoginForm = () => {
   }, []);
 
   const onSubmitForm = useCallback(() => {
-    console.log(id, password);
     dispatch(loginAction({ id, password }));
     Router.push('/');
   }, [id, password]);
