@@ -14,11 +14,6 @@
     "static/development/_ssgManifest.js"
   ],
   "pages": {
-    "/": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/index.js"
-    ],
     "/_app": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
@@ -30,9 +25,20 @@
       "static/chunks/pages/_error.js"
     ],
     "/community": [
+<<<<<<< Updated upstream
       "static/chunks/main.js",
       "static/chunks/webpack.js",
       "static/chunks/pages/community.js"
+=======
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/community.js"
+    ],
+    "/login": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/login.js"
+>>>>>>> Stashed changes
     ]
   },
   "ampFirstPages": []
