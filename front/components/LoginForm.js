@@ -1,16 +1,42 @@
 import React, { useCallback, useState } from 'react';
-import { Button, Form, Input } from 'antd';
+import { Form, Input, Button, Checkbox } from 'antd';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { loginAction } from '../reducers';
 import Router from 'next/router';
 
-const ButtonWrapper = styled.div`
+
+const LogoWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+`;
+
+const Logo = styled.img``
+
+const LoginFormWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+
+const SignupLink = styled.div`
   margin-top: 10px;
+  display: block;
 `;
 
 const LoginForm = () => {
+
+  // antD 제공 함수 : onFinish / onFinishFailed
+  // const onFinish = (values) => {
+  //   console.log('Success:', values);
+  // };
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
+
   const dispatch = useDispatch();
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
@@ -29,35 +55,83 @@ const LoginForm = () => {
     Router.push('/');
   }, [id, password]);
 
+
   return (
     <>
-      <Form onFinish={onSubmitForm}>
-        <div>
-          <label htmlFor="user-id">아이디</label>
-          <br />
-          <Input name="user-id" value={id} onChange={onChangeId} required />
-        </div>
-        <div>
-          <label htmlFor="user-password">비밀번호</label>
-          <br />
-          <Input
-            name="user-password"
-            type="password"
-            value={password}
-            onChange={onChangePassword}
-            required
-          />
-        </div>
-        <ButtonWrapper>
-          <Button type="primary" htmlType="submit" loading={false}>
-            로그인
-          </Button>
-          <Link href="/signup">
-            <a>회원가입</a>
-          </Link>
-        </ButtonWrapper>
-        <div></div>
-      </Form>
+      <LogoWrapper>
+        <Logo src="/img/logo-colored.png" />
+      </LogoWrapper>
+      <LoginFormWrapper>
+        <Form
+          name="basic"
+          labelCol={{
+            span: 8,
+          }}
+          wrapperCol={{
+            span: 16,
+          }}
+          initialValues={{
+            remember: true,
+          }}
+          // onFinish={onFinish}
+          onFinish={onSubmitForm}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
+        >
+          <Form.Item
+            label="E-mail"
+            name="userEmail"
+            rules={[
+              {
+                required: true,
+                message: 'E-mail을 입력해주세요!',
+              },
+            ]}
+          >
+            <Input value={id} onChange={onChangeId} />
+          </Form.Item>
+
+          <Form.Item
+            label="Password"
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: 'Password를 입력해주세요!',
+              },
+            ]}
+          >
+            <Input.Password value={password} onChange={onChangePassword} />
+          </Form.Item>
+
+          <Form.Item
+            name="remember"
+            valuePropName="checked"
+            wrapperCol={{
+              offset: 8,
+              span: 16,
+            }}
+          >
+            <Checkbox>Remember me</Checkbox>
+          </Form.Item>
+
+          <Form.Item
+            wrapperCol={{
+              offset: 8,
+              span: 16,
+            }}
+          >
+            <Button type="primary" htmlType="submit" loading={false}>
+              로그인
+            </Button>
+            <SignupLink>
+              <Link href="/signup">
+                회원가입
+              </Link>
+            </SignupLink>
+          </Form.Item>
+        </Form>
+      </LoginFormWrapper>
     </>
   );
 };
