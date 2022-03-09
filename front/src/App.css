@@ -47,3 +47,14 @@
   left: 0%;
   top: 50%;
 }
+
+.site-card-border-less-wrapper {
+  width: 50%;
+  margin: auto;
+  padding: 30px;
+  background: #ececec;
+}
+
+.profile-span {
+  margin-left: 50px;
+}

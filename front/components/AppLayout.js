@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
-import { Layout, Menu, Input } from 'antd';
+import { Layout, Menu, Input, Button } from 'antd';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import { logoutAction } from '../reducers/user';
+import { logoutRequestAction } from '../reducers/user';
 
 const { Header, Content, Footer } = Layout;
 
@@ -29,6 +29,11 @@ const MovingLogo = styled.img`
 const AppLayout = ({ children }) => {
   const isLoggedIn = useSelector(state => state.user.isLoggedIn);
   const dispatch = useDispatch();
+  const { isLoggingOut } = useSelector(state => state.user);
+
+  const onLogOut = useCallback(() => {
+    dispatch(logoutRequestAction());
+  }, []);
 
   return (
     <div>
@@ -44,7 +49,7 @@ const AppLayout = ({ children }) => {
                   <Link href="/">
                     <a
                       onClick={() => {
-                        dispatch(logoutAction());
+                        dispatch(logoutRequestAction());
                       }}
                     >
                       로그아웃

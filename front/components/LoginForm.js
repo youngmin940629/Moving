@@ -2,10 +2,10 @@ import React, { useCallback, useState } from 'react';
 import { Form, Input, Button, Checkbox } from 'antd';
 import Link from 'next/link';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
-import { loginAction } from '../reducers/user';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginRequestAction } from '../reducers/user';
 import Router from 'next/router';
-
+import useInput from '../hooks/useInput';
 
 const LogoWrapper = styled.div`
   width: 100%;
@@ -14,7 +14,7 @@ const LogoWrapper = styled.div`
   margin-bottom: 20px;
 `;
 
-const Logo = styled.img``
+const Logo = styled.img``;
 
 const LoginFormWrapper = styled.div`
   width: 100%;
@@ -28,32 +28,23 @@ const SignupLink = styled.div`
 `;
 
 const LoginForm = () => {
-
   // antD 제공 함수 : onFinish / onFinishFailed
   // const onFinish = (values) => {
   //   console.log('Success:', values);
   // };
-  const onFinishFailed = (errorInfo) => {
+  const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo);
   };
 
   const dispatch = useDispatch();
-  const [id, setId] = useState('');
-  const [password, setPassword] = useState('');
-
-  const onChangeId = useCallback(e => {
-    setId(e.target.value);
-  }, []);
-
-  const onChangePassword = useCallback(e => {
-    setPassword(e.target.value);
-  }, []);
+  const { isLoggingIn } = useSelector(state => state.user);
+  const [id, onChangeId] = useInput();
+  const [password, onChangePassword] = useInput();
 
   const onSubmitForm = useCallback(() => {
-    dispatch(loginAction({ id, password }));
+    dispatch(loginRequestAction({ id, password }));
     Router.push('/');
   }, [id, password]);
-
 
   return (
     <>
@@ -120,13 +111,11 @@ const LoginForm = () => {
               span: 16,
             }}
           >
-            <Button type="primary" htmlType="submit" loading={false}>
+            <Button type="primary" htmlType="submit" loading={isLoggingIn}>
               로그인
             </Button>
             <SignupLink>
-              <Link href="/signup">
-                회원가입
-              </Link>
+              <Link href="/signup">회원가입</Link>
             </SignupLink>
           </Form.Item>
         </Form>
