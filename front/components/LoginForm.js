@@ -103,7 +103,7 @@ const LoginForm = () => {
               span: 16,
             }}
           >
-            <Checkbox>Remember me</Checkbox>
+            <Checkbox>로그인 유지</Checkbox>
           </Form.Item>
 
           <Form.Item
