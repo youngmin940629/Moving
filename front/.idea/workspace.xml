@@ -2,55 +2,32 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="81c468ba-4907-40d3-90c6-973377370f39" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/front.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.gitignore.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S06P22C206.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/boardTable.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/cache/next-babel-loader/272f97d0b18ee1b8f87ff6dbb01d77b1.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/cache/next-babel-loader/4025e16ebafc46d3245bfb695af78887.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/cache/next-babel-loader/b66713ccb10f1419a45c1f623779ef23.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/cache/next-babel-loader/d8dd567bbe9dc0d417ffded2c4615f39.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/static/webpack/412712c07e11e081dfd8.hot-update.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/static/webpack/64a415b1fea674ed3b56.hot-update.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/static/webpack/f6bd1c6c0a8544e4bf55.hot-update.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/boardDetail.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/boardWriteModal.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/comment.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/board/[id].js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.next/build-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/.next/build-manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/react-loadable-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/.next/react-loadable-manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/server/init-server.js.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/server/init-server.js.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/server/on-error-server.js.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/server/on-error-server.js.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.next/server/pages-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/.next/server/pages-manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/server/pages/_app.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/server/pages/_app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/server/pages/_document.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/server/pages/_document.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/server/pages/_error.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/server/pages/_error.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/server/pages/community.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/server/pages/community.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/server/pages/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/server/pages/login.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/server/pages/next/dist/pages/_error.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/server/pages/next/dist/pages/_error.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/server/pages/signup.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/server/ssr-module-cache.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/server/ssr-module-cache.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/static/chunks/0.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/static/chunks/0.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/static/chunks/amp.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/static/chunks/amp.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/static/chunks/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/static/chunks/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/static/chunks/pages/_app.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/static/chunks/pages/_app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/static/chunks/pages/_error.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/static/chunks/pages/_error.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/static/chunks/pages/community.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/static/chunks/pages/community.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/static/chunks/pages/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/static/chunks/pages/login.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/static/chunks/pages/next/dist/pages/_error.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/static/chunks/pages/next/dist/pages/_error.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/static/chunks/pages/signup.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/static/chunks/polyfills.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/static/chunks/polyfills.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/static/chunks/react-refresh.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/static/chunks/react-refresh.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.next/static/chunks/pages/signup.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/static/chunks/pages/signup.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.next/static/chunks/webpack.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/static/chunks/webpack.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.next/static/development/_buildManifest.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/static/development/_buildManifest.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/static/media/slick.2630a3e3eab21c607e21576571b95b9d.svg" beforeDir="false" afterPath="$PROJECT_DIR$/.next/static/media/slick.2630a3e3eab21c607e21576571b95b9d.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/static/webpack/2a09edbfdc05f9ffa490.hot-update.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/static/webpack/3449549514f891bc30c5.hot-update.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/static/webpack/3eae0067f10c8c88d7fc.hot-update.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/static/webpack/43216bec7d6c14c8e1db.hot-update.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/static/webpack/519479e09e7377d70bc1.hot-update.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/static/webpack/52dd5ecd189f287c8a94.hot-update.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/static/webpack/5f1e55e451388c46807e.hot-update.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/static/webpack/887f6e375e3f8f07de44.hot-update.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/static/webpack/fa4bbcfa2a42801777fa.hot-update.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/static/webpack/pages/index.2a09edbfdc05f9ffa490.hot-update.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/static/webpack/pages/index.43216bec7d6c14c8e1db.hot-update.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/community.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/community.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.next/static/webpack/6b40feda0f141c739d04.hot-update.json" beforeDir="false" afterPath="$PROJECT_DIR$/.next/static/webpack/6b40feda0f141c739d04.hot-update.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/boardTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/boardTable.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,8 +63,18 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="16.13.2" />
     <property name="javascript.nodejs.core.library.typings.version" value="16.11.26" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="settings.nodejs" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\multicampus\Desktop\특화프로젝트\S06P22C206\front\pages" />
+      <recent name="C:\Users\multicampus\Desktop\특화프로젝트\S06P22C206\front\components" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
