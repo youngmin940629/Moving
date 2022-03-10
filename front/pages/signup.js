@@ -7,7 +7,7 @@ const Signup = () => {
   return (
   <>
     <Head>
-    <title>로그인 | moving</title>
+      <title>회원가입 | moving</title>
     </Head>
     <AppLayout>
       <SignupForm />

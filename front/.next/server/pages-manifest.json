@@ -2,15 +2,6 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-<<<<<<< HEAD
-  "/signup": "pages/signup.js"
-=======
-<<<<<<< Updated upstream
-  "/": "pages/index.js",
-  "/profile": "pages/profile.js"
-=======
-  "/login": "pages/login.js",
-  "/signup": "pages/signup.js"
->>>>>>> Stashed changes
->>>>>>> d6e45c740303d93ad26029dfdfc38d947acec8d5
+  "/signup": "pages/signup.js",
+  "/login": "pages/login.js"
 }

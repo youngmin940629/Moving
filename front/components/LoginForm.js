@@ -11,18 +11,25 @@ const LogoWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
+  margin: 20px;
 `;
 
 const Logo = styled.img``;
 
+const LoginTitle = styled.h2`
+  text-align: center;
+  padding-bottom: 5px;
+  font-weight: bold;
+  color: #2CD4AC;
+`;
+
+
 const LoginFormWrapper = styled.div`
-  width: 100%;
   display: flex;
   justify-content: center;
 `;
 
-const SignupLink = styled.div`
+const LoginLinkWrapper = styled.div`
   margin-top: 10px;
   display: block;
 `;
@@ -51,17 +58,20 @@ const LoginForm = () => {
       <LogoWrapper>
         <Logo src="/img/logo-colored.png" />
       </LogoWrapper>
+      <LoginTitle>
+       로그인
+      </LoginTitle>
       <LoginFormWrapper>
         <Form
           name="basic"
           labelCol={{
-            span: 8,
+            span: 6,
           }}
           wrapperCol={{
-            span: 16,
+            span: 18,
           }}
           initialValues={{
-            remember: true,
+            remember: false,
           }}
           // onFinish={onFinish}
           onFinish={onSubmitForm}
@@ -71,28 +81,37 @@ const LoginForm = () => {
           <Form.Item
             type="email"
             label="E-mail"
-            name="userEmail"
+            name="user-email"
             rules={[
               {
                 required: true,
-                message: 'E-mail을 입력해주세요!',
+                message: 'E-mail을 입력해주세요.',
               },
             ]}
           >
-            <Input type="email" value={email} onChange={onChangeEmail} />
+            <Input 
+              type="email" 
+              placeholder="이메일 입력" 
+              value={email} 
+              onChange={onChangeEmail} 
+            />
           </Form.Item>
 
           <Form.Item
-            label="Password"
+            label="비밀번호"
             name="password"
             rules={[
               {
                 required: true,
-                message: 'Password를 입력해주세요!',
+                message: '비밀번호를 입력해주세요.',
               },
             ]}
           >
-            <Input.Password value={password} onChange={onChangePassword} />
+            <Input.Password 
+              placeholder="비밀번호 입력" 
+              value={password}
+              onChange={onChangePassword} 
+            />
           </Form.Item>
 
           <Form.Item
@@ -112,12 +131,16 @@ const LoginForm = () => {
               span: 16,
             }}
           >
-            <Button type="primary" htmlType="submit" loading={loginLoading}>
+            <Button 
+              type="primary" 
+              htmlType="submit" 
+              loading={loginLoading}
+            >
               로그인
             </Button>
-            <SignupLink>
+            <LoginLinkWrapper>
               <Link href="/signup">회원가입</Link>
-            </SignupLink>
+            </LoginLinkWrapper>
           </Form.Item>
         </Form>
       </LoginFormWrapper>
