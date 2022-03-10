@@ -12,24 +12,27 @@ import {
   SIGN_UP_FAILURE,
 } from '../reducers/user';
 
+axios.defaults.baseURL = 'http://localhost:8000';
+
 function logInAPI(data) {
-  return axios.post('/api/login', data);
+  return axios.post('/accounts/login/', data);
 }
 
 function* logIn(action) {
   try {
-    // const result = yield call(logInAPI, action.data);
-    yield delay(1000);
+    const result = yield call(logInAPI, action.data);
     yield put({
       type: LOG_IN_SUCCESS,
+      data: result.data,
     });
+    localStorage.setItem('JWT token', result.data.token);
   } catch (err) {
     yield put({ type: LOG_IN_FAILURE, error: err.response.data });
   }
 }
 
 function logOutAPI() {
-  return axios.post('/api/logout');
+  return axios.post('/user/logout');
 }
 
 function* logOut() {
@@ -45,7 +48,7 @@ function* logOut() {
 }
 
 function signUpAPI() {
-  return axios.post('/api/signUp');
+  return axios.post('/user');
 }
 
 function* signUp() {

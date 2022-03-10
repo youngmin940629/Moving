@@ -45,13 +45,13 @@ const LoginForm = () => {
 
   const dispatch = useDispatch();
   const { loginLoading } = useSelector(state => state.user);
-  const [email, onChangeEmail] = useInput();
+  const [username, onChangeUsername] = useInput();
   const [password, onChangePassword] = useInput();
 
   const onSubmitForm = useCallback(() => {
-    dispatch(loginRequestAction({ email, password }));
+    dispatch(loginRequestAction({ username, password }));
     Router.push('/');
-  }, [email, password]);
+  }, [username, password]);
 
   return (
     <>
@@ -81,7 +81,11 @@ const LoginForm = () => {
           <Form.Item
             type="email"
             label="E-mail"
+<<<<<<< Updated upstream
             name="user-email"
+=======
+            name="userusername"
+>>>>>>> Stashed changes
             rules={[
               {
                 required: true,
@@ -89,11 +93,18 @@ const LoginForm = () => {
               },
             ]}
           >
+<<<<<<< Updated upstream
             <Input 
               type="email" 
               placeholder="이메일 입력" 
               value={email} 
               onChange={onChangeEmail} 
+=======
+            <Input
+              type="username"
+              value={username}
+              onChange={onChangeUsername}
+>>>>>>> Stashed changes
             />
           </Form.Item>
 
