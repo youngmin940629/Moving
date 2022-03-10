@@ -20,9 +20,8 @@ const LoginTitle = styled.h2`
   text-align: center;
   padding-bottom: 5px;
   font-weight: bold;
-  color: #2CD4AC;
+  color: #2cd4ac;
 `;
-
 
 const LoginFormWrapper = styled.div`
   display: flex;
@@ -58,9 +57,7 @@ const LoginForm = () => {
       <LogoWrapper>
         <Logo src="/img/logo-colored.png" />
       </LogoWrapper>
-      <LoginTitle>
-       로그인
-      </LoginTitle>
+      <LoginTitle>로그인</LoginTitle>
       <LoginFormWrapper>
         <Form
           name="basic"
@@ -81,11 +78,7 @@ const LoginForm = () => {
           <Form.Item
             type="email"
             label="E-mail"
-<<<<<<< Updated upstream
-            name="user-email"
-=======
             name="userusername"
->>>>>>> Stashed changes
             rules={[
               {
                 required: true,
@@ -93,18 +86,10 @@ const LoginForm = () => {
               },
             ]}
           >
-<<<<<<< Updated upstream
-            <Input 
-              type="email" 
-              placeholder="이메일 입력" 
-              value={email} 
-              onChange={onChangeEmail} 
-=======
             <Input
               type="username"
               value={username}
               onChange={onChangeUsername}
->>>>>>> Stashed changes
             />
           </Form.Item>
 
@@ -118,10 +103,10 @@ const LoginForm = () => {
               },
             ]}
           >
-            <Input.Password 
-              placeholder="비밀번호 입력" 
+            <Input.Password
+              placeholder="비밀번호 입력"
               value={password}
-              onChange={onChangePassword} 
+              onChange={onChangePassword}
             />
           </Form.Item>
 
@@ -142,11 +127,7 @@ const LoginForm = () => {
               span: 16,
             }}
           >
-            <Button 
-              type="primary" 
-              htmlType="submit" 
-              loading={loginLoading}
-            >
+            <Button type="primary" htmlType="submit" loading={loginLoading}>
               로그인
             </Button>
             <LoginLinkWrapper>
