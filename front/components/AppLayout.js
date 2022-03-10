@@ -27,13 +27,8 @@ const MovingLogo = styled.img`
 `;
 
 const AppLayout = ({ children }) => {
-  const isLoggedIn = useSelector(state => state.user.isLoggedIn);
   const dispatch = useDispatch();
-  const { isLoggingOut } = useSelector(state => state.user);
-
-  const onLogOut = useCallback(() => {
-    dispatch(logoutRequestAction());
-  }, []);
+  const { me } = useSelector(state => state.user);
 
   return (
     <div>
@@ -43,7 +38,7 @@ const AppLayout = ({ children }) => {
             <MovingLogo src="/img/moving.png" />
           </Link>
           <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['3']}>
-            {isLoggedIn ? (
+            {me ? (
               <>
                 <Menu.Item key="0">
                   <Link href="/">

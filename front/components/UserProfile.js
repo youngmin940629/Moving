@@ -8,13 +8,6 @@ const InputStyle = styled(Input)`
 `;
 
 const UserProfile = () => {
-  const [data, setData] = useState({
-    id: 'ssafy@naver.com',
-    name: '홍길동',
-    gender: '남',
-    birthDate: 'XXXX-XX-XX',
-    phoneNumber: 'XXX-XXXX-XXXX',
-  });
   const { me } = useSelector(state => state.user);
 
   return (

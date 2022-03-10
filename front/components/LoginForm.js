@@ -37,14 +37,14 @@ const LoginForm = () => {
   };
 
   const dispatch = useDispatch();
-  const { isLoggingIn } = useSelector(state => state.user);
-  const [id, onChangeId] = useInput();
+  const { loginLoading } = useSelector(state => state.user);
+  const [email, onChangeEmail] = useInput();
   const [password, onChangePassword] = useInput();
 
   const onSubmitForm = useCallback(() => {
-    dispatch(loginRequestAction({ id, password }));
+    dispatch(loginRequestAction({ email, password }));
     Router.push('/');
-  }, [id, password]);
+  }, [email, password]);
 
   return (
     <>
@@ -78,7 +78,7 @@ const LoginForm = () => {
               },
             ]}
           >
-            <Input value={id} onChange={onChangeId} />
+            <Input type="email" value={email} onChange={onChangeEmail} />
           </Form.Item>
 
           <Form.Item
@@ -111,7 +111,7 @@ const LoginForm = () => {
               span: 16,
             }}
           >
-            <Button type="primary" htmlType="submit" loading={isLoggingIn}>
+            <Button type="primary" htmlType="submit" loading={loginLoading}>
               로그인
             </Button>
             <SignupLink>
