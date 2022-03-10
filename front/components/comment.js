@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {  Form, Button, List, Comment, Avatar ,Input } from 'antd';
 
 export default function Comments() {
-    const { TextArea } = Input;
     const [comments, setComments] = useState([
         {
             content: "test1",
@@ -17,11 +16,10 @@ export default function Comments() {
     const submitComment=()=>{
         console.log("submit");
     }
-
     return(
         <>
             <Form.Item>
-                <TextArea rows={4}/>
+                <Input.TextArea rows={4}/>
             </Form.Item>
             <Form.Item>
              <div style={
