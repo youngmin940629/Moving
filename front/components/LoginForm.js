@@ -69,6 +69,7 @@ const LoginForm = () => {
           autoComplete="off"
         >
           <Form.Item
+            type="email"
             label="E-mail"
             name="userEmail"
             rules={[
