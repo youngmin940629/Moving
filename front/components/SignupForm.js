@@ -65,11 +65,7 @@ const SignupForm = () => {
   const [data, setData] = useState(null);
   const children = [];
   if (data) {
-<<<<<<< Updated upstream
-    for (let i = 0; i < 19; i++) {
-=======
     for (let i = 0; i < data.length; i++) {
->>>>>>> Stashed changes
       children.push(<Select.Option key={i}>{data[i].name}</Select.Option>);
     }
   }
