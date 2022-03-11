@@ -65,7 +65,11 @@ const SignupForm = () => {
   const [data, setData] = useState(null);
   const children = [];
   if (data) {
+<<<<<<< Updated upstream
     for (let i = 0; i < 19; i++) {
+=======
+    for (let i = 0; i < data.length; i++) {
+>>>>>>> Stashed changes
       children.push(<Select.Option key={i}>{data[i].name}</Select.Option>);
     }
   }
@@ -150,7 +154,6 @@ const SignupForm = () => {
             allowClear
             style={{ width: '100%' }}
             placeholder="장르를 선택해주세요."
-            // defaultValue={['a10', 'c12']}
             onChange={handleChange}
           >
             {children}
