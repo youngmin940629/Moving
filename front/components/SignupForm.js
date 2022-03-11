@@ -1,5 +1,15 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Button, Checkbox, Form, Input, Col, Select, Tag } from 'antd';
+import {
+  Button,
+  Checkbox,
+  Form,
+  Input,
+  Col,
+  Select,
+  DatePicker,
+  Space,
+  Radio,
+} from 'antd';
 import useInput from '../hooks/useInput';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
@@ -38,11 +48,16 @@ const SignupButton = styled.div`
   justify-content: center;
 `;
 
+const options = [
+  { label: '남', value: true },
+  { label: '여', value: false },
+];
+
 const SignupForm = () => {
   const dispatch = useDispatch();
   const { signUpLoading } = useSelector(state => state.user);
   const [email, onChangeEmail] = useInput();
-  const [nickname, onChangeNickname] = useInput();
+  const [username, onChangeUsername] = useInput();
   const [password, onChangePassowrd] = useInput();
 
   const [passwordCheck, setPasswordCheck] = useState('');
@@ -63,6 +78,7 @@ const SignupForm = () => {
   }, []);
 
   const [data, setData] = useState(null);
+  const [genre, setGenre] = useState(null);
   const children = [];
   if (data) {
     for (let i = 0; i < data.length; i++) {
@@ -70,7 +86,11 @@ const SignupForm = () => {
     }
   }
   function handleChange(value) {
-    console.log(`selected ${value}`);
+    const temp = [];
+    value.map(idx => {
+      temp.push(data[idx].id);
+    });
+    setGenre(temp);
   }
   useEffect(() => {
     axios.get('http://localhost:8000/movies/genre_list/').then(res => {
@@ -79,6 +99,18 @@ const SignupForm = () => {
     });
   }, []);
 
+  const [birthDate, setBirthDate] = useState(null);
+  function onChange(date, dateString) {
+    console.log(dateString);
+    setBirthDate(dateString);
+  }
+
+  const [gender, setGender] = useState(null);
+  const onChangeGender = e => {
+    console.log(e.target.value);
+    setGender(e.target.value);
+  };
+
   const onSubmit = useCallback(() => {
     if (password !== passwordCheck) {
       return setPasswordError(true);
@@ -86,12 +118,12 @@ const SignupForm = () => {
     if (!term) {
       return setTermError(true);
     }
-    console.log(email, nickname, passwordCheck);
+    console.log(email, username, passwordCheck);
     dispatch({
       type: SIGN_UP_REQUEST,
-      data: { email, nickname, password },
+      data: { email, username, password, genre, birthDate, gender },
     });
-  }, [password, passwordCheck, term]);
+  }, [password, passwordCheck, term, genre, birthDate, gender]);
 
   return (
     <>
@@ -130,7 +162,7 @@ const SignupForm = () => {
         </Form.Item>
         <Form.Item
           label="닉네임"
-          name="user-nickname"
+          name="user-username"
           rules={[
             {
               required: true,
@@ -140,8 +172,8 @@ const SignupForm = () => {
         >
           <Input
             placeholder="닉네임 입력"
-            value={nickname}
-            onChange={onChangeNickname}
+            value={username}
+            onChange={onChangeUsername}
           />
         </Form.Item>
         <Form.Item label="장르">
@@ -154,6 +186,20 @@ const SignupForm = () => {
           >
             {children}
           </Select>
+        </Form.Item>
+        <Form.Item label="생년월일">
+          <Space direction="vertical">
+            <DatePicker onChange={onChange} />
+          </Space>
+        </Form.Item>
+        <Form.Item label="성별">
+          <Radio.Group
+            options={options}
+            onChange={onChangeGender}
+            value={gender}
+            optionType="button"
+            buttonStyle="solid"
+          />
         </Form.Item>
         <Form.Item
           label="비밀번호"
