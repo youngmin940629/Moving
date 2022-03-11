@@ -64,8 +64,10 @@ const SignupForm = () => {
 
   const [data, setData] = useState(null);
   const children = [];
-  for (let i = 0; i < 19; i++) {
-    children.push(<Select.Option key={i}>{data[i].name}</Select.Option>);
+  if (data) {
+    for (let i = 0; i < 19; i++) {
+      children.push(<Select.Option key={i}>{data[i].name}</Select.Option>);
+    }
   }
   function handleChange(value) {
     console.log(`selected ${value}`);
@@ -75,7 +77,7 @@ const SignupForm = () => {
       console.log(res.data);
       setData(res.data);
     });
-  }, [setData]);
+  }, []);
 
   const onSubmit = useCallback(() => {
     if (password !== passwordCheck) {

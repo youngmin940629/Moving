@@ -4,7 +4,7 @@ from movies.models import Genre
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
-
+    
     class Meta:
         model = get_user_model()
         fields = ('username', 'password','gender', 'picture', 'age', 'oauth_type', )
