@@ -1,10 +1,9 @@
 import React, { useCallback, useState } from 'react';
-import { Button, Checkbox, Form, Input, Col } from 'antd';
+import { Button, Checkbox, Form, Input, Col, Select, Tag } from 'antd';
 import useInput from '../hooks/useInput';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { SIGN_UP_REQUEST } from '../reducers/user';
-
 
 const ErrorMessage = styled.div`
   color: red;
@@ -23,20 +22,46 @@ const SignupTitle = styled.h2`
   text-align: center;
   padding-bottom: 5px;
   font-weight: bold;
-  color: #2CD4AC;
+  color: #2cd4ac;
 `;
 
 const CheckboxWrapper = styled.div`
   margin: 20px auto 20px;
-  display: flex;  
+  display: flex;
   justify-content: center;
-`
+`;
 
 const SignupButton = styled.div`
   margin: 10px;
-  display: flex;  
+  display: flex;
   justify-content: center;
 `;
+
+const options = [
+  { value: 'gold' },
+  { value: 'lime' },
+  { value: 'green' },
+  { value: 'cyan' },
+];
+
+function tagRender(props) {
+  const { label, value, closable, onClose } = props;
+  const onPreventMouseDown = event => {
+    event.preventDefault();
+    event.stopPropagation();
+  };
+  return (
+    <Tag
+      color={value}
+      onMouseDown={onPreventMouseDown}
+      closable={closable}
+      onClose={onClose}
+      style={{ marginRight: 3 }}
+    >
+      {label}
+    </Tag>
+  );
+}
 
 const SignupForm = () => {
   const dispatch = useDispatch();
@@ -81,10 +106,8 @@ const SignupForm = () => {
       <LogoWrapper>
         <Logo src="/img/logo-colored.png" />
       </LogoWrapper>
-      <SignupTitle>
-       회원가입
-      </SignupTitle>
-      <Form 
+      <SignupTitle>회원가입</SignupTitle>
+      <Form
         name="basic"
         labelCol={{
           span: 6,
@@ -93,7 +116,8 @@ const SignupForm = () => {
           span: 12,
         }}
         autoComplete="off"
-        onFinish={onSubmit}>
+        onFinish={onSubmit}
+      >
         <Form.Item
           label="E-mail"
           name="user-email"
@@ -105,11 +129,11 @@ const SignupForm = () => {
             },
           ]}
         >
-          <Input 
+          <Input
             type="email"
             placeholder="이메일 입력"
-            value={email} 
-            onChange={onChangeEmail} 
+            value={email}
+            onChange={onChangeEmail}
           />
         </Form.Item>
         <Form.Item
@@ -120,12 +144,21 @@ const SignupForm = () => {
               required: true,
               message: '닉네임을 입력해주세요.',
             },
-          ]}  
+          ]}
         >
           <Input
             placeholder="닉네임 입력"
             value={nickname}
             onChange={onChangeNickname}
+          />
+        </Form.Item>
+        <Form.Item label="장르" rules={[{ required: true }]}>
+          <Select
+            mode="multiple"
+            showArrow
+            tagRender={tagRender}
+            style={{ width: '100%' }}
+            options={options}
           />
         </Form.Item>
         <Form.Item
@@ -144,7 +177,6 @@ const SignupForm = () => {
             onChange={onChangePassowrd}
           />
         </Form.Item>
-        
         <Form.Item
           label="비밀번호 확인"
           name="user-password-check"
@@ -154,7 +186,7 @@ const SignupForm = () => {
               message: '비밀번호 확인란을 입력해주세요.',
             },
           ]}
-          style={{marginBottom:"0px"}}
+          style={{ marginBottom: '0px' }}
         >
           <Input.Password
             placeholder="비밀번호 입력"
@@ -171,9 +203,7 @@ const SignupForm = () => {
           <Checkbox name="user-term" checked={term} onChange={onChangeTerm}>
             약관에 동의합니까?
           </Checkbox>
-          {termError && (
-            <ErrorMessage>약관에 동의하셔야 합니다.</ErrorMessage>
-          )}
+          {termError && <ErrorMessage>약관에 동의하셔야 합니다.</ErrorMessage>}
         </CheckboxWrapper>
         <SignupButton>
           <Button type="primary" htmlType="submit" loading={signUpLoading}>

@@ -25,7 +25,7 @@ function* logIn(action) {
       type: LOG_IN_SUCCESS,
       data: result.data,
     });
-    localStorage.setItem('JWT token', result.data.token);
+    yield localStorage.setItem('JWT token', result.data.token);
   } catch (err) {
     yield put({ type: LOG_IN_FAILURE, error: err.response.data });
   }
@@ -42,6 +42,7 @@ function* logOut() {
     yield put({
       type: LOG_OUT_SUCCESS,
     });
+    yield localStorage.removeItem('JWT token');
   } catch (err) {
     yield put({ type: LOG_OUT_FAILURE, error: err.response.data });
   }
