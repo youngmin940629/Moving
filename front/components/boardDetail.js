@@ -6,13 +6,13 @@ import TextArea from "antd/es/input/TextArea";
 export default function detailContent(){
     const [content, setContent] = useState([
         {
+            key: 1,
             title: "test",
             writer: "writer",
             createdAt: "createdAt",
             text: "text"
         }
     ]);
-    const {Column, ColumnGroup} = Table;
 
     return(
         <>

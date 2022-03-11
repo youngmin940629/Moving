@@ -1,7 +1,6 @@
-import { Table, Button, Space } from 'antd';
+import {Table, Button, Modal, Form, Input, InputNumber, Select} from 'antd';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import BoardModal from '../components/boardWriteModal';
 
 const { Column, ColumnGroup } = Table;
 
@@ -32,32 +31,30 @@ export default function BoardTable() {
     {
       title: 'lastName',
       dataIndex: 'lastName',
-      key: 'lastName',
     },
     {
       title: 'Age',
       dataIndex: 'age',
-      key: 'age',
     },
     {
       title: 'Title',
       dataIndex: 'title',
-      key: 'title',
+      render: (title) => <a onClick={goDetail}>{title}</a>,
     },
   ];
 
   // 게시글 디테일 페이지 이동
-  const goDetail = e => {
-    console.log(e.target.getAttribute('value'));
-    let id = e.target.getAttribute('value');
-    router.push(`board/${id}`);
-  };
-  // 게시글 쓰기 모달창 호출
-  const [isModal, setIsModal] = useState(false);
-  const callModal = () => {
-    setIsModal(!isModal);
-    console.log('table', isModal);
-  };
+  const goDetail=(e)=>{
+    console.log(e.target);
+    let id = e.target.getAttribute("value");
+    router.push(`board/${id}`)
+  }
+
+  // 게시글 등록 창으로 이동
+  const goWrite=()=>{
+    console.log("submit");
+    router.push(`board/write`)
+  }
 
   return (
     <>
@@ -66,10 +63,15 @@ export default function BoardTable() {
           float: 'right',
         }}
       >
-        <button onClick={callModal}>게시글 쓰기</button>
+        <button onClick={goWrite}>게시글 쓰기</button>
       </div>
-      {/*{isModal?<BoardModal {isModal}/>:null}*/}
-      <Table dataSource={dataSource} columns={columns} />;
+
+      <Table dataSource={dataSource} columns={columns}/>;
+        <ColumnGroup title="Community">
+          <Column title="Index" dataIndex="index" key="index" />
+          <Column title="title" dataIndex="title" key="title"/>
+          <Column title="Last Name" dataIndex="lastName" key="lastName" />
+        </ColumnGroup>
     </>
   );
 }
