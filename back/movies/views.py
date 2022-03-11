@@ -4,7 +4,7 @@ from rest_framework import response
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from .models import Movie, Genre
-from .serializers import MovieListSerializer, MovieSerializer
+from .serializers import MovieListSerializer, MovieSerializer, GenreSerializer
 from rest_framework import serializers, status
 from rest_framework.permissions import AllowAny
 import requests
@@ -17,6 +17,13 @@ key = "733c7d5145ecf236ad387093e2d52047"
 poster_url = "https://image.tmdb.org/t/p/original/"
 youtube_base_url = 'https://www.youtube.com/embed/'
 
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def genre_list(request):
+    if request.method == 'GET':
+        genres = Genre.objects.all()
+        serializers = GenreSerializer(genres, many=True)
+        return Response(serializers.data)
 
 
 @api_view(['GET'])
