@@ -1,9 +1,10 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Button, Checkbox, Form, Input, Col, Select, Tag } from 'antd';
 import useInput from '../hooks/useInput';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { SIGN_UP_REQUEST } from '../reducers/user';
+import axios from 'axios';
 
 const ErrorMessage = styled.div`
   color: red;
@@ -37,32 +38,6 @@ const SignupButton = styled.div`
   justify-content: center;
 `;
 
-const options = [
-  { value: 'gold' },
-  { value: 'lime' },
-  { value: 'green' },
-  { value: 'cyan' },
-];
-
-function tagRender(props) {
-  const { label, value, closable, onClose } = props;
-  const onPreventMouseDown = event => {
-    event.preventDefault();
-    event.stopPropagation();
-  };
-  return (
-    <Tag
-      color={value}
-      onMouseDown={onPreventMouseDown}
-      closable={closable}
-      onClose={onClose}
-      style={{ marginRight: 3 }}
-    >
-      {label}
-    </Tag>
-  );
-}
-
 const SignupForm = () => {
   const dispatch = useDispatch();
   const { signUpLoading } = useSelector(state => state.user);
@@ -86,6 +61,21 @@ const SignupForm = () => {
     setTerm(e.target.checked);
     setTermError(false);
   }, []);
+
+  const [data, setData] = useState(null);
+  const children = [];
+  for (let i = 0; i < 19; i++) {
+    children.push(<Select.Option key={i}>{data[i].name}</Select.Option>);
+  }
+  function handleChange(value) {
+    console.log(`selected ${value}`);
+  }
+  useEffect(() => {
+    axios.get('http://localhost:8000/movies/genre_list/').then(res => {
+      console.log(res.data);
+      setData(res.data);
+    });
+  }, [setData]);
 
   const onSubmit = useCallback(() => {
     if (password !== passwordCheck) {
@@ -152,14 +142,17 @@ const SignupForm = () => {
             onChange={onChangeNickname}
           />
         </Form.Item>
-        <Form.Item label="장르" rules={[{ required: true }]}>
+        <Form.Item label="장르">
           <Select
             mode="multiple"
-            showArrow
-            tagRender={tagRender}
+            allowClear
             style={{ width: '100%' }}
-            options={options}
-          />
+            placeholder="장르를 선택해주세요."
+            // defaultValue={['a10', 'c12']}
+            onChange={handleChange}
+          >
+            {children}
+          </Select>
         </Form.Item>
         <Form.Item
           label="비밀번호"
