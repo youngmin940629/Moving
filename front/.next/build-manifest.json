@@ -25,12 +25,20 @@
       "static/chunks/pages/_error.js"
     ],
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     "/login": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
       "static/chunks/pages/login.js"
     ],
 =======
+>>>>>>> Stashed changes
+=======
+    "/community": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/community.js"
+    ],
 >>>>>>> Stashed changes
     "/signup": [
       "static/chunks/main.js",
