@@ -1,36 +1,55 @@
-import {Row, Space, Table} from "antd";
-const { Column, ColumnGroup } = Table;
-import {useState} from "react"
-import TextArea from "antd/es/input/TextArea";
+import {Table} from "antd";
+import {useEffect, useState} from "react"
+import axios from "axios";
 
-export default function detailContent(){
-    const [content, setContent] = useState([
+export default function detailContent({id}){
+    const [data, setData] = useState([{}]);
+    const columns = [
         {
-            key: 1,
-            title: "test",
-            writer: "writer",
-            createdAt: "createdAt",
-            text: "text"
+            title: "title",
+            dataIndex: "title"
+        },
+        {
+            title: "작성자",
+            dataIndex: "username"
+        },
+        {
+            title: "작성일",
+            dataIndex: "created_at"
         }
-    ]);
+        
+    ];
+    useEffect( async () => {
+        console.log("effect call")
+        await axios.get(`http://127.0.0.1:8000/community/review/${id}/`).then(res=>{
+            console.log("게시글 리턴 : ", res.data);
+            setData( [res.data]);
+        })
+    },[])
+    const info = Object.assign(data[0]);
 
     return(
         <>
-            <Table dataSource={content} pagination={{ hideOnSinglePage: true}}>
-                <ColumnGroup title="Community">
-                    <Column title="title" dataIndex="title" key="title" />
-                    <Column title="writer" dataIndex="writer" key="writer" />
-                    <Column title="createdAt" dataIndex="createdAt" key="createdAt" />
-                </ColumnGroup>
+            <Table dataSource={data}
+                   pagination={{ hideOnSinglePage: true}}
+                   columns={columns}
+                   rowKey={data[0].id}
+            >
             </Table>
-                <div style={
-                    {
-                        textAlign: "center",
-                        fontSize: "30px"
-                    }
-                }>
-                    {content[0].text}
-                </div>
+            <div className="contentDiv">
+                {info.content}
+            </div>
+
+            <style jsx>{`
+                .contentDiv{
+                     text-align: center;
+                     font-size: 30px;
+                     padding-top: 70px;
+                     padding-bottom : 70px;
+                }
+                `}
+
+            </style>
         </>
     )
 }

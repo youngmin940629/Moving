@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import AppLayout from '../../components/AppLayout';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -14,9 +14,8 @@ export default function BoardDetail() {
         <title>게시판상세 | moving</title>
       </Head>
       <AppLayout>
-        {router.query.id}
-        <DetailContent></DetailContent>
-        <Comment></Comment>
+        <DetailContent id={router.query.id}></DetailContent>
+        <Comment id={router.query.id}></Comment>
       </AppLayout>
     </>
   );

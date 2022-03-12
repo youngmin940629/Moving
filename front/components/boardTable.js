@@ -1,11 +1,11 @@
-import {Table, Button, Modal, Form, Input, InputNumber, Select} from 'antd';
+import {Table} from 'antd';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
 
 const { Column, ColumnGroup } = Table;
 
-export default function BoardTable() {
+export default function BoardTable({boards}) {
   const router = useRouter();
+  console.log("api call : " , {boards})
   const dataSource = [
     {
       key: 1,
@@ -39,13 +39,12 @@ export default function BoardTable() {
     {
       title: 'Title',
       dataIndex: 'title',
-      render: (title) => <a onClick={goDetail}>{title}</a>,
+      render: (title, record) => <a onClick={goDetail} value={record.key}>{title} </a>,
     },
   ];
 
   // 게시글 디테일 페이지 이동
   const goDetail=(e)=>{
-    console.log(e.target);
     let id = e.target.getAttribute("value");
     router.push(`board/${id}`)
   }
@@ -67,11 +66,8 @@ export default function BoardTable() {
       </div>
 
       <Table dataSource={dataSource} columns={columns}/>;
-        <ColumnGroup title="Community">
-          <Column title="Index" dataIndex="index" key="index" />
-          <Column title="title" dataIndex="title" key="title"/>
-          <Column title="Last Name" dataIndex="lastName" key="lastName" />
-        </ColumnGroup>
+
     </>
   );
 }
+

@@ -5,13 +5,13 @@ import Head from 'next/head';
 import '../src/App.css';
 import wrapper from '../store/configureStore';
 
-const App = ({ Component }) => {
+const App = ({ Component, pageProps }) => {
   return (
     <>
       <Head>
         <title>moving</title>
       </Head>
-      <Component />
+      <Component {...pageProps}/>
     </>
   );
 };
