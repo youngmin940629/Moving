@@ -1,7 +1,7 @@
 import {Table} from 'antd';
 import { useRouter } from 'next/router';
+import Link from "next/link"
 
-const { Column, ColumnGroup } = Table;
 
 export default function BoardTable({boards}) {
   const router = useRouter();
@@ -39,15 +39,18 @@ export default function BoardTable({boards}) {
     {
       title: 'Title',
       dataIndex: 'title',
-      render: (title, record) => <a onClick={goDetail} value={record.key}>{title} </a>,
+      render: (title, record) => <Link
+          href={`board/${encodeURIComponent(record.key)}`}
+          value={record.key}>{title}
+      </Link>
     },
   ];
 
   // 게시글 디테일 페이지 이동
-  const goDetail=(e)=>{
-    let id = e.target.getAttribute("value");
-    router.push(`board/${id}`)
-  }
+  // const goDetail=(e)=>{
+  //   let id = e.target.getAttribute("value");
+  //   router.push(`board/${id}`)
+  //   }
 
   // 게시글 등록 창으로 이동
   const goWrite=()=>{
