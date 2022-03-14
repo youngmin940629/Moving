@@ -3,13 +3,9 @@ import {useEffect, useState} from "react"
 
 export default function detailContent(props){
     const [data, setData] = useState([{}]);
-
-    useEffect(  () => {
-        props.data["key"] = props.data.id;
+    useEffect(()=>{
         setData([props.data]);
     },[])
-    console.log("dafs:",data)
-
     const columns = [
         {
             title: "title",
@@ -31,9 +27,11 @@ export default function detailContent(props){
            <Table dataSource={data}
                    pagination={{ hideOnSinglePage: true}}
                    columns={columns}
+                  rowKey={data.id}
             />
 
             <div className="contentDiv">
+                {data[0].content}
             </div>
 
 

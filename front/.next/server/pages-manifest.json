@@ -9,5 +9,10 @@
   "/signup": "pages/signup.html",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
+<<<<<<< Updated upstream
   "/404": "pages/404.html"
+=======
+  "/board/write": "pages/board/write.js",
+  "/community": "pages/community.js"
+>>>>>>> Stashed changes
 }

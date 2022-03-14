@@ -9,6 +9,7 @@
     "static/3rggu2Bu7jgH1Ujr16QUP/_ssgManifest.js"
   ],
   "pages": {
+<<<<<<< Updated upstream
     "/": [
       "static/chunks/main-af57228286cff42268eb.js",
       "static/chunks/webpack-eb080e3f091731f228fb.js",
@@ -20,6 +21,8 @@
       "static/chunks/c23efc10f70818d43d5bf4ca86eaf3618968d50e.863f71faf9577b5d1ed8.js",
       "static/chunks/pages/index-ccc84fbf20d7d6cc9ae1.js"
     ],
+=======
+>>>>>>> Stashed changes
     "/_app": [
       "static/chunks/main-af57228286cff42268eb.js",
       "static/chunks/webpack-eb080e3f091731f228fb.js",
@@ -33,6 +36,7 @@
       "static/chunks/pages/_app-0b8776d6945cb75d0d1a.js"
     ],
     "/_error": [
+<<<<<<< Updated upstream
       "static/chunks/main-af57228286cff42268eb.js",
       "static/chunks/webpack-eb080e3f091731f228fb.js",
       "static/chunks/framework.02980d71cfcd0279cd1d.js",
@@ -113,6 +117,21 @@
       "static/chunks/c23efc10f70818d43d5bf4ca86eaf3618968d50e.863f71faf9577b5d1ed8.js",
       "static/chunks/f73431ccd9c393a81fcff47941ea8fe7e24f155c.ec1995dc3bc30abd02eb.js",
       "static/chunks/pages/signup-92307fe453e19decf5a1.js"
+=======
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/_error.js"
+    ],
+    "/board/write": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/board/write.js"
+    ],
+    "/community": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/community.js"
+>>>>>>> Stashed changes
     ]
   },
   "ampFirstPages": []

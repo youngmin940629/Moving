@@ -2,6 +2,7 @@ import React from 'react';
 import AppLayout from '../components/AppLayout';
 import Head from 'next/head';
 import BoardTable from '../components/boardTable';
+import axios from "axios";
 
 export default function Community({boards}) {
   return (
@@ -17,9 +18,13 @@ export default function Community({boards}) {
 };
 
 export async function getServerSideProps(){
+  const res = await axios.get("http://127.0.0.1:8000/community/review/");
+  const boards = await res.data;
   console.log("SSD call");
-  // const boards = await (await fetch("http://127.0.0.1:8000/admin/community/review/")).json();
-    const boards = {name:"name"};
+
+  for(let i=0; i<boards.length; i++){
+      boards[i]["key"] = boards[i].id;
+  }
   return {
     props:{
       boards

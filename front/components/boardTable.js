@@ -1,48 +1,28 @@
 import {Table} from 'antd';
 import { useRouter } from 'next/router';
 import Link from "next/link"
+import {useEffect, useState} from "react";
 
 
-export default function BoardTable({boards}) {
+export default function BoardTable(props) {
   const router = useRouter();
-  console.log("api call : " , {boards})
-  const dataSource = [
-    {
-      key: 1,
-      lastName: 'Brown',
-      age: 32,
-      title: 'New York No. 1 Lake Park',
-    },
-    {
-      key: 2,
-      lastName: 'Green',
-      age: 42,
-      title: 'London No. 1 Lake Park',
-    },
-    {
-      key: 3,
-      lastName: 'Brown',
-      age: 32,
-      title: 'New York No. 1 Lake Park',
-    },
-  ];
+  const [data, setData] = useState([{}]);
 
   const columns = [
     {
-      title: 'lastName',
-      dataIndex: 'lastName',
+      title: '작성자',
+      dataIndex: 'username',
     },
     {
-      title: 'Age',
-      dataIndex: 'age',
+      title: '작성일',
+      dataIndex: 'created_at',
     },
     {
       title: 'Title',
       dataIndex: 'title',
       render: (title, record) => <Link
-          href={`board/${encodeURIComponent(record.key)}`}
-          value={record.key}>{title}
-      </Link>
+          href={`board/${encodeURIComponent(record.id)}`}
+          value={record.id}><a>{title}</a></Link>
     },
   ];
 
@@ -68,7 +48,7 @@ export default function BoardTable({boards}) {
         <button onClick={goWrite}>게시글 쓰기</button>
       </div>
 
-      <Table dataSource={dataSource} columns={columns}/>;
+      <Table dataSource={props.boards} columns={columns}/>;
 
     </>
   );

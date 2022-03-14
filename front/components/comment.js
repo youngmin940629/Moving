@@ -4,26 +4,26 @@ import axios from "axios";
 
 export default function Comments(props) {
     const [comments, setComments] = useState([{}]);
-    // 댓글 등록 요청
-    console.log("comment",props)
-    const submitComment=(e)=>{
-        console.log(e);
-        axios.post(``,
+
+    // 댓글 등록 요청 data : 댓글 내용
+    const submitComment=(data)=>{
+        console.log(data.comment);
+        axios.post(`http://localhost:8000/community/review/${props.data}/comment/`,
             {
-
-            }
-            )
-    }
-    useEffect(async ()=>{
-        await axios.get(`http://127.0.0.1:8000/community/comment/${props.data}/`)
-            .then(res=>{
-                console.log(res.data);
-                setComments([res.data])
+                user:1, // 유저 아이디 바꿔야됨
+                review:props.data,
+                content:data.comment
             })
-
+    }
+    // 댓글 가져오기
+    useEffect(async ()=>{
+        console.log("effect call")
+        await axios.get(`http://localhost:8000/community/review/${props.data}/`)
+            .then(res=>{
+                setComments(res.data.comments);
+            })
+        console.log("comments: ", comments);
     },[])
-
-
     return(
         <>
             <Form
@@ -43,20 +43,21 @@ export default function Comments(props) {
                  </div>
                 </Form.Item>
             </Form>
+            {comments.length>0 &&
                 <List
                     itemLayout="horizontal"
                     dataSource={comments}
-                    renderItem={item => (
+                    renderItem={item=>(
                         <List.Item>
                             <List.Item.Meta
                                 key={item.id}
-                                title={<a href="https://ant.design">{item.username}</a>}
+                                title={item.username}
                                 description={item.content}
                             />
                         </List.Item>
                     )}
                 />
-
+            }
             <style jsx>{`
                 .commentBtn{
                     text-align: center;
