@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Form, Input, Button, Checkbox } from 'antd';
 import Link from 'next/link';
 import styled from 'styled-components';
@@ -49,7 +49,6 @@ const LoginForm = () => {
 
   const onSubmitForm = useCallback(() => {
     dispatch(loginRequestAction({ username, password }));
-    Router.push('/');
   }, [username, password]);
 
   return (
@@ -87,12 +86,12 @@ const LoginForm = () => {
             ]}
           >
             <Input
+              placeholder="이메일  입력"
               type="username"
               value={username}
               onChange={onChangeUsername}
             />
           </Form.Item>
-
           <Form.Item
             label="비밀번호"
             name="password"
@@ -109,18 +108,6 @@ const LoginForm = () => {
               onChange={onChangePassword}
             />
           </Form.Item>
-
-          <Form.Item
-            name="remember"
-            valuePropName="checked"
-            wrapperCol={{
-              offset: 8,
-              span: 16,
-            }}
-          >
-            <Checkbox>로그인 유지</Checkbox>
-          </Form.Item>
-
           <Form.Item
             wrapperCol={{
               offset: 8,

@@ -18,9 +18,6 @@ pip-selfcheck.json
 
 # End of https://www.toptal.com/developers/gitignore/api/venv
 
-node_modules/
-.next
-
 # Created by https://www.toptal.com/developers/gitignore/api/django
 # Edit at https://www.toptal.com/developers/gitignore?templates=django
 
@@ -189,3 +186,9 @@ cython_debug/
 # End of https://www.toptal.com/developers/gitignore/api/django
 
 .idea
+
+
+.next
+moving.pem
+J6C206T.pem
+node_modules

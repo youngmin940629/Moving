@@ -1,10 +1,10 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { Layout, Menu, Input, Button } from 'antd';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import { logoutRequestAction } from '../reducers/user';
+import { LOAD_USER_REQUEST, logoutRequestAction } from '../reducers/user';
 
 const { Header, Content, Footer } = Layout;
 
@@ -29,6 +29,11 @@ const MovingLogo = styled.img`
 const AppLayout = ({ children }) => {
   const dispatch = useDispatch();
   const { me } = useSelector(state => state.user);
+  useEffect(() => {
+    dispatch({
+      type: LOAD_USER_REQUEST,
+    });
+  }, [LOAD_USER_REQUEST]);
 
   return (
     <div>
@@ -38,13 +43,13 @@ const AppLayout = ({ children }) => {
             <MovingLogo src="/img/moving.png" />
           </Link>
           <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['3']}>
-            {me ? (
+            {me !== null ? (
               <>
                 <Menu.Item key="0">
                   <Link href="/">
                     <a
                       onClick={() => {
-                        dispatch(logoutRequestAction());
+                        console.log(dispatch(logoutRequestAction()));
                       }}
                     >
                       로그아웃
@@ -72,6 +77,11 @@ const AppLayout = ({ children }) => {
                 <Menu.Item key="1">
                   <Link href="/signup">
                     <a>회원가입</a>
+                  </Link>
+                </Menu.Item>
+                <Menu.Item key="2">
+                  <Link href="/community">
+                    <a>커뮤니티</a>
                   </Link>
                 </Menu.Item>
               </>
