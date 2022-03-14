@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Slider from 'react-slick';
 import { FaArrowRight, FaArrowLeft } from 'react-icons/fa';
+import axios from 'axios';
+
 
 const images = [
   '/img/poster1.jpg',
@@ -10,7 +12,19 @@ const images = [
   '/img/poster5.jpg',
 ];
 
+
 const MainCarousel = () => {
+  const [data, setData] = useState(null);
+  
+  useEffect(() => {
+    axios.get('http://localhost:8000/movies/')
+    .then(res => {
+      console.log(res.data);
+      setData(res.data);
+      console.log(data)
+    });
+  }, []);
+
   const NextArrow = ({ onClick }) => {
     return (
       <div className="arrow next" onClick={onClick}>

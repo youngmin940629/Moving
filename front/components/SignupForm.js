@@ -239,12 +239,16 @@ const SignupForm = () => {
             {children}
           </Select>
         </Form.Item>
-        <Form.Item label="생년월일">
-          <Space direction="vertical">
-            <DatePicker onChange={onChange} />
-          </Space>
-        </Form.Item>
-        <Form.Item label="성별">
+        <Form.Item 
+          label="성별"
+          name="gender"
+          rules={[
+            {
+              required: true,
+              message: '성별을 선택해주세요.',
+            }
+          ]}
+        >
           <Radio.Group
             options={options}
             onChange={onChangeGender}
@@ -252,6 +256,11 @@ const SignupForm = () => {
             optionType="button"
             buttonStyle="solid"
           />
+        </Form.Item>
+        <Form.Item label="생년월일">
+          <Space direction="vertical">
+            <DatePicker onChange={onChange} />
+          </Space>
         </Form.Item>
         <CheckboxWrapper>
           <Checkbox name="user-term" checked={term} onChange={onChangeTerm}>

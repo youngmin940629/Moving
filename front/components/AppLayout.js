@@ -77,7 +77,7 @@ const AppLayout = ({ children }) => {
               </>
             )}
             <Menu.Item key="5">
-              <SearchInput enterButton />
+              <SearchInput enterButton placeholder='영화 검색'/>
             </Menu.Item>
           </Menu>
         </Header>
