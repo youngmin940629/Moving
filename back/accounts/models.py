@@ -9,3 +9,4 @@ class User(AbstractUser):
     birthDate = models.DateField(null=True)
     gender = models.BooleanField(default=True)
     oauth_type = models.CharField(max_length=255, null=True)
+    username2 = models.CharField(max_length=255,null=True)
