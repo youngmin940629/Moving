@@ -9,4 +9,5 @@ urlpatterns = [
     path('login/', obtain_jwt_token),
     path('api-token-refresh/', refresh_jwt_token),
     path('isstaff/',views.is_staff),
+    path('<int:user_pk>/',views.user_info),
 ]
