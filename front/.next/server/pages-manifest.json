@@ -1,12 +1,12 @@
 {
   "/_app": "pages/_app.js",
-  "/_error": "pages/_error.js",
-  "/_document": "pages/_document.js",
-<<<<<<< Updated upstream
+  "/board/[id]": "pages/board/[id].js",
+  "/board/write": "pages/board/write.js",
+  "/community": "pages/community.js",
+  "/": "pages/index.js",
   "/login": "pages/login.js",
-  "/signup": "pages/signup.js"
-=======
+  "/profile": "pages/profile.js",
   "/signup": "pages/signup.js",
-  "/login": "pages/login.js"
->>>>>>> Stashed changes
+  "/_error": "pages/_error.js",
+  "/_document": "pages/_document.js"
 }
