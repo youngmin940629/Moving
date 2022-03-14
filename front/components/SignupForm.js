@@ -48,6 +48,10 @@ const SignupButton = styled.div`
   justify-content: center;
 `;
 
+const FormMargin= styled.div`
+  margin-top: 20px;
+`;
+
 const options = [
   { label: '남', value: true },
   { label: '여', value: false },
@@ -155,7 +159,7 @@ const SignupForm = () => {
         >
           <Input
             type="email"
-            placeholder="이메일 입력"
+            placeholder="이메일을 입력해주세요."
             value={email}
             onChange={onChangeEmail}
           />
@@ -171,12 +175,60 @@ const SignupForm = () => {
           ]}
         >
           <Input
-            placeholder="닉네임 입력"
+            placeholder="닉네임을 입력해주세요."
             value={username}
             onChange={onChangeUsername}
           />
         </Form.Item>
-        <Form.Item label="장르">
+        <Form.Item
+          label="비밀번호"
+          name="user-password"
+          rules={[
+            {
+              required: true,
+              message: '비밀번호를 입력해주세요.',
+            },
+          ]}
+        >
+          <Input.Password
+            placeholder="비밀번호를 입력해주세요."
+            value={password}
+            onChange={onChangePassowrd}
+          />
+        </Form.Item>
+        <Form.Item
+          label="비밀번호 확인"
+          name="user-password-check"
+          rules={[
+            {
+              required: true,
+              message: '비밀번호 확인란을 입력해주세요.',
+            },
+          ]}
+          style={{ marginBottom: '0px' }}
+        >
+          <Input.Password
+            placeholder="비밀번호를 확인해주세요."
+            value={passwordCheck}
+            onChange={onChangePasswordCheck}
+          />
+        </Form.Item>
+        <Col offset={6} span={6}>
+          {passwordError && (
+            <ErrorMessage>비밀번호가 일치하지 않습니다.</ErrorMessage>
+          )}
+        </Col>
+        <FormMargin />
+        <Form.Item 
+          label="선호 장르"
+          name="genre"
+          rules={[
+            {
+              required: true,
+              message: '장르를 선택해주세요.',
+            }
+          ]}
+          >
           <Select
             mode="multiple"
             allowClear
@@ -201,44 +253,6 @@ const SignupForm = () => {
             buttonStyle="solid"
           />
         </Form.Item>
-        <Form.Item
-          label="비밀번호"
-          name="user-password"
-          rules={[
-            {
-              required: true,
-              message: '비밀번호를 입력해주세요.',
-            },
-          ]}
-        >
-          <Input.Password
-            placeholder="비밀번호 입력"
-            value={password}
-            onChange={onChangePassowrd}
-          />
-        </Form.Item>
-        <Form.Item
-          label="비밀번호 확인"
-          name="user-password-check"
-          rules={[
-            {
-              required: true,
-              message: '비밀번호 확인란을 입력해주세요.',
-            },
-          ]}
-          style={{ marginBottom: '0px' }}
-        >
-          <Input.Password
-            placeholder="비밀번호 입력"
-            value={passwordCheck}
-            onChange={onChangePasswordCheck}
-          />
-        </Form.Item>
-        <Col offset={6} span={6}>
-          {passwordError && (
-            <ErrorMessage>비밀번호가 일치하지 않습니다.</ErrorMessage>
-          )}
-        </Col>
         <CheckboxWrapper>
           <Checkbox name="user-term" checked={term} onChange={onChangeTerm}>
             약관에 동의합니까?
