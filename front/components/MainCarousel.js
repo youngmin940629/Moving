@@ -1,34 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import Slider from 'react-slick';
-import { FaArrowRight, FaArrowLeft } from 'react-icons/fa';
+import { MdArrowForwardIos, MdArrowBackIos } from 'react-icons/md';
 import axios from 'axios';
-
-
-const images = [
-  '/img/poster1.jpg',
-  '/img/poster2.jpg',
-  '/img/poster3.jpg',
-  '/img/poster4.jpg',
-  '/img/poster5.jpg',
-];
+import styled from 'styled-components';
 
 
 const MainCarousel = () => {
-  const [data, setData] = useState(null);
-  
+  const [movies, setMovies] = useState([]);
+
   useEffect(() => {
     axios.get('http://localhost:8000/movies/')
     .then(res => {
-      console.log(res.data);
-      setData(res.data);
-      console.log(data)
+      // console.log(res.data);
+      setMovies(res.data);
     });
   }, []);
 
   const NextArrow = ({ onClick }) => {
     return (
       <div className="arrow next" onClick={onClick}>
-        <FaArrowRight />
+        <MdArrowForwardIos />
       </div>
     );
   };
@@ -36,7 +27,7 @@ const MainCarousel = () => {
   const PrevArrow = ({ onClick }) => {
     return (
       <div className="arrow prev" onClick={onClick}>
-        <FaArrowLeft />
+        <MdArrowBackIos />
       </div>
     );
   };
@@ -49,6 +40,8 @@ const MainCarousel = () => {
     slidesToShow: 3,
     centerMode: true,
     centerPadding: 0,
+    autoplay: true,
+    autoplaySpeed: 5000,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
     beforeChange: (current, next) => setImageIndex(next),
@@ -56,12 +49,12 @@ const MainCarousel = () => {
   return (
     <div className="App">
       <Slider {...settings}>
-        {images.map((img, idx) => (
+        {movies.map((movie, idx) => (
           <div
             className={idx === imageIndex ? 'slide activeSlide' : 'slide'}
             key={idx}
           >
-            <img src={img} alt={img} />
+            <img src={movie.poster_path} alt={`${movie.title} poster image`} />
           </div>
         ))}
       </Slider>

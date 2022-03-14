@@ -58,3 +58,63 @@
 .profile-span {
   margin-left: 50px;
 }
+@import '~slick-carousel/slick/slick.css';
+@import '~slick-carousel/slick/slick-theme.css';
+
+.App {
+  width: 80%;
+  margin: 10rem auto;
+  height: 200px;
+}
+
+.slide img {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.slide {
+  transform: scale(0.6);
+  transition: transform 300ms;
+  opacity: 0.6;
+}
+
+.activeSlide {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+.arrow {
+  background-color: #fff;
+  position: absolute;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.arrow svg {
+  transition: color 300ms;
+}
+
+.arrow svg:hover {
+  color: #68edff;
+}
+
+.next {
+  right: 0%;
+  top: 50%;
+}
+
+.prev {
+  left: 0%;
+  top: 50%;
+}
+
+.site-card-border-less-wrapper {
+  width: 50%;
+  margin: auto;
+  padding: 30px;
+  background: #ececec;
+}
+
+.profile-span {
+  margin-left: 50px;
+}
