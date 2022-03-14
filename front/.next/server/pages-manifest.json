@@ -1,19 +1,13 @@
 {
   "/_app": "pages/_app.js",
-<<<<<<< HEAD
   "/board/[id]": "pages/board/[id].js",
-  "/board/write": "pages/board/write.js",
+  "/board/write": "pages/board/write.html",
   "/community": "pages/community.js",
-  "/": "pages/index.js",
-  "/login": "pages/login.js",
-  "/profile": "pages/profile.js",
-  "/signup": "pages/signup.js",
-  "/_error": "pages/_error.js",
-  "/_document": "pages/_document.js"
-=======
+  "/": "pages/index.html",
+  "/login": "pages/login.html",
+  "/profile": "pages/profile.html",
+  "/signup": "pages/signup.html",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/signup": "pages/signup.js",
-  "/login": "pages/login.js"
->>>>>>> ce7f3953f8459781de445cd927a032629f9a33cc
+  "/404": "pages/404.html"
 }
