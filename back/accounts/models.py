@@ -5,7 +5,7 @@ from movies.models import Genre
 
 class User(AbstractUser):
     picture = models.CharField(max_length=255, null=True)
-    category_list = models.ManyToManyField(Genre)
+    category_list = models.ManyToManyField(Genre, blank=True)
     birthDate = models.DateField(null=True)
     gender = models.BooleanField(default=True)
     oauth_type = models.CharField(max_length=255, null=True)

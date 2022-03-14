@@ -4,7 +4,7 @@ from rest_framework import response
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from .models import Movie, Genre
-from .serializers import MovieListSerializer, MovieSerializer, GenreSerializer
+from .serializers import MovieListSerializer, MovieSerializer, GenreSerializer, MovieIdSerializer
 from rest_framework import serializers, status
 from rest_framework.permissions import AllowAny
 import requests
@@ -16,6 +16,14 @@ from community.models import Review
 key = "733c7d5145ecf236ad387093e2d52047"
 poster_url = "https://image.tmdb.org/t/p/original/"
 youtube_base_url = 'https://www.youtube.com/embed/'
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def movie_detail(request,id):
+    if request.method == 'GET':
+        movie = Movie.objects.filter(id = id)
+        serializers = MovieSerializer(movie, many=True)
+        return Response(serializers.data)
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
@@ -135,4 +143,18 @@ def fordetail(request,word):
                 movie_list.append(movie)
                 break
         serializer = MovieSerializer(movie_list, many=True)
+        return Response(serializer.data)
+
+
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def genre_movielist(request,id):
+    if request.method == 'GET':
+        movie_list = []
+        movies = Movie.objects.filter(genres=id)
+        for movie in movies:
+            movie_list.append(movie)
+        serializer = MovieIdSerializer(movie_list, many=True)
         return Response(serializer.data)
