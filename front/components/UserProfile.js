@@ -26,7 +26,7 @@ const UserProfile = () => {
                 <tr>
                   <td>아이디</td>
                   <td>
-                    <span className="profile-span">{me.id}</span>
+                    <span className="profile-span">{}</span>
                   </td>
                 </tr>
                 <tr>
@@ -40,25 +40,25 @@ const UserProfile = () => {
                 <tr>
                   <td>이름</td>
                   <td>
-                    <span className="profile-span">{me.name}</span>
+                    <span className="profile-span">{}</span>
                   </td>
                 </tr>
                 <tr>
                   <td>성별</td>
                   <td>
-                    <span className="profile-span">{me.gender}</span>
+                    <span className="profile-span">{}</span>
                   </td>
                 </tr>
                 <tr>
                   <td>생년월일</td>
                   <td>
-                    <span className="profile-span">{me.birthDate}</span>
+                    <span className="profile-span">{}</span>
                   </td>
                 </tr>
                 <tr>
                   <td>휴대폰 번호</td>
                   <td>
-                    <span className="profile-span">{me.phoneNumber}</span>
+                    <span className="profile-span">{}</span>
                   </td>
                 </tr>
                 <tr>
