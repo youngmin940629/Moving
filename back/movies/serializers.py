@@ -1,7 +1,13 @@
 from django.db import models
 from rest_framework import serializers
 
-from .models import Movie, Genre
+from .models import Movie, Genre, OnelineReview
+
+class OnelinereviewSerializer(serializers.ModelSerializer):
+        
+    class Meta:
+        model = OnelineReview
+        fields = '__all__'
 
 class GenreSerializer(serializers.ModelSerializer):
     
@@ -10,13 +16,9 @@ class GenreSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class MovieSerializer(serializers.ModelSerializer):
-    
-    class GenreSerializer(serializers.ModelSerializer):
-    
-        class Meta:
-            model = Genre
-            fields = '__all__'
+    onelinereviews = OnelinereviewSerializer(many=True)
 
+    
     class Meta:
         model = Movie
         fields = '__all__'
@@ -39,3 +41,9 @@ class GenreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Genre
         fields = '__all__'
+
+class MovieIdSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Movie
+        fields = ('id',)

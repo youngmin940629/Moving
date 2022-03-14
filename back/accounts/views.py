@@ -4,6 +4,8 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from .serializers import UserSerializer
 from django.contrib.auth import get_user_model
+from django.shortcuts import get_object_or_404
+from .models import User
 
 
 @api_view(['POST'])
@@ -31,6 +33,7 @@ def signup(request):
     # 2. UserSerializer를 통해 데이터 직렬화
     serializer = UserSerializer(data=data)
 
+    print(serializer)
     # 3. validation 작업 진행 -> password도 같이 직렬화 진행
     if serializer.is_valid(raise_exception=True):
         user = serializer.save()
@@ -40,6 +43,12 @@ def signup(request):
         # password는 직렬화 과정에는 포함 되지만 → 표현(response)할 때는 나타나지 않는다.
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def user_info(request,user_pk):
+    user = get_object_or_404(User, pk=user_pk)
+    serializers = UserSerializer(user)
+    return Response(serializers.data)
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
