@@ -10,6 +10,7 @@ const Home = () => {
     <>
       <AppLayout>
         <MainCarousel />
+
         <hr />
         <div>OO별 추천</div>
         <div
