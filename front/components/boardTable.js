@@ -1,12 +1,9 @@
 import {Table} from 'antd';
 import { useRouter } from 'next/router';
 import Link from "next/link"
-import {useEffect, useState} from "react";
-
 
 export default function BoardTable(props) {
   const router = useRouter();
-  const [data, setData] = useState([{}]);
 
   const columns = [
     {
@@ -26,16 +23,10 @@ export default function BoardTable(props) {
     },
   ];
 
-  // 게시글 디테일 페이지 이동
-  // const goDetail=(e)=>{
-  //   let id = e.target.getAttribute("value");
-  //   router.push(`board/${id}`)
-  //   }
-
   // 게시글 등록 창으로 이동
   const goWrite=()=>{
     console.log("submit");
-    router.push(`board/write`)
+    router.push(`board/write`);
   }
 
   return (
@@ -48,7 +39,7 @@ export default function BoardTable(props) {
         <button onClick={goWrite}>게시글 쓰기</button>
       </div>
 
-      <Table dataSource={props.boards} columns={columns}/>;
+      <Table dataSource={props.boards} columns={columns} />;
 
     </>
   );

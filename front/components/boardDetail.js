@@ -3,6 +3,7 @@ import {useEffect, useState} from "react"
 
 export default function detailContent(props){
     const [data, setData] = useState([{}]);
+
     useEffect(()=>{
         setData([props.data]);
     },[])

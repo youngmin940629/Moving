@@ -5,15 +5,22 @@ import axios from "axios";
 export default function Comments(props) {
     const [comments, setComments] = useState([{}]);
 
-    // 댓글 등록 요청 data : 댓글 내용
+    // 댓글 등록 요청
     const submitComment=(data)=>{
         console.log(data.comment);
         axios.post(`http://localhost:8000/community/review/${props.data}/comment/`,
             {
                 user:1, // 유저 아이디 바꿔야됨
-                review:props.data,
-                content:data.comment
+                review:props.data, //게시글 id
+                content:data.comment // 댓글 내용
             })
+            .then(()=>{
+                axios.get(`http://localhost:8000/community/review/${props.data}/`)
+                    .then(res=>{
+                        setComments(res.data.comments)
+                    });
+        })
+
     }
     // 댓글 가져오기
     useEffect(async ()=>{
@@ -22,7 +29,6 @@ export default function Comments(props) {
             .then(res=>{
                 setComments(res.data.comments);
             })
-        console.log("comments: ", comments);
     },[])
     return(
         <>

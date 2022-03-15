@@ -9,18 +9,18 @@ import axios from "axios";
 export default function Write(){
     const [movies, setMovies] = useState([[{}]]);
     const [selects, setSelects] = useState("");
+    console.log("jwt",localStorage.getItem("JWT token"));
 
-    const onFinish = (e)=>{
-        console.log("submit",e);
+    const onFinish = (data)=>{
+        console.log("submit",data);
         axios.post(`http://localhost:8000/community/review/`,
             {
-                username:"test",
-                title:e.title,
-                content: "haha 날씨 좋다",
-                rank: 2,
-                movie: 82,
-                user: 1,
-            })
+                data
+            },{
+            headers:{
+                Authorization: "JWT"+ " "+localStorage.getItem("JWT token")
+            }
+        })
     }
     const callMovie=async (id) => {
         await axios.get(`http://localhost:8000/movies/search/${id}`)
@@ -89,7 +89,7 @@ export default function Write(){
                         </Form.Item>
                     </div>
 
-                    <Form.Item label="내용" name="content">
+                    <Form.Item label="내용" name="Content">
                         <TextArea placeholder="내용을 입력해주세요" rows={10}>
                             
                         </TextArea>
