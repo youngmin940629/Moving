@@ -6,6 +6,13 @@ from movies.models import Genre
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
+    class GenreSerializer(serializers.ModelSerializer):
+
+        class Meta:
+            model = Genre
+            fields = '__all__'
+    category_list = GenreSerializer(many=True)
+
     class Meta:
         model = get_user_model()
         fields = ('username', 'password', 'gender',
