@@ -18,10 +18,14 @@ from rest_framework.permissions import AllowAny
 @permission_classes([AllowAny])
 def review_list(request):
     if request.method == 'GET':
-        reviews = get_list_or_404(Review)
+        try:
+            reviews = Review.objects.get()
+        except:
+            reviews = []
         serializer = ReviewListSerializer(reviews, many=True)
         return Response(serializer.data)
     else:
+        print(request.data)
         serializer = ReviewReadSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save(user=request.user)
