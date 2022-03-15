@@ -9,4 +9,4 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = ('username', 'password', 'gender',
-                  'picture', 'birthDate', 'oauth_type', 'category_list','username2')
+                  'picture', 'birthDate', 'oauth_type', 'category_list', 'username2')

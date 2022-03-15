@@ -21,7 +21,7 @@ def signup(request):
     email = request.data.get("email")
     username = request.data.get("username")
     data = request.data.copy()
-    print(data)
+    # print(data)
 
     data.pop("username")
     data.pop("email")
@@ -43,12 +43,14 @@ def signup(request):
         # password는 직렬화 과정에는 포함 되지만 → 표현(response)할 때는 나타나지 않는다.
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+
 @api_view(['GET'])
 @permission_classes([AllowAny])
-def user_info(request,user_pk):
+def user_info(request, user_pk):
     user = get_object_or_404(User, pk=user_pk)
     serializers = UserSerializer(user)
     return Response(serializers.data)
+
 
 @api_view(['POST'])
 @permission_classes([AllowAny])

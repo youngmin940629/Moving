@@ -1,79 +1,50 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, Input } from 'antd';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+import jwt_decode from 'jwt-decode';
 
 const InputStyle = styled(Input)`
   width: 245px;
 `;
 
 const UserProfile = () => {
-  const { me } = useSelector(state => state.user);
-
+  const [token, setToken] = useState(null);
+  const [user, setUser] = useState(null);
+  const [userInfo, setUserInfo] = useState(null);
+  useEffect(() => {
+    setToken(localStorage.getItem('JWT token'));
+  }, []);
+  useEffect(() => {
+    if (token) {
+      setUser(jwt_decode(token));
+    }
+  }, [token]);
+  useEffect(() => {
+    if (user) {
+      axios
+        .get(`http://localhost:8000/accounts/${user.user_id}`)
+        .then(res => {
+          console.log(res.data);
+          setUserInfo(res.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  }, [user]);
   return (
     <>
-      <div className="site-card-border-less-wrapper">
-        <Card
-          title="프로필 페이지"
-          bordered={false}
-          style={{
-            width: '100%',
-          }}
-        >
-          <div style={{ padding: '20px 100px' }}>
-            <table>
-              <tbody>
-                <tr>
-                  <td>아이디</td>
-                  <td>
-                    <span className="profile-span">{}</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>비밀번호</td>
-                  <td>
-                    <span className="profile-span">
-                      <a>비밀번호 변경하기 &gt;</a>
-                    </span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>이름</td>
-                  <td>
-                    <span className="profile-span">{}</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>성별</td>
-                  <td>
-                    <span className="profile-span">{}</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>생년월일</td>
-                  <td>
-                    <span className="profile-span">{}</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>휴대폰 번호</td>
-                  <td>
-                    <span className="profile-span">{}</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>이메일 주소</td>
-                  <td>
-                    <span className="profile-span">
-                      <InputStyle value="이메일 주소를 입력해주세요.(선택)" />
-                    </span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </Card>
-      </div>
+      {userInfo != null && (
+        <div>
+          <div>이메일 : {userInfo.username}</div>
+          <div>닉네임: {userInfo.username2}</div>
+          <div>성별: {userInfo.gender ? '남' : '여'}</div>
+          <div>장르: {userInfo.category_list}</div>
+          <div>생년월일: {userInfo.birthDate}</div>
+        </div>
+      )}
     </>
   );
 };

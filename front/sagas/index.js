@@ -76,6 +76,7 @@ function* signUp(action) {
       type: SIGN_UP_SUCCESS,
       data: result.data,
     });
+    yield Router.push('/login');
   } catch (err) {
     yield put({ type: SIGN_UP_FAILURE, error: err.response.data });
   }

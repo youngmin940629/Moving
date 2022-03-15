@@ -48,7 +48,7 @@ const SignupButton = styled.div`
   justify-content: center;
 `;
 
-const FormMargin= styled.div`
+const FormMargin = styled.div`
   margin-top: 20px;
 `;
 
@@ -82,7 +82,7 @@ const SignupForm = () => {
   }, []);
 
   const [data, setData] = useState(null);
-  const [genre, setGenre] = useState(null);
+  const [category_list, setCategoryList] = useState(null);
   const children = [];
   if (data) {
     for (let i = 0; i < data.length; i++) {
@@ -94,11 +94,10 @@ const SignupForm = () => {
     value.map(idx => {
       temp.push(data[idx].id);
     });
-    setGenre(temp);
+    setCategoryList(temp);
   }
   useEffect(() => {
     axios.get('http://localhost:8000/movies/genre_list/').then(res => {
-      console.log(res.data);
       setData(res.data);
     });
   }, []);
@@ -122,12 +121,11 @@ const SignupForm = () => {
     if (!term) {
       return setTermError(true);
     }
-    console.log(email, username, passwordCheck);
     dispatch({
       type: SIGN_UP_REQUEST,
-      data: { email, username, password, genre, birthDate, gender },
+      data: { email, username, password, category_list, birthDate, gender },
     });
-  }, [password, passwordCheck, term, genre, birthDate, gender]);
+  }, [password, passwordCheck, term, category_list, birthDate, gender]);
 
   return (
     <>
@@ -219,16 +217,16 @@ const SignupForm = () => {
           )}
         </Col>
         <FormMargin />
-        <Form.Item 
+        <Form.Item
           label="선호 장르"
-          name="genre"
+          name="category_list"
           rules={[
             {
               required: true,
               message: '장르를 선택해주세요.',
-            }
+            },
           ]}
-          >
+        >
           <Select
             mode="multiple"
             allowClear
@@ -239,14 +237,14 @@ const SignupForm = () => {
             {children}
           </Select>
         </Form.Item>
-        <Form.Item 
+        <Form.Item
           label="성별"
           name="gender"
           rules={[
             {
               required: true,
               message: '성별을 선택해주세요.',
-            }
+            },
           ]}
         >
           <Radio.Group
