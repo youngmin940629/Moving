@@ -7,7 +7,7 @@ from .models import Review, Comment
 class ReviewReadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
-        fields = ('title','content','rank',)
+        fields = ('title','content','rank','movie')
         # read_only_fields = ('comment',)
 
 class ReviewSerializer(serializers.ModelSerializer):

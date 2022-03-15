@@ -1,13 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import AppLayout from '../../components/AppLayout';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import Comment from '../../components/comment';
 import DetailContent from '../../components/boardDetail';
 import axios from "axios";
 
 export default function BoardDetail({post}) {
-
   return (
     <>
       <Head>
@@ -24,8 +22,13 @@ export default function BoardDetail({post}) {
 export async function getServerSideProps({ params }) {
     console.log("id[] call")
     const id = parseInt(params.id);
+    let post;
+
     const res = await axios.get(`http://127.0.0.1:8000/community/review/${id}`)
-    const post = await res.data;
+        .then(res=>{
+            post = res.data;
+        })
+
     return {
         props: {
             post,
