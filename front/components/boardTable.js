@@ -2,6 +2,7 @@ import {Button, Table} from 'antd';
 import { useRouter } from 'next/router';
 import Link from "next/link"
 import {useEffect, useState} from "react";
+import axios from "axios";
 
 export default function BoardTable(props) {
   const router = useRouter();
@@ -17,9 +18,12 @@ export default function BoardTable(props) {
     setUserID(result.user_id);
   },[])
 
-  // 게시글 삭제 함수
-  const deleteBoard = (e)=>{
-    console.log(e)
+  // 게시글 삭제 함수 id : 게시글 번호
+  const deleteBoard = (id)=>{
+    console.log(id)
+    try {
+      axios.delete(`http://localhost:8000/community/review/${id}/`);
+    }catch (e){}
   }
   // 게시글 테이블 컬럼 내용
   const columns = [
@@ -76,4 +80,3 @@ export default function BoardTable(props) {
     </>
   );
 }
-

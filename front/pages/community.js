@@ -21,20 +21,19 @@ export default function Community({boards}) {
 export async function getServerSideProps(){
     let boards;
     await axios.get("http://127.0.0.1:8000/community/review/")
-      .then(res=>{
-          try {
-              boards = res.data;
-              for(let i=0; i<boards.length; i++){
-                  boards[i]["key"] = res.data[i].id;
-              }
-          }catch (error){
-          }
-      });
+        .then(res=>{
+            try {
+                boards = res.data;
+                for(let i=0; i<boards.length; i++){
+                    boards[i]["key"] = res.data[i].id;
+                }
+            }catch (error){
+            }
+        });
     return {
-    props:{
-      boards
-    }
-  };
+        props:{
+            boards
+        }
+    };
 }
-
 

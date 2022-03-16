@@ -1,12 +1,15 @@
 import Head from "next/head";
 import AppLayout from "../../components/AppLayout";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {Button, Form, Input, Select} from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import axios from "axios";
+import {useRouter} from "next/router";
 
 
 export default function Write(){
+    const router = useRouter();
+
     const [movies, setMovies] = useState([[{}]]);
     const [selects, setSelects] = useState("");
     console.log("jwt",localStorage.getItem("JWT token"));
@@ -21,7 +24,8 @@ export default function Write(){
             headers:{
                 Authorization: "JWT"+ " "+localStorage.getItem("JWT token")
             }
-        })
+        });
+        router.push(`/community`)
     }
     const callMovie=async (id) => {
         await axios.get(`http://localhost:8000/movies/search/${id}`)
