@@ -24,6 +24,7 @@ export async function getServerSideProps(){
       .then(res=>{
           try {
               boards = res.data;
+              console.log(res.data)
           }catch (error){
           }
       });

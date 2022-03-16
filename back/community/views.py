@@ -19,17 +19,14 @@ from rest_framework.permissions import AllowAny
 def review_list(request):
     if request.method == 'GET':
         try:
-            review = Review.objects.get()
-            reviews = []
-            reviews.append(review)
-
+            review = get_list_or_404(Review)
         except:
-            reviews = []
-        serializer = ReviewListSerializer(reviews, many=True)
+            review = []
+        serializer = ReviewListSerializer(review, many=True)
         return Response(serializer.data)
     else:
-        print(request.data)
-        serializer = ReviewReadSerializer(data=request.data)
+        serializer = ReviewReadSerializer(data=request.data["data"])
+        print(serializer)
         if serializer.is_valid(raise_exception=True):
             serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)

@@ -12,6 +12,8 @@ export default function Write(){
     console.log("jwt",localStorage.getItem("JWT token"));
 
     const onFinish = (data)=>{
+        data["rank"] = parseInt(data.rank);
+        data["movie"] = parseInt(data.movie);
         console.log("submit",data);
         axios.post(`http://localhost:8000/community/review/`,
             {
@@ -60,7 +62,7 @@ export default function Write(){
                     onFinish={onFinish}
                 >
 
-                    <Form.Item label="제목" name="Title">
+                    <Form.Item label="제목" name="title">
                         <Input />
                     </Form.Item>
                     <div className="select">
@@ -68,7 +70,7 @@ export default function Write(){
                             <Input onKeyPress={inputEnter} placeholder="Press Enter "/>
                         </Form.Item>
                             {selects &&
-                                    <Form.Item label="Movie" name="Movie">
+                                    <Form.Item label="Movie" name="movie">
                                         <Select
                                             placeholder="select option"
                                             name="movie"
@@ -84,12 +86,12 @@ export default function Write(){
                                         </Select>
                                     </Form.Item>}
 
-                        <Form.Item label="평점" name="Rank">
+                        <Form.Item label="평점" name="rank">
                             <Input type="number"></Input>
                         </Form.Item>
                     </div>
 
-                    <Form.Item label="내용" name="Content">
+                    <Form.Item label="내용" name="content">
                         <TextArea placeholder="내용을 입력해주세요" rows={10}>
                             
                         </TextArea>
