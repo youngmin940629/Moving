@@ -35,6 +35,7 @@ def review_list(request):
 @permission_classes([AllowAny])
 def review(request, review_pk):
     review = get_object_or_404(Review, pk=review_pk)
+    print('test',review)
     if request.method == 'GET':
         serializer = ReviewSerializer(review)
         return Response(serializer.data)

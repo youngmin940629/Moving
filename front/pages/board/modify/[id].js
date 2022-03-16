@@ -12,7 +12,24 @@ export default function ModifyBoard({post}){
     const [movies, setMovies] = useState([[{}]]);
     const [selects, setSelects] = useState("");
     console.log("jwt",localStorage.getItem("JWT token"));
-
+    const [fields, setFields] = useState([
+        {
+            name : ["title"],
+            value : post.title
+        },
+        {
+            name : ["content"],
+            value: post.content
+        },
+        {
+            name: ["rank"],
+            value: post.rank
+        },
+        {
+            name: ["movie"],
+            value: post.movie
+        }
+    ])
     const onFinish = (data)=>{
         data["rank"] = parseInt(data.rank);
         data["movie"] = parseInt(data.movie);
@@ -57,10 +74,10 @@ export default function ModifyBoard({post}){
                         }}
                         layout="horizontal"
                         onFinish={onFinish}
-
+                        fields={fields}
                     >
 
-                        <Form.Item label="제목" name="title" >
+                        <Form.Item label="제목" name="title"  >
                             <Input />
                         </Form.Item>
                         <div className="select">
