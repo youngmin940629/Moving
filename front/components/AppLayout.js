@@ -8,8 +8,25 @@ import { LOAD_USER_REQUEST, logoutRequestAction } from '../reducers/user';
 
 const { Header, Content, Footer } = Layout;
 
+const StyledLayout = styled(Layout)`
+  .ant-menu.ant-menu-dark 
+  .ant-menu-item-selected, 
+  .ant-menu-submenu-popup.ant-menu-dark 
+  .ant-menu-item-selected {
+    background: #2CD4AC;
+  }
+  .ant-menu-dark.ant-menu-horizontal >
+  .ant-menu-item:hover {
+    background: #2CD4AC;
+  }
+`
+
 const SearchInput = styled(Input.Search)`
   vertical-align: middle;
+  .ant-btn-primary {
+    background: #2CD4AC;
+    border-color: #2CD4AC;
+  }
 `;
 
 const SiteLayoutContent = styled.div`
@@ -37,10 +54,10 @@ const AppLayout = ({ children }) => {
 
   return (
     <div>
-      <Layout className="layout">
+      <StyledLayout className="layout">
         <Header>
           <Link href="/">
-            <MovingLogo src="/img/moving.png" />
+            <MovingLogo src="/img/logo-colored.png" />
           </Link>
           <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['3']}>
             {me !== null ? (
@@ -97,7 +114,7 @@ const AppLayout = ({ children }) => {
         <Footer style={{ textAlign: 'center' }}>
           Ant Design ©2018 Created by Ant UED
         </Footer>
-      </Layout>
+      </StyledLayout>
     </div>
   );
 };
