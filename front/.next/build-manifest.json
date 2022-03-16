@@ -34,7 +34,11 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/login.js"
     ],
+<<<<<<< Updated upstream
     "/signup": [
+=======
+    "/community": [
+>>>>>>> Stashed changes
       "static/chunks/main.js",
       "static/chunks/webpack.js",
       "static/chunks/pages/signup.js"
