@@ -25,7 +25,7 @@ export default function Write(){
                 Authorization: "JWT"+ " "+localStorage.getItem("JWT token")
             }
         });
-        router.push(`/community`)
+        router.replace(`/community`)
     }
     const callMovie=async (id) => {
         await axios.get(`http://localhost:8000/movies/search/${id}`)

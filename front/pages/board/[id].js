@@ -5,6 +5,7 @@ import Comment from '../../components/comment';
 import DetailContent from '../../components/boardDetail';
 import axios from "axios";
 import {Button} from "antd";
+import {router} from "next/client";
 
 export default function BoardDetail({post}) {
   return (
@@ -13,7 +14,7 @@ export default function BoardDetail({post}) {
         <title>게시판상세 | moving</title>
       </Head>
       <AppLayout>
-        <Button>수정</Button>
+        <Button onClick={()=>router.push(`/board/modify`)}>수정</Button>
         <DetailContent data={post}></DetailContent>
         <Comment data={post.id}></Comment>
       </AppLayout>
