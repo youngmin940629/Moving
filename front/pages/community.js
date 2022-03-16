@@ -24,7 +24,9 @@ export async function getServerSideProps(){
       .then(res=>{
           try {
               boards = res.data;
-              console.log(res.data)
+              for(let i=0; i<boards.length; i++){
+                  boards[i]["key"] = res.data[i].id;
+              }
           }catch (error){
           }
       });

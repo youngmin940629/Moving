@@ -14,7 +14,6 @@ export default function Write(){
     const onFinish = (data)=>{
         data["rank"] = parseInt(data.rank);
         data["movie"] = parseInt(data.movie);
-        console.log("submit",data);
         axios.post(`http://localhost:8000/community/review/`,
             {
                 data
@@ -39,10 +38,6 @@ export default function Write(){
             callMovie(e.target.value);
         }
     }
-    useEffect(()=>{
-        console.log("moview",movies)
-    },[inputEnter])
-
 
     return(
         <>

@@ -4,6 +4,7 @@ import Head from 'next/head';
 import Comment from '../../components/comment';
 import DetailContent from '../../components/boardDetail';
 import axios from "axios";
+import {Button} from "antd";
 
 export default function BoardDetail({post}) {
   return (
@@ -12,6 +13,7 @@ export default function BoardDetail({post}) {
         <title>게시판상세 | moving</title>
       </Head>
       <AppLayout>
+        <Button>수정</Button>
         <DetailContent data={post}></DetailContent>
         <Comment data={post.id}></Comment>
       </AppLayout>
@@ -24,7 +26,7 @@ export async function getServerSideProps({ params }) {
     const id = parseInt(params.id);
     let post;
 
-    const res = await axios.get(`http://127.0.0.1:8000/community/review/${id}`)
+    await axios.get(`http://127.0.0.1:8000/community/review/${id}`)
         .then(res=>{
             post = res.data;
         })
