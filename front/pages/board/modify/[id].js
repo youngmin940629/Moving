@@ -1,14 +1,50 @@
 import Head from "next/head";
-import AppLayout from "../../components/AppLayout";
+import AppLayout from "../../../components/AppLayout";
+import axios from "axios";
 import {Button, Form, Input, Select} from "antd";
 import TextArea from "antd/lib/input/TextArea";
-import React from "react";
+import React, {useState} from "react";
+import {useRouter} from "next/router";
 
-export default function BoardModify(){
+export default function ModifyBoard({post}){
+    const router = useRouter();
+    console.log("pst : ", post)
+    const [movies, setMovies] = useState([[{}]]);
+    const [selects, setSelects] = useState("");
+    console.log("jwt",localStorage.getItem("JWT token"));
+
+    const onFinish = (data)=>{
+        data["rank"] = parseInt(data.rank);
+        data["movie"] = parseInt(data.movie);
+        axios.post(`http://localhost:8000/community/review/`,
+            {
+                data
+            },{
+                headers:{
+                    Authorization: "JWT"+ " "+localStorage.getItem("JWT token")
+                }
+            });
+        router.replace(`/community`)
+    }
+    const callMovie=async (id) => {
+        await axios.get(`http://localhost:8000/movies/search/${id}`)
+            .then(res => {
+                setMovies([res.data]);
+            })
+    }
+    const inputEnter=(e)=>{
+        // e.target.value : 영화 검색어
+        // e,key : Enter 판별 값
+        if(e.key == "Enter") {
+            e.preventDefault();
+            setSelects(e.target.value);
+            callMovie(e.target.value);
+        }
+    }
     return(
         <>
             <Head>
-                <title>게시글 작성 | moving</title>
+                <title>게시글 수정 | moving</title>
             </Head>
             <AppLayout>
                 <div>
@@ -21,9 +57,10 @@ export default function BoardModify(){
                         }}
                         layout="horizontal"
                         onFinish={onFinish}
+
                     >
 
-                        <Form.Item label="제목" name="title">
+                        <Form.Item label="제목" name="title" >
                             <Input />
                         </Form.Item>
                         <div className="select">
@@ -62,14 +99,24 @@ export default function BoardModify(){
                         </div>
                     </Form>
                 </div>
-
             </AppLayout>
-
-            <style jsx>{`
-                .submitBtnDiv {
-                    text-align: center;
-                }  
-            `}</style>
         </>
     )
+}
+
+export async function getServerSideProps({ params }) {
+    console.log("id[] call")
+    const id = parseInt(params.id);
+    let post;
+
+    await axios.get(`http://127.0.0.1:8000/community/review/${id}`)
+        .then(res=>{
+            post = res.data;
+        })
+
+    return {
+        props: {
+            post,
+        }
+    }
 }

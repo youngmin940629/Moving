@@ -41,7 +41,7 @@ export default function BoardTable(props) {
       title: 'Title',
       dataIndex: 'title',
       render: (title, record) => <Link
-          href={`board/${encodeURIComponent(record.id)}`}
+          href={`board/${record.id}`}
           value={record.id}><a>{title}</a></Link>
     },
     {

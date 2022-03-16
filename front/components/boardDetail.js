@@ -20,7 +20,6 @@ export default function detailContent(props){
             title: "작성일",
             dataIndex: "created_at"
         }
-        
     ];
 
     return(

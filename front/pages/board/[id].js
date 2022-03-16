@@ -1,20 +1,21 @@
-import React, {useEffect, useState} from 'react';
 import AppLayout from '../../components/AppLayout';
 import Head from 'next/head';
 import Comment from '../../components/comment';
 import DetailContent from '../../components/boardDetail';
 import axios from "axios";
 import {Button} from "antd";
-import {router} from "next/client";
+import {useRouter} from "next/router";
 
 export default function BoardDetail({post}) {
+    const router = useRouter();
+
   return (
     <>
       <Head>
         <title>게시판상세 | moving</title>
       </Head>
       <AppLayout>
-        <Button onClick={()=>router.push(`/board/modify`)}>수정</Button>
+        <Button onClick={()=>router.push(`/board/modify/${post.id}`)}>수정</Button>
         <DetailContent data={post}></DetailContent>
         <Comment data={post.id}></Comment>
       </AppLayout>
