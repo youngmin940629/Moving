@@ -46,7 +46,7 @@ def review(request, review_pk):
         }
         return Response(data, status=status.HTTP_204_NO_CONTENT)
     elif request.method == 'PUT':
-        serializer = ReviewSerializer(review, data=request.data)
+        serializer = ReviewSerializer(review, data=request.data["data"])
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data)

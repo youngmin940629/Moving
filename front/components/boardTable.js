@@ -3,19 +3,14 @@ import { useRouter } from 'next/router';
 import Link from "next/link"
 import {useEffect, useState} from "react";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 
 export default function BoardTable(props) {
   const router = useRouter();
   const [userID, setUserID] =  useState();
 
   useEffect(()=>{
-    // localstorage의 jwt에서 userID 파싱
-    // 그리고 userID에 set
-    const base64Payload = localStorage.getItem("JWT token").split('.')[1];
-    const payload = Buffer.from(base64Payload, 'base64');
-    const result = JSON.parse(payload.toString())
-    console.log("logined userID : ",result.user_id);
-    setUserID(result.user_id);
+    setUserID(jwt_decode(localStorage.getItem("JWT token")).id);
   },[])
 
   // 게시글 삭제 함수 id : 게시글 번호

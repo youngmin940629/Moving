@@ -6,6 +6,7 @@ export default function detailContent(props){
 
     useEffect(()=>{
         setData([props.data]);
+        console.log("data", data)
     },[])
     const columns = [
         {
@@ -17,8 +18,16 @@ export default function detailContent(props){
             dataIndex: "username"
         },
         {
+            title: '평점',
+            dataIndex: 'rank',
+        },
+        {
             title: "작성일",
             dataIndex: "created_at"
+        },
+        {
+            title: '수정일',
+            dataIndex: 'updated_at',
         }
     ];
 
@@ -27,7 +36,6 @@ export default function detailContent(props){
            <Table dataSource={data}
                    pagination={{ hideOnSinglePage: true}}
                    columns={columns}
-                  rowKey={data.id}
             />
 
             <div className="contentDiv">

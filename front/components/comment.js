@@ -1,9 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {  Form, Button, List, Comment, Avatar ,Input } from 'antd';
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 
 export default function Comments(props) {
     const [comments, setComments] = useState([{}]);
+    const [userID, setUserID] = useState();
+    useEffect(()=>{
+        setUserID(jwt_decode(localStorage.getItem("JWT token")).user_id);
+    },[])
+
 
     // 댓글 등록 요청
     const submitComment=(data)=>{
@@ -21,6 +27,16 @@ export default function Comments(props) {
                     });
         })
 
+    }
+    // 댓글 삭제
+    const commentDelete = (id)=>{
+        axios.delete(`http://localhost:8000/community/comment/${id}/`)
+            .then(async () => {
+                await axios.get(`http://localhost:8000/community/review/${props.data}/`)
+                    .then(res => {
+                        setComments(res.data.comments)
+                    });
+            })
     }
     // 댓글 가져오기
     useEffect(async ()=>{
@@ -60,6 +76,11 @@ export default function Comments(props) {
                                 title={item.username}
                                 description={item.content}
                             />
+                            {item.user === userID? (
+                                <Button onClick={()=>{
+                                    commentDelete(item.id)
+                                }}>삭제</Button>
+                            ):null}
                         </List.Item>
                     )}
                 />

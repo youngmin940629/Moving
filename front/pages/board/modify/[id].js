@@ -3,15 +3,19 @@ import AppLayout from "../../../components/AppLayout";
 import axios from "axios";
 import {Button, Form, Input, Select} from "antd";
 import TextArea from "antd/lib/input/TextArea";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
+import jwt_decode from "jwt-decode";
 
 export default function ModifyBoard({post}){
     const router = useRouter();
     console.log("pst : ", post)
     const [movies, setMovies] = useState([[{}]]);
     const [selects, setSelects] = useState("");
-    console.log("jwt",localStorage.getItem("JWT token"));
+    const [userID, setUserID] = useState();
+    useEffect(()=>{
+        setUserID(jwt_decode(localStorage.getItem("JWT token")).user_id);
+    },[])
     const [fields, setFields] = useState([
         {
             name : ["title"],
@@ -33,15 +37,14 @@ export default function ModifyBoard({post}){
     const onFinish = (data)=>{
         data["rank"] = parseInt(data.rank);
         data["movie"] = parseInt(data.movie);
-        axios.post(`http://localhost:8000/community/review/`,
+        data["user"] = userID;
+
+        axios.put(`http://localhost:8000/community/review/${post.id}/`,
             {
                 data
-            },{
-                headers:{
-                    Authorization: "JWT"+ " "+localStorage.getItem("JWT token")
-                }
-            });
-        router.replace(`/community`)
+            }
+            );
+        router.push(`/community`)
     }
     const callMovie=async (id) => {
         await axios.get(`http://localhost:8000/movies/search/${id}`)
@@ -84,7 +87,6 @@ export default function ModifyBoard({post}){
                             <Form.Item label="영화 검색">
                                 <Input onKeyPress={inputEnter} placeholder="Press Enter "/>
                             </Form.Item>
-                            {selects &&
                                 <Form.Item label="Movie" name="movie">
                                     <Select
                                         placeholder="select option"
