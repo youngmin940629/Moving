@@ -7,7 +7,7 @@ const Profile = () => {
   return (
     <>
       <Head>
-        <title>프로필 | moving</title>
+        <title>회원정보 | moving</title>
       </Head>
       <AppLayout>
         <UserProfile />

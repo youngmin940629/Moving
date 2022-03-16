@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Form, Input, Modal, Tag } from 'antd';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Button, Form, Input, Modal, Select, Tag } from 'antd';
 import styled from 'styled-components';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
@@ -15,21 +15,46 @@ const ErrorMessage = styled.div`
   color: red;
 `;
 
-const UserProfile = () => {
+const UserProfileModify = () => {
   const router = useRouter();
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
-  const [userInfo, setUserInfo] = useState({
-    username: '',
-  });
+  const [userInfo, setUserInfo] = useState(null);
   const [category, setCategory] = useState(null);
-  const [visible, setVisible] = useState(false);
-  const [password, setPassword] = useState('');
-  const [passwordError, setPasswordError] = useState(false);
+  const [data, setData] = useState(null);
+  const [category_list, setCategoryList] = useState(null);
+  const [list, setList] = useState(null);
 
-  const onChangePassowrd = e => {
-    setPassword(e.target.value);
-    setPasswordError(false);
+  const onChangeUserInfo = e => {
+    setUserInfo({
+      username: userInfo.username,
+      username2: e.target.value,
+      birthDate: userInfo.birthDate,
+      gender: userInfo.gender,
+    });
+  };
+
+  const children = [];
+  if (data) {
+    for (let i = 0; i < data.length; i++) {
+      children.push(
+        <Select.Option key={data[i].id}>{data[i].name}</Select.Option>
+      );
+    }
+  }
+  function handleChange(value) {
+    console.log('선택된 장르 : ', value);
+    setCategoryList(value);
+  }
+  useEffect(() => {
+    axios.get('http://localhost:8000/movies/genre_list/').then(res => {
+      setData(res.data);
+    });
+  }, []);
+
+  const onSubmit = () => {
+    console.log('userInfo 수정', userInfo);
+    console.log('장글 수정', category_list);
   };
 
   useEffect(() => {
@@ -71,7 +96,7 @@ const UserProfile = () => {
             }}
           >
             <div>
-              <h1>회원정보</h1>
+              <h1>회원정보 수정</h1>
               <div style={{ border: '1px solid blue' }}>
                 <Form
                   name="basic"
@@ -87,7 +112,14 @@ const UserProfile = () => {
                     <span>{userInfo.username}</span>
                   </Form.Item>
                   <Form.Item label="닉네임">
-                    <span>{userInfo.username2}</span>
+                    <span>
+                      <Input
+                        style={{ width: '50%' }}
+                        placeholder="닉네임을 입력해주세요."
+                        value={userInfo.username2}
+                        onChange={onChangeUserInfo}
+                      />
+                    </span>
                   </Form.Item>
                   <Form.Item label="성별">
                     <span>{userInfo.gender ? '남' : '여'}</span>
@@ -96,13 +128,18 @@ const UserProfile = () => {
                     <span>{userInfo.birthDate}</span>
                   </Form.Item>
                   <Form.Item label="좋아하는 장르">
-                    {category.map(item => {
-                      return (
-                        <span key={item.id}>
-                          <Tag color="purple">{item.name}</Tag>
-                        </span>
-                      );
-                    })}
+                    <Select
+                      mode="multiple"
+                      allowClear
+                      style={{ width: '50%' }}
+                      placeholder="장르를 선택해주세요."
+                      defaultValue={Object.values(
+                        category.map(item => `${item.id}`)
+                      )}
+                      onChange={handleChange}
+                    >
+                      {children}
+                    </Select>
                   </Form.Item>
                 </Form>
               </div>
@@ -111,59 +148,11 @@ const UserProfile = () => {
                   type="primary"
                   shape="round"
                   size="large"
-                  onClick={() => setVisible(true)}
+                  onClick={onSubmit}
                 >
-                  수정
-                </MyButton>
-                <MyButton type="danger" shape="round" size="large">
-                  탈퇴
+                  확인
                 </MyButton>
               </div>
-              <Modal
-                title="비밀번호 확인"
-                centered
-                visible={visible}
-                onOk={() => {
-                  console.log('password', password);
-                  axios
-                    .post('http://localhost:8000/accounts/login/', {
-                      username: userInfo.username,
-                      password: password,
-                    })
-                    .then(() => {
-                      setVisible(false);
-                      router.push('/profileModify');
-                    })
-                    .catch(() => {
-                      setPasswordError(true);
-                    });
-                }}
-                onCancel={() => setVisible(false)}
-                okText="확인"
-                cancelText="취소"
-                width="50%"
-              >
-                <div
-                  style={{
-                    width: '100%',
-                    textAlign: 'center',
-                  }}
-                >
-                  <h3>
-                    회원님의 회원정보를 안전하게 보호하기 위해 비밀번호를 한번
-                    더 확인해주세요.
-                  </h3>
-                  <Input.Password
-                    style={{ width: '50%' }}
-                    placeholder="비밀번호를 입력해주세요."
-                    value={password}
-                    onChange={onChangePassowrd}
-                  />
-                  {passwordError && (
-                    <ErrorMessage>비밀번호가 일치하지 않습니다.</ErrorMessage>
-                  )}
-                </div>
-              </Modal>
             </div>
           </div>
         </div>
@@ -172,4 +161,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default UserProfileModify;

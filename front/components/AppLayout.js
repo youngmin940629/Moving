@@ -75,7 +75,7 @@ const AppLayout = ({ children }) => {
                 </Menu.Item>
                 <Menu.Item key="1">
                   <Link href="/profile">
-                    <a>프로필</a>
+                    <a>회원정보</a>
                   </Link>
                 </Menu.Item>
                 <Menu.Item key="2">
@@ -104,7 +104,7 @@ const AppLayout = ({ children }) => {
               </>
             )}
             <Menu.Item key="5">
-              <SearchInput enterButton placeholder='영화 검색'/>
+              <SearchInput enterButton placeholder="영화 검색" />
             </Menu.Item>
           </Menu>
         </Header>
