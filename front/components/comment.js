@@ -6,6 +6,20 @@ import jwt_decode from "jwt-decode";
 export default function Comments(props) {
     const [comments, setComments] = useState([{}]);
     const [userID, setUserID] = useState();
+    const dateFormat = (data)=>{
+        let originDate;
+        for(let i=0; i<data.length; i++){
+            originDate= new Date(data[i].created_at);
+            let date="";
+            date += originDate.getFullYear()+"-";
+            date += originDate.getMonth()+1+"-";
+            date += originDate.getDate()+"-";
+            date += originDate.getHours()+"-";
+            date += originDate.getMinutes();
+            data[i].created_at = date;
+        }
+        setComments(data);
+    }
     useEffect(()=>{
         if(localStorage.getItem("JWT token")){
             setUserID(jwt_decode(localStorage.getItem("JWT token")).user_id);
@@ -20,14 +34,14 @@ export default function Comments(props) {
         console.log(data.comment);
         axios.post(`http://localhost:8000/community/review/${props.data}/comment/`,
             {
-                user:userID, // 유저 아이디 바꿔야됨
+                user:userID,
                 review:props.data, //게시글 id
                 content:data.comment // 댓글 내용
             })
             .then(()=>{
                 axios.get(`http://localhost:8000/community/review/${props.data}/`)
                     .then(res=>{
-                        setComments(res.data.comments)
+                        dateFormat(res.data.comments);
                     });
         })
 
@@ -38,8 +52,9 @@ export default function Comments(props) {
             .then(async () => {
                 await axios.get(`http://localhost:8000/community/review/${props.data}/`)
                     .then(res => {
-                        setComments(res.data.comments)
+                        dateFormat(res.data.comments);
                     });
+
             })
     }
     // 댓글 가져오기
@@ -47,7 +62,7 @@ export default function Comments(props) {
         console.log("effect call")
         await axios.get(`http://localhost:8000/community/review/${props.data}/`)
             .then(res=>{
-                setComments(res.data.comments);
+                dateFormat(res.data.comments);
             })
     },[])
     return(
@@ -59,7 +74,7 @@ export default function Comments(props) {
                     label="댓글"
                     name="comment"
                 >
-                    <Input.TextArea rows={4}/>
+                    <Input.TextArea defaultValue="" rows={4}/>
                 </Form.Item>
                 <Form.Item>
                  <div className="commentBtn">
@@ -83,6 +98,7 @@ export default function Comments(props) {
                                 title={item.username}
                                 description={item.content}
                             />
+                            <span>{item.created_at}</span>
                             {item.user == userID? (
                                 <Button onClick={()=>{
                                     commentDelete(item.id)

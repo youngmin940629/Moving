@@ -65,8 +65,7 @@ export default function detailContent(props){
                      padding-bottom : 70px;
                 }
                 .posterImg{
-                      width: 100%;
-                      height: 100%;
+                      width: 30%;
                 }
                 .movieInfo-container{
                     max-width: 100%;
@@ -76,9 +75,9 @@ export default function detailContent(props){
                    
                 }
                 .container-item{
-                    max-width: 100%;
                     margin: auto;
                     padding: 10% auto 10% auto;
+                    text-align: center;
                 }
                 .movieTitle{
                     font-size: 28px

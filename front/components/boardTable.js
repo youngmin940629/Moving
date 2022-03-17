@@ -21,9 +21,12 @@ export default function BoardTable(props) {
   const deleteBoard = (id)=>{
     console.log(id)
     try {
-      axios.delete(`http://localhost:8000/community/review/${id}/`);
-      alert("삭제완료");
-      router.replace(router.asPath);
+      if(confirm("삭제하기겠습니까?")){
+        axios.delete(`http://localhost:8000/community/review/${id}/`);
+        alert("삭제완료");
+        router.replace(router.asPath);
+      }
+
     }catch (e){}
   }
   // 게시글 테이블 컬럼 내용

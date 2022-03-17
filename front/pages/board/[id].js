@@ -58,7 +58,6 @@ export async function getServerSideProps({ params }) {
                 .then(res=>{
                     movieInfo = res.data;
                     movieInfo[0]["key"] = res.data[0].id;
-                    console.log(movieInfo[0])
                 });
         })
 
