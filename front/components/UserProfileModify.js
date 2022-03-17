@@ -74,7 +74,17 @@ const UserProfileModify = () => {
   };
 
   const handleOk = () => {
-    setIsModalVisible(false);
+    axios
+      .put(`http://localhost:8000/accounts/changepassword/${user.user_id}/`, {
+        password: password,
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    // setIsModalVisible(false);
   };
 
   const handleCancel = () => {
