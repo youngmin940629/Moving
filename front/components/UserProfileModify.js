@@ -23,7 +23,6 @@ const UserProfileModify = () => {
   const [category, setCategory] = useState(null);
   const [data, setData] = useState(null);
   const [category_list, setCategoryList] = useState(null);
-  const [list, setList] = useState(null);
 
   const onChangeUserInfo = e => {
     setUserInfo({
@@ -44,7 +43,12 @@ const UserProfileModify = () => {
   }
   function handleChange(value) {
     console.log('선택된 장르 : ', value);
-    setCategoryList(value);
+    const temp = { category_list: [] };
+    value.map(item => {
+      temp.category_list.push(Number(item));
+    });
+    console.log('temp', temp);
+    setCategoryList(temp);
   }
   useEffect(() => {
     axios.get('http://localhost:8000/movies/genre_list/').then(res => {
@@ -54,7 +58,7 @@ const UserProfileModify = () => {
 
   const onSubmit = () => {
     console.log('userInfo 수정', userInfo);
-    console.log('장글 수정', category_list);
+    console.log('장르 수정', category_list);
   };
 
   useEffect(() => {
