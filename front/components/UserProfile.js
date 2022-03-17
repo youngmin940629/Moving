@@ -27,11 +27,12 @@ const UserProfile = () => {
   });
   const [category, setCategory] = useState(null);
   const [visible, setVisible] = useState(false);
+  const [mode, setMode] = useState('');
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState(false);
   
 
-  const onChangePassowrd = e => {
+  const onChangePassword = e => {
     setPassword(e.target.value);
     setPasswordError(false);
   };
@@ -147,11 +148,16 @@ const UserProfile = () => {
                   type="primary"
                   shape="round"
                   size="large"
-                  onClick={() => setVisible(true)}
+                  onClick={() => setVisible(true) & setMode('mod')}
                 >
                   수정
                 </MyButton>
-                <MyButton type="danger" shape="round" size="large" onClick={deleteUser}>
+                <MyButton 
+                  type="danger" 
+                  shape="round" 
+                  size="large" 
+                  onClick={() => setVisible(true) & setMode('del')}
+                >
                   탈퇴
                 </MyButton>
               </div>
@@ -168,7 +174,11 @@ const UserProfile = () => {
                     })
                     .then(() => {
                       setVisible(false);
-                      router.push('/profileModify');
+                      if (mode === 'mod') {
+                        router.push('/profileModify');
+                      } else {
+                        deleteUser();
+                      }
                     })
                     .catch(() => {
                       setPasswordError(true);
@@ -186,14 +196,14 @@ const UserProfile = () => {
                   }}
                 >
                   <h3>
-                    회원님의 회원정보를 안전하게 보호하기 위해 비밀번호를 한번
+                    회원님의 정보를 안전하게 보호하기 위해 비밀번호를 한번
                     더 확인해주세요.
                   </h3>
                   <Input.Password
                     style={{ width: '50%' }}
                     placeholder="비밀번호를 입력해주세요."
                     value={password}
-                    onChange={onChangePassowrd}
+                    onChange={onChangePassword}
                   />
                   {passwordError && (
                     <ErrorMessage>비밀번호가 일치하지 않습니다.</ErrorMessage>
