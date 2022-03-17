@@ -27,11 +27,11 @@ const IndexRecommend = () => {
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
           {movies.map((movie) => {
             return (
-              <Col className="gutter-row" span={4}>
+              <Col className="gutter-row" span={4} key={movie.id}>
                 <Card
                   style={{ height:'100%' }}
                   hoverable
-                  cover={<img alt={`${movie.title} 포스터 이미지`} src={movie.backdrop_path} key={movie.id} />}
+                  cover={<img alt={`${movie.title} 포스터 이미지`} src={movie.backdrop_path} />}
                   onClick={() => Router.push(`/movie/${movie.id}`)}
                 >
                   <Meta title={movie.title} description={`${movie.overview.slice(0,100)}...`} />
