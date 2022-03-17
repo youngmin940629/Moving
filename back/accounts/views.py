@@ -2,7 +2,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-from .serializers import UserSerializer
+from .serializers import UserSerializer, UserSignupSerializer
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from .models import User
@@ -31,7 +31,7 @@ def signup(request):
     print(data)
 
     # 2. UserSerializer를 통해 데이터 직렬화
-    serializer = UserSerializer(data=data)
+    serializer = UserSignupSerializer(data=data)
 
     print(serializer)
     # 3. validation 작업 진행 -> password도 같이 직렬화 진행
