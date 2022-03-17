@@ -1,8 +1,32 @@
+import axios from 'axios';
+import jwtDecode from 'jwt-decode';
 import React, { useEffect, useState } from 'react'
 
-export default function StarRating() {
+export default function StarRating({id}) {
   const [rating,setRating] = useState(0);
+  const [user, setUser] = useState(null)
   useEffect(()=>{
+
+    const token = localStorage.getItem('JWT token');
+    const decoded = jwtDecode(token);
+    setUser(decoded.user_id);
+    axios.get(`http://localhost:8000/movies/rating/${id}/${decoded.user_id}`)
+    .then(function(res){
+      if(res.data){
+        if(0<=res.data && res.data<2){
+          setRating(2)
+        }else if(2<=res.data && res.data<4){
+          setRating(4)
+        }else if(4<=res.data && res.data<6){
+          setRating(6)
+        }else if(6<=res.data && res.data<8){
+          setRating(8)
+        }else if(8<=res.data && res.data<=10){
+          setRating(10)
+        }
+      }
+    })
+
     const star_array = new Array(5)
     for (let i = 0; i < star_array.length; i++) {
       star_array[i] = document.querySelector(`.star${i+1}`)
@@ -26,7 +50,22 @@ export default function StarRating() {
     }
   },[])
   useEffect(()=>{
-    console.log(rating)
+    if(rating!==0){
+      if(user !== null){
+        let data = {
+          movie:Number(id),
+          user:user,
+          rank:rating,
+        }
+        axios({
+          url:`http://localhost:8000/movies/rating_movie/`,
+          method:'post',
+          data:data,
+        }).then(function(res){
+          console.log(res.data)
+        }).catch(err=>console.log(err))
+      }
+    }
   },[rating])
   return (
     <>

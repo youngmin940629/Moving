@@ -3,7 +3,7 @@ import requests
 from rest_framework import response
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
-from .models import Movie, Genre
+from .models import Movie, Genre, Rating
 from .serializers import MovieListSerializer, MovieSerializer, GenreSerializer, MovieIdSerializer
 from rest_framework import serializers, status
 from rest_framework.permissions import AllowAny
@@ -158,3 +158,34 @@ def genre_movielist(request,id):
             movie_list.append(movie)
         serializer = MovieIdSerializer(movie_list, many=True)
         return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def rating_movie(request,id,user):
+    if request.method == 'GET':
+        ratings = Rating.objects.filter(movie=id, user=user)
+        data = ""
+        if ratings:
+            data = ratings[0].rank
+        else:
+            data = None
+        return Response(data)
+
+
+from accounts.models import User
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def rating(request):
+    user = request.data['user']
+    movie = request.data['movie']
+    rank = request.data['rank']
+    try:
+        rating = Rating.objects.get(movie=movie, user=user)
+        rating.rank = rank
+        rating.save()
+    except:
+        user_id = User.objects.get(pk=user)
+        movie_id = Movie.objects.get(pk=movie)
+        rating = Rating.objects.create(user=user_id,rank=rank,movie=movie_id)
+        rating.save()
+    return Response()
