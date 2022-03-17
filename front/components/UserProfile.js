@@ -5,6 +5,9 @@ import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import UseInput from '../hooks/useInput';
 import { useRouter } from 'next/router';
+import Router from 'next/router';
+import { useDispatch } from 'react-redux';
+import { LOAD_USER_REQUEST, logoutRequestAction } from '../reducers/user';
 
 const MyButton = styled(Button)`
   width: 150px;
@@ -26,11 +29,44 @@ const UserProfile = () => {
   const [visible, setVisible] = useState(false);
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState(false);
+  
 
   const onChangePassowrd = e => {
     setPassword(e.target.value);
     setPasswordError(false);
   };
+
+  const logout = () => {
+    console.log(dispatch(logoutRequestAction()));
+    Router.push("/")
+  }
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch({
+      type: LOAD_USER_REQUEST,
+    });
+  }, [LOAD_USER_REQUEST]);
+
+  const deleteUser = () => {
+    // 확인
+    if (window.confirm("탈퇴하시겠습니까?")) {
+      // 탈퇴
+      axios
+      .delete(`http://localhost:8000/accounts/${user.user_id}`)
+      .then(res => {
+        console.log(res.data);
+        alert("탈퇴가 완료되었습니다. 메인페이지로 이동합니다.")
+        logout()
+      })
+      .catch(err => {
+        console.log(err);
+        alert("처리 중 에러가 발생했습니다. 관리자에게 문의하세요.")
+      });
+    } else {
+      alert("탈퇴가 취소되었습니다.")
+    }
+  }
 
   useEffect(() => {
     setToken(localStorage.getItem('JWT token'));
@@ -115,7 +151,7 @@ const UserProfile = () => {
                 >
                   수정
                 </MyButton>
-                <MyButton type="danger" shape="round" size="large">
+                <MyButton type="danger" shape="round" size="large" onClick={deleteUser}>
                   탈퇴
                 </MyButton>
               </div>

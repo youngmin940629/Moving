@@ -44,12 +44,19 @@ def signup(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-@api_view(['GET'])
+@api_view(['GET', 'DELETE'])
 @permission_classes([AllowAny])
 def user_info(request, user_pk):
     user = get_object_or_404(User, pk=user_pk)
-    serializers = UserSerializer(user)
-    return Response(serializers.data)
+    if request.method == 'GET':
+        serializers = UserSerializer(user)
+        return Response(serializers.data)
+    elif request.method == 'DELETE': # 탈퇴
+        user.delete()
+        data = {
+            'delete' : f'탈퇴되었습니다.'
+        }
+        return Response(data, status=status.HTTP_204_NO_CONTENT)
 
 
 @api_view(['POST'])
