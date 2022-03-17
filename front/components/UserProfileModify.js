@@ -24,6 +24,7 @@ const UserProfileModify = () => {
   const [data, setData] = useState(null);
   const [category_list, setCategoryList] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [username2Check, setUsername2Check] = useState(false);
   const [password, onChangePassowrd] = UseInput();
   const [passwordCheck, setPasswordCheck] = useState('');
   const [passwordError, setPasswordError] = useState(false);
@@ -61,6 +62,16 @@ const UserProfileModify = () => {
     console.log('temp', temp);
     setCategoryList(temp);
   }
+
+  const nicknameCheckTrue = () => {
+    alert('사용 불가능한 닉네임 입니다.');
+    setUsername2Check(true);
+  };
+
+  const nicknameCheckFalse = () => {
+    alert('사용 가능한 닉네임 입니다.');
+    setUsername2Check(false);
+  };
 
   const handleOk = () => {
     setIsModalVisible(false);
@@ -174,6 +185,25 @@ const UserProfileModify = () => {
                         onChange={onChangeUserInfo}
                       />
                     </span>
+                    <Button
+                      onClick={() => {
+                        axios
+                          .post('http://localhost:8000/accounts/isexist/', {
+                            username2: userInfo.username2,
+                          })
+                          .then(res => {
+                            console.log(res);
+                            res.data
+                              ? nicknameCheckTrue()
+                              : nicknameCheckFalse();
+                          })
+                          .catch(err => {
+                            console.log(err);
+                          });
+                      }}
+                    >
+                      중복확인
+                    </Button>
                   </Form.Item>
                   <Form.Item label="성별">
                     <span>{userInfo.gender ? '남' : '여'}</span>
