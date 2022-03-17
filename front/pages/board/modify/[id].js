@@ -7,8 +7,9 @@ import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import jwt_decode from "jwt-decode";
 
-export default function ModifyBoard({post}){
+export default function ModifyBoard({post,movieTitle}){
     const router = useRouter();
+    console.log("title", movieTitle)
     console.log("pst : ", post)
     const [movies, setMovies] = useState([[{}]]);
     const [selects, setSelects] = useState("");
@@ -31,14 +32,14 @@ export default function ModifyBoard({post}){
         },
         {
             name: ["movie"],
-            value: post.movie
+            value: movieTitle
         }
     ])
     const onFinish = (data)=>{
         data["rank"] = parseInt(data.rank);
         data["movie"] = parseInt(data.movie);
         data["user"] = userID;
-
+        console.log(data);
         axios.put(`http://localhost:8000/community/review/${post.id}/`,
             {
                 data
@@ -127,15 +128,20 @@ export async function getServerSideProps({ params }) {
     console.log("id[] call")
     const id = parseInt(params.id);
     let post;
-
+    let movieTitle;
     await axios.get(`http://127.0.0.1:8000/community/review/${id}`)
-        .then(res=>{
+        .then(async res => {
             post = res.data;
+            await axios.get(`http://127.0.0.1:8000/movies/${post.movie}/`)
+                .then(res => {
+                    movieTitle = res.data[0].title;
+                });
         })
 
     return {
         props: {
             post,
+            movieTitle
         }
     }
 }

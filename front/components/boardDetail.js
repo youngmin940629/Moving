@@ -3,10 +3,8 @@ import {useEffect, useState} from "react"
 
 export default function detailContent(props){
     const [data, setData] = useState([{}]);
-
     useEffect(()=>{
         setData([props.data]);
-        console.log("data", data)
     },[])
     const columns = [
         {
@@ -33,14 +31,26 @@ export default function detailContent(props){
 
     return(
         <>
-           <Table dataSource={data}
-                   pagination={{ hideOnSinglePage: true}}
-                   columns={columns}
-            />
-
-            <div className="contentDiv">
+            <section className="tableSection">
+               <Table  dataSource={data}
+                       pagination={{ hideOnSinglePage: true}}
+                       columns={columns}
+                />
+            </section>
+            <section className="imgSection">
+                <img className="posterImg" src={props.movies[0].poster_path}
+                    alt="이미지가 없습니다."
+                />
+            </section>
+            <section className="description">
+                <span className="movieTitle">
+                    {props.movies[0].title} :
+                </span>
+                <span>{props.movies[0].overview}</span>
+            </section>
+            <section className="contentDiv">
                 {data[0].content}
-            </div>
+            </section>
 
 
             <style jsx>{`
@@ -49,6 +59,21 @@ export default function detailContent(props){
                      font-size: 30px;
                      padding-top: 70px;
                      padding-bottom : 70px;
+                }
+                .posterImg{
+                      width: 40%;
+                      height: 450px;
+                      display: block;
+                      margin: auto;
+                }
+                .imgSection{
+                    text-align: center;
+                }
+                .movieTitle{
+                    font-size: 28px
+                }
+                .description{
+                    font-size: 16px;
                 }
                 `}
 

@@ -8,7 +8,7 @@ import {useRouter} from "next/router";
 import jwt_decode from "jwt-decode";
 import {useEffect, useState} from "react";
 
-export default function BoardDetail({post}) {
+export default function BoardDetail({post, movieInfo}) {
     const router = useRouter();
     const [userID, setUserID] = useState();
     useEffect(()=>{
@@ -27,7 +27,7 @@ export default function BoardDetail({post}) {
                   </Button>
               </div>
               ) : null}
-        <DetailContent data={post}></DetailContent>
+        <DetailContent data={post} movies={movieInfo}></DetailContent>
         <Comment data={post.id}></Comment>
       </AppLayout>
 
@@ -44,16 +44,22 @@ export async function getServerSideProps({ params }) {
     console.log("id[] call")
     const id = parseInt(params.id);
     let post;
+    let movieInfo;
 
     await axios.get(`http://127.0.0.1:8000/community/review/${id}`)
-        .then(res=>{
+        .then(async res=>{
             post = res.data;
             post["key"] = res.data.id;
+            await axios.get(`http://127.0.0.1:8000/movies/${post.movie}/`)
+                .then(res=>{
+                    movieInfo = res.data;
+                });
         })
 
     return {
         props: {
             post,
+            movieInfo
         }
     }
 }
