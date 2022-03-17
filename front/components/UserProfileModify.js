@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Button, Form, Input, Modal, Select, Tag } from 'antd';
+import { Button, Col, Form, Input, Modal, Select } from 'antd';
 import styled from 'styled-components';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
-import UseInput from '../hooks/useInput';
 import { useRouter } from 'next/router';
+import UseInput from '../hooks/useInput';
 
 const MyButton = styled(Button)`
   width: 150px;
@@ -23,6 +23,17 @@ const UserProfileModify = () => {
   const [category, setCategory] = useState(null);
   const [data, setData] = useState(null);
   const [category_list, setCategoryList] = useState(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [password, onChangePassowrd] = UseInput();
+  const [passwordCheck, setPasswordCheck] = useState('');
+  const [passwordError, setPasswordError] = useState(false);
+  const onChangePasswordCheck = useCallback(
+    e => {
+      setPasswordCheck(e.target.value);
+      setPasswordError(e.target.value !== password);
+    },
+    [password]
+  );
 
   const onChangeUserInfo = e => {
     setUserInfo({
@@ -43,23 +54,48 @@ const UserProfileModify = () => {
   }
   function handleChange(value) {
     console.log('선택된 장르 : ', value);
-    const temp = { category_list: [] };
+    const temp = [];
     value.map(item => {
-      temp.category_list.push(Number(item));
+      temp.push(Number(item));
     });
     console.log('temp', temp);
     setCategoryList(temp);
   }
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+  const changePassword = () => {
+    console.log('비밀번호 바꾸기');
+    setIsModalVisible(true);
+  };
+
+  const onSubmit = () => {
+    console.log('userInfo 수정', userInfo);
+    console.log('장르 수정', category_list);
+
+    // axios
+    //   .put(
+    //     `http://localhost:8000/accounts/edit/${user.user_id}/`,
+    //     userInfo.username2,
+    //     category_list.category_list
+    //   )
+    //   .then(res => {
+    //     console.log(res);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
+  };
   useEffect(() => {
     axios.get('http://localhost:8000/movies/genre_list/').then(res => {
       setData(res.data);
     });
   }, []);
-
-  const onSubmit = () => {
-    console.log('userInfo 수정', userInfo);
-    console.log('장르 수정', category_list);
-  };
 
   useEffect(() => {
     setToken(localStorage.getItem('JWT token'));
@@ -76,6 +112,11 @@ const UserProfileModify = () => {
         .then(res => {
           console.log(res.data);
           setCategory(res.data.category_list);
+          const temp = [];
+          res.data.category_list.map(item => {
+            temp.push(item.id);
+            setCategoryList(temp);
+          });
           setUserInfo({
             username: res.data.username,
             username2: res.data.username2,
@@ -115,6 +156,11 @@ const UserProfileModify = () => {
                   <Form.Item label="이메일">
                     <span>{userInfo.username}</span>
                   </Form.Item>
+                  <Form.Item label="비밀번호">
+                    <span>
+                      <a onClick={changePassword}>비밀번호 변경하기</a>
+                    </span>
+                  </Form.Item>
                   <Form.Item label="닉네임">
                     <span>
                       <Input
@@ -149,6 +195,15 @@ const UserProfileModify = () => {
               </div>
               <div style={{ border: '1px solid green' }}>
                 <MyButton
+                  shape="round"
+                  size="large"
+                  onClick={() => {
+                    router.back();
+                  }}
+                >
+                  취소
+                </MyButton>
+                <MyButton
                   type="primary"
                   shape="round"
                   size="large"
@@ -161,6 +216,42 @@ const UserProfileModify = () => {
           </div>
         </div>
       )}
+      <Modal
+        title="비밀번호 변경"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        okText="변경"
+        cancelText="취소"
+      >
+        <Form
+          name="basic2"
+          labelCol={{
+            span: 6,
+          }}
+          wrapperCol={{
+            span: 12,
+          }}
+          autoComplete="off"
+        >
+          <Form.Item label="새 비밀번호" name="user-password">
+            <Input.Password
+              style={{ width: '100%' }}
+              placeholder="새 비밀번호를 입력해주세요."
+              value={password}
+              onChange={onChangePassowrd}
+            />
+          </Form.Item>
+          <Form.Item label="새 비밀번호 확인" name="user-password-check">
+            <Input.Password
+              style={{ width: '100%' }}
+              placeholder="새 비밀번호를 입력해주세요."
+              value={passwordCheck}
+              onChange={onChangePasswordCheck}
+            />
+          </Form.Item>
+        </Form>
+      </Modal>
     </>
   );
 };
