@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 
 import { Typography, Card, Row, Col, Divider } from 'antd';
+import Router from 'next/router';
 const { Title } = Typography; // Typograpy.Title
 const { Meta } = Card;
 
@@ -11,7 +12,6 @@ const IndexRecommend = () => {
   useEffect(() => {
     axios.get('http://localhost:8000/movies/recommend1/')
     .then(res => {
-      // console.log(res.data.slice(0, 7)); 
       setMovies(res.data.slice(0, 6));
     });
   }, []);
@@ -32,6 +32,7 @@ const IndexRecommend = () => {
                   style={{ height:'100%' }}
                   hoverable
                   cover={<img alt={`${movie.title} 포스터 이미지`} src={movie.backdrop_path} key={movie.id} />}
+                  onClick={() => Router.push(`/movie/${movie.id}`)}
                 >
                   <Meta title={movie.title} description={`${movie.overview.slice(0,100)}...`} />
                 </Card>
