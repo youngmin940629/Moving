@@ -33,15 +33,15 @@ export default function BoardTable(props) {
       dataIndex: 'username',
     },
     {
-      title: '작성일',
-      dataIndex: 'created_at',
-    },
-    {
       title: 'Title',
       dataIndex: 'title',
       render: (title, record) => <Link
           href={`board/${record.id}`}
           value={record.id}><a>{title}</a></Link>
+    },
+    {
+      title: '작성일',
+      dataIndex: 'created_at',
     },
     {
       render: (record) => (

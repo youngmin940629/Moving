@@ -37,17 +37,21 @@ export default function detailContent(props){
                        columns={columns}
                 />
             </section>
-            <section className="imgSection">
-                <img className="posterImg" src={props.movies[0].poster_path}
-                    alt="이미지가 없습니다."
-                />
-            </section>
-            <section className="description">
-                <span className="movieTitle">
-                    {props.movies[0].title} :
-                </span>
-                <span>{props.movies[0].overview}</span>
-            </section>
+            영화정보
+            <container className="movieInfo-container">
+                <div className="container-item">
+                    <img className="posterImg" src={props.movies[0].poster_path}
+                        alt="이미지가 없습니다."
+                    />
+                </div>
+                <div className="container-item">
+                    <span className="movieTitle">
+                        {props.movies[0].title}
+                        <br/>
+                    </span>
+                    <span>{props.movies[0].overview}</span>
+                </div>
+            </container>
             <section className="contentDiv">
                 {data[0].content}
             </section>
@@ -61,20 +65,27 @@ export default function detailContent(props){
                      padding-bottom : 70px;
                 }
                 .posterImg{
-                      width: 40%;
-                      height: 450px;
-                      display: block;
-                      margin: auto;
+                      width: 100%;
+                      height: 100%;
                 }
-                .imgSection{
-                    text-align: center;
+                .movieInfo-container{
+                    max-width: 100%;
+                    display: flex;
+                    border-top: 2px groove grey;
+                    border-bottom : 2px groove grey;
+                   
+                }
+                .container-item{
+                    max-width: 100%;
+                    margin: auto;
+                    padding: 10% auto 10% auto;
                 }
                 .movieTitle{
                     font-size: 28px
                 }
                 .description{
                     font-size: 16px;
-                }
+                }   
                 `}
 
             </style>

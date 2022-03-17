@@ -20,7 +20,7 @@ export default function Comments(props) {
         console.log(data.comment);
         axios.post(`http://localhost:8000/community/review/${props.data}/comment/`,
             {
-                user:1, // 유저 아이디 바꿔야됨
+                user:userID, // 유저 아이디 바꿔야됨
                 review:props.data, //게시글 id
                 content:data.comment // 댓글 내용
             })
@@ -63,9 +63,12 @@ export default function Comments(props) {
                 </Form.Item>
                 <Form.Item>
                  <div className="commentBtn">
-                    <Button htmlType="submit" type="primary">
-                        Add Comment
-                    </Button>
+                     {userID != null ?(
+                         <Button htmlType="submit" type="primary">
+                             Add Comment
+                         </Button>
+                     ) : <span>댓글 작성은 로그인 후 이용해 주세요</span>
+                     }
                  </div>
                 </Form.Item>
             </Form>
@@ -80,7 +83,7 @@ export default function Comments(props) {
                                 title={item.username}
                                 description={item.content}
                             />
-                            {item.user === userID? (
+                            {item.user == userID? (
                                 <Button onClick={()=>{
                                     commentDelete(item.id)
                                 }}>삭제</Button>
