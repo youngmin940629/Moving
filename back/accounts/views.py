@@ -1,3 +1,4 @@
+from os import set_inheritable
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
@@ -79,3 +80,18 @@ def is_staff(request):
             False
         }
         return Response(data)
+
+@api_view(['PUT'])
+@permission_classes([AllowAny])
+def edit(request,user_id):
+    print(request.data)
+    if request.method == 'PUT':
+        user = get_user_model(User,pk=user_id)
+        serializers = UserSerializer(user, data=request.data)
+        if serializers.is_valid(raise_exception=True):
+            serializers.save()
+            return Response(status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+    else:
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
