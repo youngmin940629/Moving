@@ -12,7 +12,11 @@ export default function BoardDetail({post, movieInfo}) {
     const router = useRouter();
     const [userID, setUserID] = useState();
     useEffect(()=>{
-        setUserID(jwt_decode(localStorage.getItem("JWT token")).user_id);
+        if(localStorage.getItem("JWT token")){
+            setUserID(jwt_decode(localStorage.getItem("JWT token")).id);
+        }else{
+            setUserID(null);
+        }
     },[])
   return (
     <>

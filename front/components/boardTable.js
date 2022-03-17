@@ -10,7 +10,11 @@ export default function BoardTable(props) {
   const [userID, setUserID] =  useState();
 
   useEffect(()=>{
-    setUserID(jwt_decode(localStorage.getItem("JWT token")).id);
+    if(localStorage.getItem("JWT token")){
+      setUserID(jwt_decode(localStorage.getItem("JWT token")).id);
+    }else{
+      setUserID(null);
+    }
   },[])
 
   // 게시글 삭제 함수 id : 게시글 번호
@@ -64,7 +68,10 @@ export default function BoardTable(props) {
   return (
     <>
       <div className="boardWriteBtn">
-        <button onClick={goWrite}>게시글 쓰기</button>
+        {userID != null ? (
+            <button onClick={goWrite}>게시글 쓰기</button>
+        ) : null
+        }
       </div>
 
       <Table dataSource={props.boards} columns={columns} />;

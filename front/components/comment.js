@@ -7,7 +7,11 @@ export default function Comments(props) {
     const [comments, setComments] = useState([{}]);
     const [userID, setUserID] = useState();
     useEffect(()=>{
-        setUserID(jwt_decode(localStorage.getItem("JWT token")).user_id);
+        if(localStorage.getItem("JWT token")){
+            setUserID(jwt_decode(localStorage.getItem("JWT token")).id);
+        }else{
+            setUserID(null);
+        }
     },[])
 
 
