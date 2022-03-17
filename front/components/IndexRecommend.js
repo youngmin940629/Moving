@@ -1,0 +1,47 @@
+import React, { useState, useEffect } from 'react'
+import axios from 'axios';
+
+import { Typography, Card, Row, Col, Divider } from 'antd';
+const { Title } = Typography; // Typograpy.Title
+const { Meta } = Card;
+
+const IndexRecommend = () => {
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:8000/movies/recommend1/')
+    .then(res => {
+      // console.log(res.data.slice(0, 7)); 
+      setMovies(res.data.slice(0, 6));
+    });
+  }, []);
+  
+  return (
+    <>
+      <Divider
+        orientation="left"
+        orientationMargin="0" 
+      >
+        <Title level={2}>랜덤 추천 영화</Title>
+      </Divider>
+      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+          {movies.map((movie) => {
+            return (
+              <Col className="gutter-row" span={4}>
+                <Card
+                  style={{ height:'100%' }}
+                  hoverable
+                  cover={<img alt={`${movie.title} 포스터 이미지`} src={movie.backdrop_path} key={movie.id} />}
+                >
+                  <Meta title={movie.title} description={`${movie.overview.slice(0,100)}...`} />
+                </Card>
+              </Col>
+            )
+            // return <MoviePoster i={movie.backdrop_path} key={movie.id} />;
+          })}
+      </Row>
+    </>
+  )
+}
+
+export default IndexRecommend;
