@@ -19,6 +19,7 @@ user_movie_ratings = rating_data.pivot(
 ).fillna(0)
 
 
+
 matrix = user_movie_ratings.values
 
 user_rating_mean = np.mean(matrix, axis = 1)
@@ -47,7 +48,7 @@ def user_recommend(svd_predicts, user_id, movies, ratings, num = 5):
 
     return user_history, recommendations.head(num)
 
-already_rated, prediction = user_recommend(svd_predicts, 14, movie_data, rating_data, 20)
+already_rated, prediction = user_recommend(svd_predicts, 100, movie_data, rating_data, 20)
 
-print(already_rated)
-print(prediction)
+# print(already_rated)
+# print(prediction)
