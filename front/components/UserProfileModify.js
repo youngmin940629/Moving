@@ -75,21 +75,25 @@ const UserProfileModify = () => {
   };
 
   const onSubmit = () => {
-    console.log('userInfo 수정', userInfo);
+    console.log('닉네임 수정', userInfo.username2);
     console.log('장르 수정', category_list);
+    const data = {
+      username2: userInfo.username2,
+      category_list: category_list,
+    };
+    console.log('data', data);
 
-    // axios
-    //   .put(
-    //     `http://localhost:8000/accounts/edit/${user.user_id}/`,
-    //     userInfo.username2,
-    //     category_list.category_list
-    //   )
-    //   .then(res => {
-    //     console.log(res);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
+    axios({
+      url: `http://localhost:8000/accounts/edit/${user.user_id}/`,
+      method: 'put',
+      data: data,
+    })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
   useEffect(() => {
     axios.get('http://localhost:8000/movies/genre_list/').then(res => {

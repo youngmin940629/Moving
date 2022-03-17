@@ -1,3 +1,4 @@
+from movies.models import Genre
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
@@ -51,10 +52,10 @@ def user_info(request, user_pk):
     if request.method == 'GET':
         serializers = UserSerializer(user)
         return Response(serializers.data)
-    elif request.method == 'DELETE': # 탈퇴
+    elif request.method == 'DELETE':  # 탈퇴
         user.delete()
         data = {
-            'delete' : f'탈퇴되었습니다.'
+            'delete': f'탈퇴되었습니다.'
         }
         return Response(data, status=status.HTTP_204_NO_CONTENT)
 
@@ -80,18 +81,19 @@ def is_staff(request):
         }
         return Response(data)
 
-from movies.models import Genre
+
 @api_view(['PUT'])
 @permission_classes([AllowAny])
-def edit(request,user_id):
+def edit(request, user_id):
     if request.method == 'PUT':
         user = get_object_or_404(User, pk=user_id)
-        data= request.data
+        data = request.data
         for d in data:
             if d == "username2":
                 user.username2 = data[d]
             elif d == "category_list":
-                genres_list = list(map(int,data[d][1:-1].split(',')))
+                print(data[d])
+                genres_list = list(map(int, str(data[d])[1:-1].split(',')))
                 user.category_list.clear()
                 for genre in genres_list:
                     user.category_list.add(Genre.objects.get(pk=genre))
@@ -100,7 +102,8 @@ def edit(request,user_id):
     else:
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
-@api_view(['POST'])
-@permission_classes([AllowAny])
+
+@ api_view(['POST'])
+@ permission_classes([AllowAny])
 def isexist(request):
     pass
