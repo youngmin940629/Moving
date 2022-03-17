@@ -1,4 +1,3 @@
-from os import set_inheritable
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
@@ -81,17 +80,27 @@ def is_staff(request):
         }
         return Response(data)
 
+from movies.models import Genre
 @api_view(['PUT'])
 @permission_classes([AllowAny])
 def edit(request,user_id):
-    print(request.data)
     if request.method == 'PUT':
-        user = get_user_model(User,pk=user_id)
-        serializers = UserSerializer(user, data=request.data)
-        if serializers.is_valid(raise_exception=True):
-            serializers.save()
-            return Response(status=status.HTTP_200_OK)
-        else:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+        user = get_object_or_404(User, pk=user_id)
+        data= request.data
+        for d in data:
+            if d == "username2":
+                user.username2 = data[d]
+            elif d == "category_list":
+                genres_list = list(map(int,data[d][1:-1].split(',')))
+                user.category_list.clear()
+                for genre in genres_list:
+                    user.category_list.add(Genre.objects.get(pk=genre))
+        user.save()
+        return Response(status=status.HTTP_200_OK)
     else:
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def isexist(request):
+    pass
