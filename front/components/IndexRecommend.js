@@ -38,7 +38,6 @@ const IndexRecommend = () => {
                 </Card>
               </Col>
             )
-            // return <MoviePoster i={movie.backdrop_path} key={movie.id} />;
           })}
       </Row>
     </>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Slider from 'react-slick';
 import { MdArrowForwardIos, MdArrowBackIos } from 'react-icons/md';
+import Router from 'next/router';
 import axios from 'axios';
 import styled from 'styled-components';
 
@@ -54,7 +55,12 @@ const MainCarousel = () => {
             className={idx === imageIndex ? 'slide activeSlide' : 'slide'}
             key={idx}
           >
-            <img src={movie.poster_path} alt={`${movie.title} poster image`} />
+            <img 
+              src={movie.poster_path} 
+              alt={`${movie.title} poster image`} 
+              onClick={() => Router.push(`/movie/${movie.id}`)}
+              style={{cursor: 'pointer'}}
+            />
           </div>
         ))}
       </Slider>
