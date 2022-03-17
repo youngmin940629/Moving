@@ -91,7 +91,7 @@ def edit(request,user_id):
             if d == "username2":
                 user.username2 = data[d]
             elif d == "category_list":
-                genres_list = list(map(int,data[d][1:-1].split(',')))
+                genres_list = list(map(int,str(data[d])[1:-1].split(',')))
                 user.category_list.clear()
                 for genre in genres_list:
                     user.category_list.add(Genre.objects.get(pk=genre))
@@ -110,7 +110,12 @@ def isexist(request):
         except:
             return Response(False)
 
-@api_view(['POST'])
+@api_view(['PUT'])
 @permission_classes([AllowAny])
-def changePassword(request):
-    pass
+def changePassword(request,user_id):
+    if request.method == 'PUT':
+        user = get_object_or_404(User, pk=user_id)
+        password = request.data["password"]
+        user.set_password(password)
+        user.save()
+        return Response(status=status.HTTP_200_OK)
