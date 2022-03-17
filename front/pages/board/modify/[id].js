@@ -9,13 +9,16 @@ import jwt_decode from "jwt-decode";
 
 export default function ModifyBoard({post,movieTitle}){
     const router = useRouter();
-    console.log("title", movieTitle)
-    console.log("pst : ", post)
+
     const [movies, setMovies] = useState([[{}]]);
     const [selects, setSelects] = useState("");
     const [userID, setUserID] = useState();
     useEffect(()=>{
-        setUserID(jwt_decode(localStorage.getItem("JWT token")).user_id);
+        if(localStorage.getItem("JWT token")){
+            setUserID(jwt_decode(localStorage.getItem("JWT token")).user_id);
+        }else{
+            setUserID(null);
+        }
     },[])
     const [fields, setFields] = useState([
         {

@@ -11,7 +11,7 @@ export default function BoardTable(props) {
 
   useEffect(()=>{
     if(localStorage.getItem("JWT token")){
-      setUserID(jwt_decode(localStorage.getItem("JWT token")).id);
+      setUserID(jwt_decode(localStorage.getItem("JWT token")).user_id);
     }else{
       setUserID(null);
     }

@@ -13,7 +13,7 @@ export default function BoardDetail({post, movieInfo}) {
     const [userID, setUserID] = useState();
     useEffect(()=>{
         if(localStorage.getItem("JWT token")){
-            setUserID(jwt_decode(localStorage.getItem("JWT token")).id);
+            setUserID(jwt_decode(localStorage.getItem("JWT token")).user_id);
         }else{
             setUserID(null);
         }
@@ -57,6 +57,8 @@ export async function getServerSideProps({ params }) {
             await axios.get(`http://127.0.0.1:8000/movies/${post.movie}/`)
                 .then(res=>{
                     movieInfo = res.data;
+                    movieInfo[0]["key"] = res.data[0].id;
+                    console.log(movieInfo[0])
                 });
         })
 

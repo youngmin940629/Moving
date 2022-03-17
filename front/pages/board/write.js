@@ -12,7 +12,6 @@ export default function Write(){
 
     const [movies, setMovies] = useState([[{}]]);
     const [selects, setSelects] = useState("");
-    console.log("jwt",localStorage.getItem("JWT token"));
 
     const onFinish = (data)=>{
         data["rank"] = parseInt(data.rank);
