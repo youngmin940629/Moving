@@ -9,7 +9,8 @@ const StyledImg = styled.img`
   cursor: pointer;
   &:hover {
     border-color: transparent;
-    box-shadow: 0 1px 2px -2px rgb(0 0 0 / 16%), 0 3px 6px 0 rgb(0 0 0 / 12%), 0 5px 12px 4px rgb(0 0 0 / 9%);
+    box-shadow: 0 1px 2px -2px rgb(0 0 0 / 16%), 0 3px 6px 0 rgb(0 0 0 / 12%),
+      0 5px 12px 4px rgb(0 0 0 / 9%);
   }
 `;
 
@@ -17,8 +18,7 @@ const MainCarousel = () => {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:8000/movies/')
-    .then(res => {
+    axios.get(`${NEXT_PUBLIC_BASE_URL}/movies/`).then(res => {
       // console.log(res.data);
       setMovies(res.data);
     });
@@ -62,9 +62,9 @@ const MainCarousel = () => {
             className={idx === imageIndex ? 'slide activeSlide' : 'slide'}
             key={idx}
           >
-            <StyledImg 
-              src={movie.poster_path} 
-              alt={`${movie.title} poster image`} 
+            <StyledImg
+              src={movie.poster_path}
+              alt={`${movie.title} poster image`}
               onClick={() => Router.push(`/movie/${movie.id}`)}
             />
           </div>

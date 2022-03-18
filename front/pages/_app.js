@@ -9,6 +9,7 @@ import axios from 'axios';
 const App = ({ Component, pageProps }) => {
   useEffect(() => {
     const token = localStorage.getItem('JWT token');
+    console.log('token', token);
     if (token) {
       axios({
         url: `${process.env.NEXT_PUBLIC_BASE_URL}/accounts/getuserpk/`,
