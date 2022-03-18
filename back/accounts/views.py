@@ -1,5 +1,5 @@
 from rest_framework import status
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from .serializers import UserSerializer, UserSignupSerializer
@@ -119,3 +119,12 @@ def changePassword(request,user_id):
         user.set_password(password)
         user.save()
         return Response(status=status.HTTP_200_OK)
+
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+@api_view(['POST'])
+@permission_classes((IsAuthenticated, ))
+@authentication_classes((JSONWebTokenAuthentication,))
+def get_userpk(request):
+    data = {'pk' : request.user.pk}
+    return Response(data)

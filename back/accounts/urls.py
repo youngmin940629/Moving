@@ -13,4 +13,5 @@ urlpatterns = [
     path('edit/<int:user_id>/',views.edit),
     path('isexist/',views.isexist),
     path('changepassword/<int:user_id>/',views.changePassword),
+    path('getuserpk/',views.get_userpk),
 ]
