@@ -38,7 +38,7 @@ export default function detailContent(props){
                 />
             </section>
             영화정보
-            <container className="movieInfo-container">
+            <section className="movieInfo-container">
                 <div className="container-item">
                     <img className="posterImg" src={props.movies[0].poster_path}
                         alt="이미지가 없습니다."
@@ -51,7 +51,7 @@ export default function detailContent(props){
                     </span>
                     <span>{props.movies[0].overview}</span>
                 </div>
-            </container>
+            </section>
             <section className="contentDiv">
                 {data[0].content}
             </section>
@@ -65,7 +65,7 @@ export default function detailContent(props){
                      padding-bottom : 70px;
                 }
                 .posterImg{
-                      width: 30%;
+                      width: 40%;
                 }
                 .movieInfo-container{
                     max-width: 100%;

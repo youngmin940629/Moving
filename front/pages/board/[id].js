@@ -53,7 +53,6 @@ export async function getServerSideProps({ params }) {
     await axios.get(`http://127.0.0.1:8000/community/review/${id}`)
         .then(async res=>{
             post = res.data;
-            post["key"] = res.data.id;
             await axios.get(`http://127.0.0.1:8000/movies/${post.movie}/`)
                 .then(res=>{
                     movieInfo = res.data;

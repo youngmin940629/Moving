@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 export default function StarRating({id}) {
   const [rating,setRating] = useState(0);
   const [user, setUser] = useState(null)
+  const [originRating, setOriginRating] = useState(0);
   useEffect(()=>{
 
     const token = localStorage.getItem('JWT token');
@@ -13,6 +14,7 @@ export default function StarRating({id}) {
     axios.get(`http://localhost:8000/movies/rating/${id}/${decoded.user_id}`)
     .then(function(res){
       if(res.data){
+        setOriginRating(res.data);
         if(0<=res.data && res.data<2){
           setRating(2)
         }else if(2<=res.data && res.data<4){
@@ -67,6 +69,14 @@ export default function StarRating({id}) {
       }
     }
   },[rating])
+  useEffect(()=>{
+    const originRatingArr = new Array(5)
+    for (let i = 0; i < originRatingArr.length; i++) {
+      originRatingArr[i] = document.querySelector(`.star${i+1}`)
+      if(originRating/2 > i) originRatingArr[i].style.color="#fc0"
+    }
+  },[originRating])
+
   return (
     <>
     <div className="star-rating">
