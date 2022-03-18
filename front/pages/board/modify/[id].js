@@ -5,17 +5,16 @@ import {Button, Form, Input, Select} from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import jwt_decode from "jwt-decode";
 
 export default function ModifyBoard({post,movieTitle}){
     const router = useRouter();
 
     const [movies, setMovies] = useState([[{}]]);
     const [selects, setSelects] = useState("");
-    const [userID, setUserID] = useState();
+    const [userID, setUserID] = useState(null);
     useEffect(()=>{
-        if(localStorage.getItem("JWT token")){
-            setUserID(jwt_decode(localStorage.getItem("JWT token")).user_id);
+        if(sessionStorage.getItem("id")){
+            setUserID(sessionStorage.getItem("id"));
         }else{
             setUserID(null);
         }
@@ -43,7 +42,7 @@ export default function ModifyBoard({post,movieTitle}){
         data["movie"] = parseInt(data.movie);
         data["user"] = userID;
         console.log(data);
-        axios.put(`http://localhost:8000/community/review/${post.id}/`,
+        axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/community/review/${post.id}/`,
             {
                 data
             }
@@ -51,7 +50,7 @@ export default function ModifyBoard({post,movieTitle}){
         router.push(`/community`)
     }
     const callMovie=async (id) => {
-        await axios.get(`http://localhost:8000/movies/search/${id}`)
+        await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/movies/search/${id}`)
             .then(res => {
                 setMovies([res.data]);
             })
@@ -132,10 +131,10 @@ export async function getServerSideProps({ params }) {
     const id = parseInt(params.id);
     let post;
     let movieTitle;
-    await axios.get(`http://127.0.0.1:8000/community/review/${id}`)
+    await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/community/review/${id}`)
         .then(async res => {
             post = res.data;
-            await axios.get(`http://127.0.0.1:8000/movies/${post.movie}/`)
+            await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/movies/${post.movie}/`)
                 .then(res => {
                     movieTitle = res.data[0].title;
                 });

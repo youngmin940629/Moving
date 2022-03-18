@@ -16,7 +16,7 @@ export default function Write(){
     const onFinish = (data)=>{
         data["rank"] = parseInt(data.rank);
         data["movie"] = parseInt(data.movie);
-        axios.post(`http://localhost:8000/community/review/`,
+        axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/community/review/`,
             {
                 data
             },{
@@ -27,7 +27,7 @@ export default function Write(){
         router.replace(`/community`)
     }
     const callMovie=async (id) => {
-        await axios.get(`http://localhost:8000/movies/search/${id}`)
+        await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/movies/search/${id}`)
             .then(res => {
                 setMovies([res.data]);
             })

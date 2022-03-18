@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import AppLayout from '../components/AppLayout';
 import Head from 'next/head';
 import BoardTable from '../components/boardTable';
@@ -20,7 +20,7 @@ export default function Community({boards}) {
 
 export async function getServerSideProps(){
     let boards;
-    await axios.get("http://127.0.0.1:8000/community/review/")
+    await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/community/review/`)
         .then(res=>{
             try {
                 boards = res.data;

@@ -3,15 +3,14 @@ import { useRouter } from 'next/router';
 import Link from "next/link"
 import {useEffect, useState} from "react";
 import axios from "axios";
-import jwt_decode from "jwt-decode";
 
 export default function BoardTable(props) {
   const router = useRouter();
-  const [userID, setUserID] =  useState();
+  const [userID, setUserID] =  useState(null);
 
   useEffect(()=>{
-    if(localStorage.getItem("JWT token")){
-      setUserID(jwt_decode(localStorage.getItem("JWT token")).user_id);
+    if(sessionStorage.getItem("id")){
+      setUserID(sessionStorage.getItem("id"));
     }else{
       setUserID(null);
     }
@@ -22,7 +21,7 @@ export default function BoardTable(props) {
     console.log(id)
     try {
       if(confirm("삭제하기겠습니까?")){
-        axios.delete(`http://localhost:8000/community/review/${id}/`);
+        axios.delete(`${process.env.NEXT_PUBLIC_BASE_URL}/community/review/${id}/`);
         alert("삭제완료");
         router.replace(router.asPath);
       }

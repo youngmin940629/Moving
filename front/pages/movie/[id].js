@@ -20,7 +20,7 @@ export default function Movie({id, detail}) {
 
 export async function getServerSideProps({params}){
   const id = params.id
-  const data = await axios.get(`http://localhost:8000/movies/${id}`)
+  const data = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/movies/${id}`)
   const detail = data.data[0]
   return {
     props:{

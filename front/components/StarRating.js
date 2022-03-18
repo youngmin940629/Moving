@@ -11,7 +11,7 @@ export default function StarRating({id}) {
     const token = localStorage.getItem('JWT token');
     const decoded = jwtDecode(token);
     setUser(decoded.user_id);
-    axios.get(`http://localhost:8000/movies/rating/${id}/${decoded.user_id}`)
+    axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/movies/rating/${id}/${decoded.user_id}`)
     .then(function(res){
       if(res.data){
         setOriginRating(res.data);
@@ -60,7 +60,7 @@ export default function StarRating({id}) {
           rank:rating,
         }
         axios({
-          url:`http://localhost:8000/movies/rating_movie/`,
+          url:`${process.env.NEXT_PUBLIC_BASE_URL}/movies/rating_movie/`,
           method:'post',
           data:data,
         }).then(function(res){

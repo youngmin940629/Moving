@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {  Form, Button, List, Comment, Avatar ,Input } from 'antd';
+import {  Form, Button, List, Input } from 'antd';
 import axios from "axios";
-import jwt_decode from "jwt-decode";
 
 export default function Comments(props) {
     const [comments, setComments] = useState([{}]);
-    const [userID, setUserID] = useState();
+    const [userID, setUserID] = useState(null);
     const dateFormat = (data)=>{
         let originDate;
         for(let i=0; i<data.length; i++){
@@ -21,8 +20,8 @@ export default function Comments(props) {
         setComments(data);
     }
     useEffect(()=>{
-        if(localStorage.getItem("JWT token")){
-            setUserID(jwt_decode(localStorage.getItem("JWT token")).user_id);
+        if(sessionStorage.getItem("id")){
+            setUserID(sessionStorage.getItem("id"));
         }else{
             setUserID(null);
         }
@@ -32,14 +31,14 @@ export default function Comments(props) {
     // 댓글 등록 요청
     const submitComment=(data)=>{
         console.log(data.comment);
-        axios.post(`http://localhost:8000/community/review/${props.data}/comment/`,
+        axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/community/review/${props.data}/comment/`,
             {
                 user:userID,
                 review:props.data, //게시글 id
                 content:data.comment // 댓글 내용
             })
             .then(()=>{
-                axios.get(`http://localhost:8000/community/review/${props.data}/`)
+                axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/community/review/${props.data}/`)
                     .then(res=>{
                         dateFormat(res.data.comments);
                     });
@@ -48,9 +47,9 @@ export default function Comments(props) {
     }
     // 댓글 삭제
     const commentDelete = (id)=>{
-        axios.delete(`http://localhost:8000/community/comment/${id}/`)
+        axios.delete(`${process.env.NEXT_PUBLIC_BASE_URL}/community/comment/${id}/`)
             .then(async () => {
-                await axios.get(`http://localhost:8000/community/review/${props.data}/`)
+                await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/community/review/${props.data}/`)
                     .then(res => {
                         dateFormat(res.data.comments);
                     });
@@ -60,7 +59,7 @@ export default function Comments(props) {
     // 댓글 가져오기
     useEffect(async ()=>{
         console.log("effect call")
-        await axios.get(`http://localhost:8000/community/review/${props.data}/`)
+        await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/community/review/${props.data}/`)
             .then(res=>{
                 dateFormat(res.data.comments);
             })
