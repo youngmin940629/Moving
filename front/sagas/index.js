@@ -46,6 +46,14 @@ function* logIn(action) {
       data: result.data,
     });
     yield localStorage.setItem('JWT token', result.data.token);
+    let token = localStorage.getItem('JWT token');
+    axios({
+      url: 'http://localhost:8000/accounts/getuserpk/',
+      method: 'post',
+      headers: { Authorization: `JWT ${token}` },
+    }).then(function (res) {
+      sessionStorage.setItem('id', res.data.pk);
+    });
     yield Router.push('/');
   } catch (err) {
     yield put({ type: LOG_IN_FAILURE, error: err.response.data });
@@ -61,6 +69,7 @@ function* logOut() {
       type: LOG_OUT_SUCCESS,
     });
     yield localStorage.removeItem('JWT token');
+    yield sessionStorage.removeItem('id');
   } catch (err) {
     yield put({ type: LOG_OUT_FAILURE, error: err.response.data });
   }

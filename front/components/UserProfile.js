@@ -30,7 +30,7 @@ const UserProfile = () => {
   const [mode, setMode] = useState('');
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState(false);
-  
+  const [id, setId] = useState(null);
 
   const onChangePassword = e => {
     setPassword(e.target.value);
@@ -39,8 +39,8 @@ const UserProfile = () => {
 
   const logout = () => {
     console.log(dispatch(logoutRequestAction()));
-    Router.push("/")
-  }
+    Router.push('/');
+  };
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -51,36 +51,34 @@ const UserProfile = () => {
 
   const deleteUser = () => {
     // 확인
-    if (window.confirm("탈퇴하시겠습니까?")) {
+    if (window.confirm('탈퇴하시겠습니까?')) {
       // 탈퇴
       axios
-      .delete(`http://localhost:8000/accounts/${user.user_id}`)
-      .then(res => {
-        console.log(res.data);
-        alert("탈퇴가 완료되었습니다. 메인페이지로 이동합니다.")
-        logout()
-      })
-      .catch(err => {
-        console.log(err);
-        alert("처리 중 에러가 발생했습니다. 관리자에게 문의하세요.")
-      });
+        .delete(`http://localhost:8000/accounts/${user.user_id}`)
+        .then(res => {
+          console.log(res.data);
+          alert('탈퇴가 완료되었습니다. 메인페이지로 이동합니다.');
+          logout();
+        })
+        .catch(err => {
+          console.log(err);
+          alert('처리 중 에러가 발생했습니다. 관리자에게 문의하세요.');
+        });
     } else {
-      alert("탈퇴가 취소되었습니다.")
+      alert('탈퇴가 취소되었습니다.');
     }
-  }
+  };
 
   useEffect(() => {
-    setToken(localStorage.getItem('JWT token'));
+    // setToken(localStorage.getItem('JWT token'));
+    let id = sessionStorage.getItem('id');
+    setId(id);
   }, []);
+
   useEffect(() => {
-    if (token) {
-      setUser(jwt_decode(token));
-    }
-  }, [token]);
-  useEffect(() => {
-    if (user) {
+    if (id) {
       axios
-        .get(`http://localhost:8000/accounts/${user.user_id}`)
+        .get(`http://localhost:8000/accounts/${id}`)
         .then(res => {
           console.log(res.data);
           setCategory(res.data.category_list);
@@ -95,7 +93,7 @@ const UserProfile = () => {
           console.log(err);
         });
     }
-  }, [user]);
+  }, [id]);
   return (
     <>
       {userInfo != null && category != null && (
@@ -152,10 +150,10 @@ const UserProfile = () => {
                 >
                   수정
                 </MyButton>
-                <MyButton 
-                  type="danger" 
-                  shape="round" 
-                  size="large" 
+                <MyButton
+                  type="danger"
+                  shape="round"
+                  size="large"
                   onClick={() => setVisible(true) & setMode('del')}
                 >
                   탈퇴
@@ -196,8 +194,8 @@ const UserProfile = () => {
                   }}
                 >
                   <h3>
-                    회원님의 정보를 안전하게 보호하기 위해 비밀번호를 한번
-                    더 확인해주세요.
+                    회원님의 정보를 안전하게 보호하기 위해 비밀번호를 한번 더
+                    확인해주세요.
                   </h3>
                   <Input.Password
                     style={{ width: '50%' }}

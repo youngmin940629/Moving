@@ -17,7 +17,7 @@ const ErrorMessage = styled.div`
 
 const UserProfileModify = () => {
   const router = useRouter();
-  const [token, setToken] = useState(null);
+  const [id, setId] = useState(null);
   const [user, setUser] = useState(null);
   const [userInfo, setUserInfo] = useState(null);
   const [category, setCategory] = useState(null);
@@ -123,17 +123,13 @@ const UserProfileModify = () => {
   }, []);
 
   useEffect(() => {
-    setToken(localStorage.getItem('JWT token'));
+    setId(sessionStorage.getItem('id'));
   }, []);
+
   useEffect(() => {
-    if (token) {
-      setUser(jwt_decode(token));
-    }
-  }, [token]);
-  useEffect(() => {
-    if (user) {
+    if (id) {
       axios
-        .get(`http://localhost:8000/accounts/${user.user_id}`)
+        .get(`http://localhost:8000/accounts/${id}`)
         .then(res => {
           console.log(res.data);
           setCategory(res.data.category_list);
@@ -153,7 +149,7 @@ const UserProfileModify = () => {
           console.log(err);
         });
     }
-  }, [user]);
+  }, [id]);
   return (
     <>
       {userInfo != null && category != null && (
