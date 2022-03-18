@@ -76,7 +76,7 @@ const UserProfileModify = () => {
   const handleOk = () => {
     axios
       .put(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/accounts/changepassword/${user.user_id}/`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/accounts/changepassword/${id}/`,
         {
           password: password,
         }
@@ -108,7 +108,7 @@ const UserProfileModify = () => {
     console.log('data', data);
 
     axios({
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}/accounts/edit/${user.user_id}/`,
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/accounts/edit/${id}/`,
       method: 'put',
       data: data,
     })

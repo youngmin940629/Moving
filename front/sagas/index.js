@@ -48,7 +48,7 @@ function* logIn(action) {
     yield localStorage.setItem('JWT token', result.data.token);
     let token = localStorage.getItem('JWT token');
     axios({
-      url: 'http://localhost:8000/accounts/getuserpk/',
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/accounts/getuserpk/`,
       method: 'post',
       headers: { Authorization: `JWT ${token}` },
     }).then(function (res) {
