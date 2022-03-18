@@ -54,7 +54,7 @@ const UserProfile = () => {
     if (window.confirm('탈퇴하시겠습니까?')) {
       // 탈퇴
       axios
-        .delete(`http://localhost:8000/accounts/${user.user_id}`)
+        .delete(`${process.env.NEXT_PUBLIC_BASE_URL}/accounts/${user.user_id}`)
         .then(res => {
           console.log(res.data);
           alert('탈퇴가 완료되었습니다. 메인페이지로 이동합니다.');
@@ -78,7 +78,7 @@ const UserProfile = () => {
   useEffect(() => {
     if (id) {
       axios
-        .get(`http://localhost:8000/accounts/${id}`)
+        .get(`${process.env.NEXT_PUBLIC_BASE_URL}/accounts/${id}`)
         .then(res => {
           console.log(res.data);
           setCategory(res.data.category_list);
@@ -166,10 +166,13 @@ const UserProfile = () => {
                 onOk={() => {
                   console.log('password', password);
                   axios
-                    .post('http://localhost:8000/accounts/login/', {
-                      username: userInfo.username,
-                      password: password,
-                    })
+                    .post(
+                      `${process.env.NEXT_PUBLIC_BASE_URL}/accounts/login/`,
+                      {
+                        username: userInfo.username,
+                        password: password,
+                      }
+                    )
                     .then(() => {
                       setVisible(false);
                       if (mode === 'mod') {

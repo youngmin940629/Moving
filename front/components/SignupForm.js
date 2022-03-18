@@ -97,9 +97,11 @@ const SignupForm = () => {
     setCategoryList(temp);
   }
   useEffect(() => {
-    axios.get('http://localhost:8000/movies/genre_list/').then(res => {
-      setData(res.data);
-    });
+    axios
+      .get(`${process.env.NEXT_PUBLIC_BASE_URL}/movies/genre_list/`)
+      .then(res => {
+        setData(res.data);
+      });
   }, []);
 
   const [birthDate, setBirthDate] = useState(null);

@@ -75,9 +75,12 @@ const UserProfileModify = () => {
 
   const handleOk = () => {
     axios
-      .put(`http://localhost:8000/accounts/changepassword/${user.user_id}/`, {
-        password: password,
-      })
+      .put(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/accounts/changepassword/${user.user_id}/`,
+        {
+          password: password,
+        }
+      )
       .then(res => {
         console.log(res);
       })
@@ -105,7 +108,7 @@ const UserProfileModify = () => {
     console.log('data', data);
 
     axios({
-      url: `http://localhost:8000/accounts/edit/${user.user_id}/`,
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/accounts/edit/${user.user_id}/`,
       method: 'put',
       data: data,
     })
@@ -117,9 +120,11 @@ const UserProfileModify = () => {
       });
   };
   useEffect(() => {
-    axios.get('http://localhost:8000/movies/genre_list/').then(res => {
-      setData(res.data);
-    });
+    axios
+      .get(`${process.env.NEXT_PUBLIC_BASE_URL}/movies/genre_list/`)
+      .then(res => {
+        setData(res.data);
+      });
   }, []);
 
   useEffect(() => {
@@ -129,7 +134,7 @@ const UserProfileModify = () => {
   useEffect(() => {
     if (id) {
       axios
-        .get(`http://localhost:8000/accounts/${id}`)
+        .get(`${process.env.NEXT_PUBLIC_BASE_URL}/accounts/${id}`)
         .then(res => {
           console.log(res.data);
           setCategory(res.data.category_list);
@@ -194,9 +199,12 @@ const UserProfileModify = () => {
                     <Button
                       onClick={() => {
                         axios
-                          .post('http://localhost:8000/accounts/isexist/', {
-                            username2: userInfo.username2,
-                          })
+                          .post(
+                            `${process.env.NEXT_PUBLIC_BASE_URL}/accounts/isexist/`,
+                            {
+                              username2: userInfo.username2,
+                            }
+                          )
                           .then(res => {
                             console.log(res);
                             res.data

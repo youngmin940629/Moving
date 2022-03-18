@@ -16,7 +16,7 @@ import {
   LOAD_USER_FAILURE,
 } from '../reducers/user';
 
-axios.defaults.baseURL = 'http://localhost:8000';
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 
 function loadUserAPI(data) {
   return axios.get('/', data);

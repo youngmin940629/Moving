@@ -7,30 +7,30 @@ import wrapper from '../store/configureStore';
 import axios from 'axios';
 
 const App = ({ Component, pageProps }) => {
-  useEffect(()=>{
+  useEffect(() => {
     const token = localStorage.getItem('JWT token');
-    if(token){
+    if (token) {
       axios({
-        url:'http://localhost:8000/accounts/getuserpk/',
-        method:'post',
-        headers:{'Authorization':`JWT ${token}`}
-      }).then(function(res){
-        sessionStorage.setItem('id',res.data.pk)
-      })
+        url: `${process.env.NEXT_PUBLIC_BASE_URL}/accounts/getuserpk/`,
+        method: 'post',
+        headers: { Authorization: `JWT ${token}` },
+      }).then(function (res) {
+        sessionStorage.setItem('id', res.data.pk);
+      });
     }
-    return ()=>{
+    return () => {
       let id = sessionStorage.getItem('id');
-      if(id){
+      if (id) {
         sessionStorage.removeItem('id');
       }
-    }
-  },[])
+    };
+  }, []);
   return (
     <>
       <Head>
         <title>moving</title>
       </Head>
-      <Component {...pageProps}/>
+      <Component {...pageProps} />
     </>
   );
 };
