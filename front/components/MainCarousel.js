@@ -18,7 +18,7 @@ const MainCarousel = () => {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    axios.get(`${NEXT_PUBLIC_BASE_URL}/movies/`).then(res => {
+    axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/movies/`).then(res => {
       // console.log(res.data);
       setMovies(res.data);
     });

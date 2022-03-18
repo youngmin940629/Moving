@@ -5,9 +5,9 @@ import {
   Form,
   Input,
   Col,
+  Row,
   Select,
   DatePicker,
-  Space,
   Radio,
 } from 'antd';
 import useInput from '../hooks/useInput';
@@ -116,6 +116,38 @@ const SignupForm = () => {
     setGender(e.target.value);
   };
 
+  const [username2Check, setUsername2Check] = useState('');
+
+  const nicknameCheckTrue = () => {
+    alert('사용 불가능한 닉네임 입니다.');
+    console.log(username2Check)
+    setUsername2Check(true);
+    console.log(username2Check)
+  };
+
+  const nicknameCheckFalse = () => {
+    alert('사용 가능한 닉네임 입니다.');
+    console.log(username2Check)
+    setUsername2Check(false);
+    console.log(username2Check)
+  };
+  
+  const nicknameCheck = () => {
+    axios
+      .post(`${process.env.NEXT_PUBLIC_BASE_URL}/accounts/isexist/`, {
+        username2: username,
+      })
+      .then(res => {
+        console.log(res);
+        res.data
+          ? nicknameCheckTrue()
+          : nicknameCheckFalse();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   const onSubmit = useCallback(() => {
     if (password !== passwordCheck) {
       return setPasswordError(true);
@@ -123,11 +155,16 @@ const SignupForm = () => {
     if (!term) {
       return setTermError(true);
     }
+    if (username2Check === '' || username2Check === true ) {
+      console.log(username2Check)
+      return setUsername2Check(true);
+    }
     dispatch({
       type: SIGN_UP_REQUEST,
       data: { email, username, password, category_list, birthDate, gender },
     });
-  }, [password, passwordCheck, term, category_list, birthDate, gender]);
+  }, [password, passwordCheck, term, category_list, birthDate, gender, username2Check]);
+
 
   return (
     <>
@@ -165,20 +202,45 @@ const SignupForm = () => {
           />
         </Form.Item>
         <Form.Item
+          layout="inline"
           label="닉네임"
-          name="user-username"
+          name="user-nickname"
           rules={[
             {
               required: true,
-              message: '닉네임을 입력해주세요.',
+              message: ''
             },
           ]}
         >
-          <Input
-            placeholder="닉네임을 입력해주세요."
-            value={username}
-            onChange={onChangeUsername}
-          />
+          <Row>
+            <Col span={20}>
+              <Form.Item
+                name="user-username"
+                rules={[
+                  {
+                    required: true,
+                    message: '닉네임을 입력해주세요.',
+                  },
+                ]}
+                style={{ margin: '0 15px 0 0'}}
+              >
+                <Input
+                  placeholder="닉네임을 입력해주세요."
+                  value={username}
+                  onChange={onChangeUsername}
+                />
+              </Form.Item>
+            </Col>
+            <Col span={4}>
+              <Button
+                onClick={nicknameCheck}
+                style={{ width: '100%' }}
+              >
+                중복확인
+              </Button>
+            </Col>
+            {username2Check && <ErrorMessage>닉네임 중복확인을 진행해주세요.</ErrorMessage>}
+          </Row>
         </Form.Item>
         <Form.Item
           label="비밀번호"
@@ -257,10 +319,17 @@ const SignupForm = () => {
             buttonStyle="solid"
           />
         </Form.Item>
-        <Form.Item label="생년월일">
-          <Space direction="vertical">
-            <DatePicker onChange={onChange} />
-          </Space>
+        <Form.Item 
+          label="생년월일"
+          name="birthDate"
+          rules={[
+            {
+              required: true,
+              message: '생년월일을 선택해주세요.',
+            },
+          ]}
+        >
+          <DatePicker onChange={onChange} />
         </Form.Item>
         <CheckboxWrapper>
           <Checkbox name="user-term" checked={term} onChange={onChangeTerm}>
