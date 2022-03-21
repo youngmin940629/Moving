@@ -19,12 +19,12 @@ import {
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 
 function loadUserAPI(data) {
-  return axios.get('/', data);
+  return axios.get(`/accounts/${data}`);
 }
 
-function* loadUser() {
+function* loadUser(action) {
   try {
-    const result = localStorage.getItem('JWT token');
+    const result = yield call(loadUserAPI, action.data);
     yield put({
       type: LOAD_USER_SUCCESS,
       data: result,
@@ -47,14 +47,17 @@ function* logIn(action) {
     });
     yield localStorage.setItem('JWT token', result.data.token);
     let token = localStorage.getItem('JWT token');
-    axios({
+    yield axios({
       url: `${process.env.NEXT_PUBLIC_BASE_URL}/accounts/getuserpk/`,
       method: 'post',
       headers: { Authorization: `JWT ${token}` },
-    }).then(function (res) {
-      sessionStorage.setItem('id', res.data.pk);
-    });
-    yield Router.push('/');
+    })
+      .then(function (res) {
+        sessionStorage.setItem('id', res.data.pk);
+      })
+      .then(() => {
+        Router.push('/');
+      });
   } catch (err) {
     yield put({ type: LOG_IN_FAILURE, error: err.response.data });
     alert('아이디와 비밀번호를 확인해주세요');

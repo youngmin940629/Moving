@@ -47,6 +47,13 @@ export const logoutRequestAction = () => {
   };
 };
 
+export const loaduserRequestAction = data => {
+  return {
+    type: 'LOAD_USER_REQUEST',
+    data,
+  };
+};
+
 const reducer = (state = initialState, action) => {
   return produce(state, draft => {
     switch (action.type) {

@@ -4,31 +4,37 @@ import Link from 'next/link';
 import { Layout, Menu, Input, Button, Dropdown, message } from 'antd';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import { LOAD_USER_REQUEST, logoutRequestAction } from '../reducers/user';
-import { DownOutlined, UserOutlined, HeartOutlined, LogoutOutlined } from '@ant-design/icons';
+import {
+  loaduserRequestAction,
+  LOAD_USER_REQUEST,
+  logoutRequestAction,
+} from '../reducers/user';
+import {
+  DownOutlined,
+  UserOutlined,
+  HeartOutlined,
+  LogoutOutlined,
+} from '@ant-design/icons';
 import jwt_decode from 'jwt-decode';
 import Router from 'next/router';
 
 const { Header, Content, Footer } = Layout;
 
 const StyledLayout = styled(Layout)`
-  .ant-menu.ant-menu-dark 
-  .ant-menu-item-selected, 
-  .ant-menu-submenu-popup.ant-menu-dark 
-  .ant-menu-item-selected {
-    background: #2CD4AC;
+  .ant-menu.ant-menu-dark .ant-menu-item-selected,
+  .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
+    background: #2cd4ac;
   }
-  .ant-menu-dark.ant-menu-horizontal >
-  .ant-menu-item:hover {
-    background: #2CD4AC;
+  .ant-menu-dark.ant-menu-horizontal > .ant-menu-item:hover {
+    background: #2cd4ac;
   }
-`
+`;
 
 const SearchInput = styled(Input.Search)`
   vertical-align: middle;
   .ant-btn-primary {
-    background: #2CD4AC;
-    border-color: #2CD4AC;
+    background: #2cd4ac;
+    border-color: #2cd4ac;
   }
 `;
 
@@ -47,21 +53,26 @@ const MovingLogo = styled.img`
 `;
 
 const UserButton = styled(Button)`
-.ant-click-animating-node {
-  display: none;
-}
-`
-
+  .ant-click-animating-node {
+    display: none;
+  }
+`;
 
 const AppLayout = ({ children }) => {
   const logout = () => {
     console.log(dispatch(logoutRequestAction()));
-    Router.push("/")
-  }
+    Router.push('/');
+  };
 
   const menu = (
     <Menu>
-      <Menu.Item key="7" icon={<UserOutlined />} onClick={() => {Router.push("/profile")}}>
+      <Menu.Item
+        key="7"
+        icon={<UserOutlined />}
+        onClick={() => {
+          Router.push('/profile');
+        }}
+      >
         프로필
       </Menu.Item>
       <Menu.Item key="8" icon={<HeartOutlined />}>
@@ -73,26 +84,21 @@ const AppLayout = ({ children }) => {
     </Menu>
   );
 
-  const [user, setUser] = useState('');
-  const [token, setToken] = useState('');
-
-  useEffect(() => {
-    setToken(localStorage.getItem('JWT token'));
-  }, []);
-  useEffect(() => {
-    if (token) {
-      setUser(jwt_decode(token));
-      console.log(jwt_decode(token))
-    }
-  }, [token]);
-
   const dispatch = useDispatch();
   const { me } = useSelector(state => state.user);
+  const [userInfo, setUserInfo] = useState(null);
   useEffect(() => {
-    dispatch({
-      type: LOAD_USER_REQUEST,
-    });
-  }, [LOAD_USER_REQUEST]);
+    const id = sessionStorage.getItem('id');
+    if (id !== null) dispatch(loaduserRequestAction(id));
+  }, []);
+
+  useEffect(() => {
+    if (me) {
+      if (me.data) {
+        setUserInfo(me.data);
+      }
+    }
+  }, [me]);
 
   return (
     <div>
@@ -101,38 +107,23 @@ const AppLayout = ({ children }) => {
           <Link href="/">
             <MovingLogo src="/img/logo-colored.png" />
           </Link>
-          {/* <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['3']}> */}
+
           <Menu theme="dark" mode="horizontal">
             {me !== null ? (
               <>
-                {/* <Menu.Item key="0">
-                  <Link href="/">
-                    <a
-                      onClick={() => {
-                        console.log(dispatch(logoutRequestAction()));
-                      }}
-                    >
-                      로그아웃
-                    </a>
-                  </Link>
-                </Menu.Item>
-                <Menu.Item key="1">
-                  <Link href="/profile">
-                    <a>회원정보</a>
-                  </Link>
-                </Menu.Item> */}
                 <Menu.Item key="0">
                   <Link href="/community">
                     <a>커뮤니티</a>
                   </Link>
                 </Menu.Item>
                 <Menu.Item key="1">
-                  <SearchInput enterButton placeholder='영화 검색'/>
+                  <SearchInput enterButton placeholder="영화 검색" />
                 </Menu.Item>
                 <Menu.Item key="2">
                   <Dropdown overlay={menu}>
-                    <Button style={{background:'#2CD4AC', color:'white'}}>
-                      { user.username } <UserOutlined />
+                    <Button style={{ background: '#2CD4AC', color: 'white' }}>
+                      {userInfo !== null && userInfo.username}
+                      <UserOutlined />
                     </Button>
                   </Dropdown>
                 </Menu.Item>
@@ -155,7 +146,7 @@ const AppLayout = ({ children }) => {
                   </Link>
                 </Menu.Item>
                 <Menu.Item key="6">
-                  <SearchInput enterButton placeholder='영화 검색'/>
+                  <SearchInput enterButton placeholder="영화 검색" />
                 </Menu.Item>
               </>
             )}

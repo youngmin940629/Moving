@@ -6,8 +6,12 @@ import jwt_decode from 'jwt-decode';
 import UseInput from '../hooks/useInput';
 import { useRouter } from 'next/router';
 import Router from 'next/router';
-import { useDispatch } from 'react-redux';
-import { LOAD_USER_REQUEST, logoutRequestAction } from '../reducers/user';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  loaduserRequestAction,
+  LOAD_USER_REQUEST,
+  logoutRequestAction,
+} from '../reducers/user';
 
 const MyButton = styled(Button)`
   width: 150px;
@@ -44,10 +48,8 @@ const UserProfile = () => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch({
-      type: LOAD_USER_REQUEST,
-    });
-  }, [LOAD_USER_REQUEST]);
+    dispatch(loaduserRequestAction(Number(sessionStorage.getItem('id'))));
+  }, []);
 
   const deleteUser = () => {
     // 확인
@@ -69,31 +71,25 @@ const UserProfile = () => {
     }
   };
 
-  useEffect(() => {
-    // setToken(localStorage.getItem('JWT token'));
-    let id = sessionStorage.getItem('id');
-    setId(id);
-  }, []);
-
-  useEffect(() => {
-    if (id) {
-      axios
-        .get(`${process.env.NEXT_PUBLIC_BASE_URL}/accounts/${id}`)
-        .then(res => {
-          console.log(res.data);
-          setCategory(res.data.category_list);
-          setUserInfo({
-            username: res.data.username,
-            username2: res.data.username2,
-            birthDate: res.data.birthDate,
-            gender: res.data.gender,
-          });
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
-  }, [id]);
+  // useEffect(() => {
+  //   if (id) {
+  //     axios
+  //       .get(`${process.env.NEXT_PUBLIC_BASE_URL}/accounts/${id}`)
+  //       .then(res => {
+  //         console.log(res.data);
+  //         setCategory(res.data.category_list);
+  //         setUserInfo({
+  //           username: res.data.username,
+  //           username2: res.data.username2,
+  //           birthDate: res.data.birthDate,
+  //           gender: res.data.gender,
+  //         });
+  //       })
+  //       .catch(err => {
+  //         console.log(err);
+  //       });
+  //   }
+  // }, [id]);
   return (
     <>
       {userInfo != null && category != null && (

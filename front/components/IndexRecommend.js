@@ -64,9 +64,17 @@ const IndexRecommend = () => {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
+<<<<<<< Updated upstream
     axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/movies/recommend1/`).then(res => {
       setMovies(res.data);
     });
+=======
+    axios
+      .get(`${process.env.NEXT_PUBLIC_BASE_URL}/movies/recommend1/`)
+      .then(res => {
+        setMovies(res.data.slice(0, 6));
+      });
+>>>>>>> Stashed changes
   }, []);
 
   return (
