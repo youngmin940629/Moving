@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import { Typography, Card, Row, Col, Divider } from 'antd';
 import Router from 'next/router';
-import Slider from "react-slick";
+import Slider from 'react-slick';
 import { MdArrowForwardIos, MdArrowBackIos } from 'react-icons/md';
 
 // import styled from 'styled-components';
@@ -42,29 +42,30 @@ const IndexRecommend = () => {
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
-        }
+          infinite: true,
+        },
       },
       {
         breakpoint: 600,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
-          initialSlide: 2
-        }
+          initialSlide: 2,
+        },
       },
       {
         breakpoint: 480,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
-  const onErrorImg = (e) => {
-    e.target.src = "/img/default_img.jpg";
-  }
+  const onErrorImg = e => {
+    e.target.src = '/img/default_img.jpg';
+  };
 
   const [movies, setMovies] = useState([]);
 

@@ -14,6 +14,9 @@ import {
   LOAD_USER_REQUEST,
   LOAD_USER_SUCCESS,
   LOAD_USER_FAILURE,
+  WITH_DRAWAL_REQUEST,
+  WITH_DRAWAL_SUCCESS,
+  WITH_DRAWAL_FAILURE,
 } from '../reducers/user';
 
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_BASE_URL;
@@ -83,14 +86,38 @@ function signUpAPI(data) {
 
 function* signUp(action) {
   try {
-    const result = yield call(signUpAPI, action.data);
+    yield call(signUpAPI, action.data);
     yield put({
       type: SIGN_UP_SUCCESS,
-      data: result.data,
     });
-    yield Router.push('/login');
+    yield call(() => {
+      alert('회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.');
+      Router.push('/login');
+    });
   } catch (err) {
     yield put({ type: SIGN_UP_FAILURE, error: err.response.data });
+  }
+}
+
+function withDrawalAPI(data) {
+  return axios.delete(`/accounts/${data}`);
+}
+
+function* withDrawal(action) {
+  try {
+    yield call(withDrawalAPI, action.data);
+    yield put({
+      type: WITH_DRAWAL_SUCCESS,
+    });
+    yield call(() => {
+      alert('탈퇴가 완료되었습니다. 메인페이지로 이동합니다.');
+      localStorage.removeItem('JWT token');
+      sessionStorage.removeItem('id');
+      Router.push('/');
+    });
+  } catch (err) {
+    alert('처리 중 에러가 발생했습니다. 관리자에게 문의하세요.');
+    yield put({ type: WITH_DRAWAL_FAILURE, error: err.response.data });
   }
 }
 
@@ -109,11 +136,16 @@ function* watchSignUp() {
   yield takeLatest(SIGN_UP_REQUEST, signUp);
 }
 
+function* watchWithdrawal() {
+  yield takeLatest(WITH_DRAWAL_REQUEST, withDrawal);
+}
+
 export default function* rootSaga() {
   yield all([
     fork(watchLoadUser),
     fork(watchLogIn),
     fork(watchLogOut),
     fork(watchSignUp),
+    fork(watchWithdrawal),
   ]);
 }

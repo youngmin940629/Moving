@@ -11,6 +11,7 @@ import {
   loaduserRequestAction,
   LOAD_USER_REQUEST,
   logoutRequestAction,
+  withdrawalRequestAction,
 } from '../reducers/user';
 
 const MyButton = styled(Button)`
@@ -26,9 +27,7 @@ const UserProfile = () => {
   const router = useRouter();
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
-  const [userInfo, setUserInfo] = useState({
-    username: '',
-  });
+  const [userInfo, setUserInfo] = useState(null);
   const [category, setCategory] = useState(null);
   const [visible, setVisible] = useState(false);
   const [mode, setMode] = useState('');
@@ -55,44 +54,43 @@ const UserProfile = () => {
     // 확인
     if (window.confirm('탈퇴하시겠습니까?')) {
       // 탈퇴
-      axios
-        .delete(`${process.env.NEXT_PUBLIC_BASE_URL}/accounts/${user.user_id}`)
-        .then(res => {
-          console.log(res.data);
-          alert('탈퇴가 완료되었습니다. 메인페이지로 이동합니다.');
-          logout();
-        })
-        .catch(err => {
-          console.log(err);
-          alert('처리 중 에러가 발생했습니다. 관리자에게 문의하세요.');
-        });
+      dispatch(withdrawalRequestAction(sessionStorage.getItem('id')));
+      // axios
+      //   .delete(
+      //     `${
+      //       process.env.NEXT_PUBLIC_BASE_URL
+      //     }/accounts/${sessionStorage.getItem('id')}`
+      //   )
+      //   .then(res => {
+      //     console.log(res.data);
+      //     alert('탈퇴가 완료되었습니다. 메인페이지로 이동합니다.');
+      //     logout();
+      //   })
+      //   .catch(err => {
+      //     console.log(err);
+      //     alert('처리 중 에러가 발생했습니다. 관리자에게 문의하세요.');
+      //   });
     } else {
       alert('탈퇴가 취소되었습니다.');
     }
   };
 
-  // useEffect(() => {
-  //   if (id) {
-  //     axios
-  //       .get(`${process.env.NEXT_PUBLIC_BASE_URL}/accounts/${id}`)
-  //       .then(res => {
-  //         console.log(res.data);
-  //         setCategory(res.data.category_list);
-  //         setUserInfo({
-  //           username: res.data.username,
-  //           username2: res.data.username2,
-  //           birthDate: res.data.birthDate,
-  //           gender: res.data.gender,
-  //         });
-  //       })
-  //       .catch(err => {
-  //         console.log(err);
-  //       });
-  //   }
-  // }, [id]);
+  const { me } = useSelector(state => state.user);
+  useEffect(() => {
+    if (me != null) {
+      setCategory(me.data.category_list);
+      setUserInfo({
+        username: me.data.username,
+        username2: me.data.username2,
+        birthDate: me.data.birthDate,
+        gender: me.data.gender,
+      });
+    }
+  }, [me]);
+
   return (
     <>
-      {userInfo != null && category != null && (
+      {userInfo != null && category !== null && (
         <div style={{ width: '100%' }}>
           <div
             style={{

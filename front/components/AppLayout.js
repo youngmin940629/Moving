@@ -93,6 +93,7 @@ const AppLayout = ({ children }) => {
   }, []);
 
   useEffect(() => {
+    console.log(('me', me));
     if (me) {
       if (me.data) {
         setUserInfo(me.data);
@@ -109,7 +110,7 @@ const AppLayout = ({ children }) => {
           </Link>
 
           <Menu theme="dark" mode="horizontal">
-            {me !== null ? (
+            {me ? (
               <>
                 <Menu.Item key="0">
                   <Link href="/community">

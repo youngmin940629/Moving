@@ -120,18 +120,18 @@ const SignupForm = () => {
 
   const nicknameCheckTrue = () => {
     alert('사용 불가능한 닉네임 입니다.');
-    console.log(username2Check)
+    console.log(username2Check);
     setUsername2Check(true);
-    console.log(username2Check)
+    console.log(username2Check);
   };
 
   const nicknameCheckFalse = () => {
     alert('사용 가능한 닉네임 입니다.');
-    console.log(username2Check)
+    console.log(username2Check);
     setUsername2Check(false);
-    console.log(username2Check)
+    console.log(username2Check);
   };
-  
+
   const nicknameCheck = () => {
     axios
       .post(`${process.env.NEXT_PUBLIC_BASE_URL}/accounts/isexist/`, {
@@ -139,14 +139,12 @@ const SignupForm = () => {
       })
       .then(res => {
         console.log(res);
-        res.data
-          ? nicknameCheckTrue()
-          : nicknameCheckFalse();
+        res.data ? nicknameCheckTrue() : nicknameCheckFalse();
       })
       .catch(err => {
         console.log(err);
       });
-  }
+  };
 
   const onSubmit = useCallback(() => {
     if (password !== passwordCheck) {
@@ -155,16 +153,23 @@ const SignupForm = () => {
     if (!term) {
       return setTermError(true);
     }
-    if (username2Check === '' || username2Check === true ) {
-      console.log(username2Check)
+    if (username2Check === '' || username2Check === true) {
+      console.log(username2Check);
       return setUsername2Check(true);
     }
     dispatch({
       type: SIGN_UP_REQUEST,
       data: { email, username, password, category_list, birthDate, gender },
     });
-  }, [password, passwordCheck, term, category_list, birthDate, gender, username2Check]);
-
+  }, [
+    password,
+    passwordCheck,
+    term,
+    category_list,
+    birthDate,
+    gender,
+    username2Check,
+  ]);
 
   return (
     <>
@@ -208,7 +213,7 @@ const SignupForm = () => {
           rules={[
             {
               required: true,
-              message: ''
+              message: '',
             },
           ]}
         >
@@ -222,7 +227,7 @@ const SignupForm = () => {
                     message: '닉네임을 입력해주세요.',
                   },
                 ]}
-                style={{ margin: '0 15px 0 0'}}
+                style={{ margin: '0 15px 0 0' }}
               >
                 <Input
                   placeholder="닉네임을 입력해주세요."
@@ -232,14 +237,13 @@ const SignupForm = () => {
               </Form.Item>
             </Col>
             <Col span={4}>
-              <Button
-                onClick={nicknameCheck}
-                style={{ width: '100%' }}
-              >
+              <Button onClick={nicknameCheck} style={{ width: '100%' }}>
                 중복확인
               </Button>
             </Col>
-            {username2Check && <ErrorMessage>닉네임 중복확인을 진행해주세요.</ErrorMessage>}
+            {username2Check && (
+              <ErrorMessage>닉네임 중복확인을 진행해주세요.</ErrorMessage>
+            )}
           </Row>
         </Form.Item>
         <Form.Item
@@ -319,7 +323,7 @@ const SignupForm = () => {
             buttonStyle="solid"
           />
         </Form.Item>
-        <Form.Item 
+        <Form.Item
           label="생년월일"
           name="birthDate"
           rules={[

@@ -13,6 +13,9 @@ export const initialState = {
   signUpLoading: false,
   signUpDone: false,
   signUpError: null,
+  withDrawalLoading: false,
+  withDrawalDone: false,
+  withDrawalError: null,
   me: null,
   signUpData: {},
   loginData: {},
@@ -34,6 +37,10 @@ export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST';
 export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
 export const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE';
 
+export const WITH_DRAWAL_REQUEST = 'WITH_DRAWAL_REQUEST';
+export const WITH_DRAWAL_SUCCESS = 'WITH_DRAWAL_SUCCESS';
+export const WITH_DRAWAL_FAILURE = 'WITH_DRAWAL_FAILURE';
+
 export const loginRequestAction = data => {
   return {
     type: 'LOG_IN_REQUEST',
@@ -50,6 +57,13 @@ export const logoutRequestAction = () => {
 export const loaduserRequestAction = data => {
   return {
     type: 'LOAD_USER_REQUEST',
+    data,
+  };
+};
+
+export const withdrawalRequestAction = data => {
+  return {
+    type: 'WITH_DRAWAL_REQUEST',
     data,
   };
 };
@@ -111,6 +125,20 @@ const reducer = (state = initialState, action) => {
       case SIGN_UP_FAILURE:
         draft.signUpLoading = false;
         draft.signUpError = action.error;
+        break;
+      case WITH_DRAWAL_REQUEST:
+        draft.withDrawalLoading = true;
+        draft.withDrawalError = null;
+        draft.withDrawalDone = false;
+        break;
+      case WITH_DRAWAL_SUCCESS:
+        draft.withDrawalLoading = false;
+        draft.me = action.data;
+        draft.withDrawalDone = true;
+        break;
+      case WITH_DRAWAL_FAILURE:
+        draft.withDrawalLoading = false;
+        draft.withDrawalError = action.error;
         break;
       default:
         return state;
