@@ -6,28 +6,30 @@ import Router from 'next/router';
 import Slider from "react-slick";
 import { MdArrowForwardIos, MdArrowBackIos } from 'react-icons/md';
 
+// import styled from 'styled-components';
+
 const { Title } = Typography; // Typograpy.Title
 const { Meta } = Card;
 
-  const NextArrow = ({ onClick }) => {
-    return (
-      <div className="arrow next" onClick={onClick}>
-        <MdArrowForwardIos />
-      </div>
-    );
-  };
+const NextArrow = ({ onClick }) => {
+  return (
+    <div className="arrow next" onClick={onClick}>
+      <MdArrowForwardIos />
+    </div>
+  );
+};
 
-  const PrevArrow = ({ onClick }) => {
-    return (
-      <div className="arrow prev" onClick={onClick}>
-        <MdArrowBackIos />
-      </div>
-    );
-  };
+const PrevArrow = ({ onClick }) => {
+  return (
+    <div className="arrow prev" onClick={onClick}>
+      <MdArrowBackIos />
+    </div>
+  );
+};
 
 const IndexRecommend = () => {
   const settings = {
-    infinite: false,
+    infinite: true,
     speed: 500,
     slidesToShow: 5,
     slidesToScroll: 5,
@@ -40,7 +42,6 @@ const IndexRecommend = () => {
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
-          infinite: true
         }
       },
       {
@@ -60,6 +61,10 @@ const IndexRecommend = () => {
       }
     ]
   };
+
+  const onErrorImg = (e) => {
+    e.target.src = "/img/default_img.jpg";
+  }
 
   const [movies, setMovies] = useState([]);
 
@@ -86,6 +91,7 @@ const IndexRecommend = () => {
                 <img
                   alt={`${movie.title} 포스터 이미지`}
                   src={movie.backdrop_path}
+                  onError={onErrorImg}
                 />
               }
               onClick={() => Router.push(`/movie/${movie.id}`)}
