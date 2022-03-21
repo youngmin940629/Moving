@@ -38,13 +38,8 @@ export default function detailContent(props){
                 />
             </section>
             영화정보
-<<<<<<< Updated upstream
             <section className="movieInfo-container">
                 <div className="container-item">
-=======
-            <container className="movieInfo-container">
-                <div className="container-img">
->>>>>>> Stashed changes
                     <img className="posterImg" src={props.movies[0].poster_path}
                         alt="이미지가 없습니다."
                     />
@@ -83,13 +78,8 @@ export default function detailContent(props){
                     width : 50%;
                 }
                 .container-item{
-<<<<<<< Updated upstream
                     margin: auto;
                     padding: 10% auto 10% auto;
-=======
-                    width : 50%;
-                    margin : auto 10% auto 10%;
->>>>>>> Stashed changes
                     text-align: center;
                 }
                 .movieTitle{

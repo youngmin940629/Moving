@@ -6,6 +6,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 
 const StyledImg = styled.img`
+  box-shadow: 1px 1px 3px 1px #dadce0 inset;
   cursor: pointer;
   &:hover {
     border-color: transparent;

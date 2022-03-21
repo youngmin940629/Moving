@@ -59,3 +59,11 @@
 .profile-span {
   margin-left: 50px;
 }
+
+.slick-list {
+  margin: auto 20px;
+}
+
+.slick-slide {
+  padding: 10px;
+}

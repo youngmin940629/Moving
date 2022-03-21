@@ -12,11 +12,8 @@ urlpatterns = [
     path('isstaff/',views.is_staff),
     path('<int:user_pk>/',views.user_info),
     path('edit/<int:user_id>/',views.edit),
-<<<<<<< Updated upstream
     path('isexist/',views.isexist),
     path('changepassword/<int:user_id>/',views.changePassword),
     path('getuserpk/',views.get_userpk),
-=======
     path('change_password/', auth_views.PasswordChangeView.as_view())
->>>>>>> Stashed changes
 ]
