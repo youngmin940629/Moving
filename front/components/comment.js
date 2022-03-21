@@ -4,7 +4,6 @@ import axios from "axios";
 
 export default function Comments(props) {
     const [comments, setComments] = useState([{}]);
-<<<<<<< Updated upstream
     const [userID, setUserID] = useState(null);
     const dateFormat = (data)=>{
         let originDate;
@@ -20,10 +19,9 @@ export default function Comments(props) {
         }
         setComments(data);
     }
-=======
-    const [userID, setUserID] = useState();
+
     const [form] = Form.useForm();
->>>>>>> Stashed changes
+
     useEffect(()=>{
         if(sessionStorage.getItem("id")){
             setUserID(sessionStorage.getItem("id"));
@@ -35,13 +33,9 @@ export default function Comments(props) {
   
     // 댓글 등록 요청
     const submitComment=(data)=>{
-<<<<<<< Updated upstream
         console.log(data.comment);
-        axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/community/review/${props.data}/comment/`,
-=======
         form.resetFields();
-        axios.post(`http://localhost:8000/community/review/${props.data}/comment/`,
->>>>>>> Stashed changes
+        axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/community/review/${props.data}/comment/`,
             {
                 user:userID,
                 review:props.data, //게시글 id
@@ -50,12 +44,8 @@ export default function Comments(props) {
             .then(()=>{
                 axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/community/review/${props.data}/`)
                     .then(res=>{
-<<<<<<< Updated upstream
                         dateFormat(res.data.comments);
-=======
                         setComments(res.data.comments)
-                        
->>>>>>> Stashed changes
                     });
         })
     }
@@ -105,10 +95,10 @@ export default function Comments(props) {
                 <List
                     itemLayout="horizontal"
                     dataSource={comments}
-                    renderItem={item=>(
+                    renderItem={(item, idx)=>(
                         <List.Item>
                             <List.Item.Meta
-                                key={item.id}
+                                key={idx}
                                 title={item.username}
                                 description={item.content}
                             />

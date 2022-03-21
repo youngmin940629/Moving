@@ -39,7 +39,7 @@ export default function BoardTable(props) {
       dataIndex: 'title',
       render: (title, record) => <Link
           href={`board/${record.id}`}
-          value={record.id}><a>{title}</a></Link>
+          value={record.id} key={record.id}><a>{title}</a></Link>
     },
     {
       title: '작성일',
@@ -76,7 +76,9 @@ export default function BoardTable(props) {
         }
       </div>
 
-      <Table dataSource={props.boards} columns={columns} />;
+      <Table dataSource={props.boards} columns={columns} pagination={{
+        position:["bottomCenter"]
+      }}/>;
 
       <style jsx>{`
         .boardWriteBtn{

@@ -6,6 +6,7 @@ export default function detailContent(props){
     useEffect(()=>{
         setData([props.data]);
     },[])
+    console.log(props)
     const columns = [
         {
             title: "title",
