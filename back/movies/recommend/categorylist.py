@@ -10,9 +10,6 @@ movie_data = pd.read_sql_query("SELECT id,title from movies_movie", con)
 rating_data = pd.read_sql_query("SELECT * from movies_rating", con)
 rating_data.drop('id', axis=1, inplace=True)
 
-
-
-
 user_movie_ratings = rating_data.pivot(
     index='user_id',
     columns='movie_id',
