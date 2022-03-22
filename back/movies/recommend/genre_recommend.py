@@ -1,10 +1,8 @@
-#%%
 import json
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-#%%
 genres_path = '데이터베이스/genres.json'
 genres_data = pd.read_json(genres_path)
 movies_path = '데이터베이스/movies.json'
@@ -42,10 +40,8 @@ genre_rec_df = pd.DataFrame({'id': id,
                               'title': title,
                               'vote_count': vote_count,
                               'ratings': ratings})    
-#%%
 # movie 장르 정보 벡터화
 count_vect=CountVectorizer(min_df=0, ngram_range=(1, 2))
-#%%
 genre_rec_df['genres']=genre_rec_df['genres'].apply(lambda x : [ y['name'] for y in x])
 genre_rec_df['genres_literal']=genre_rec_df['genres'].apply(lambda x : (' ').join(x))
 genre_mat=count_vect.fit_transform(genre_rec_df['genres_literal'])
@@ -54,7 +50,6 @@ genre_mat=count_vect.fit_transform(genre_rec_df['genres_literal'])
 genre_sim = cosine_similarity(genre_mat, genre_mat)
 genre_sim_sorted_ind=genre_sim.argsort()[:, ::-1]
 
-#%%
 # 가중 평점 추가
 """
 가중 평점( Weighted Rating ) = (v/(v+m) * R + (m/(v+m)) * C
@@ -79,17 +74,37 @@ def weighted_vote_avg(record):
 
 genre_rec_df['weighted_vote'] =genre_rec_df.apply(weighted_vote_avg, axis = 1)
 
-#%%
-def find_sim_movie(df, sorted_ind, title_name, top_n=10):
-    title_movie = df[df['title'] == title_name]
+# def find_sim_movie(df, sorted_ind, title_name, top_n=10):
+#     title_movie = df[df['title'] == title_name]
+#     title_index = title_movie.index.values
+    
+#     similar_indexes = sorted_ind[title_index, :(top_n*2)]
+#     similar_indexes = similar_indexes.reshape(-1)
+#     similar_indexes = similar_indexes[similar_indexes != title_index]
+
+#     return df.iloc[similar_indexes].sort_values('weighted_vote', ascending=False)[:top_n]
+
+# def find_sim_movie(df, sorted_ind, id, top_n=10):
+#     title_movie = df[df['id'] == id]
+#     title_index = title_movie.index.values
+    
+#     similar_indexes = sorted_ind[title_index, :(top_n*2)]
+#     similar_indexes = similar_indexes.reshape(-1)
+#     similar_indexes = similar_indexes[similar_indexes != title_index]
+
+#     return df.iloc[similar_indexes].sort_values('weighted_vote', ascending=False)[:top_n]
+
+def find_sim_movie(id, top_n=10):
+    global genre_rec_df, genre_sim_sorted_ind
+    title_movie = genre_rec_df[genre_rec_df['id'] == id]
     title_index = title_movie.index.values
     
-    similar_indexes = sorted_ind[title_index, :(top_n*2)]
+    similar_indexes = genre_sim_sorted_ind[title_index, :(top_n*2)]
     similar_indexes = similar_indexes.reshape(-1)
     similar_indexes = similar_indexes[similar_indexes != title_index]
 
-    return df.iloc[similar_indexes].sort_values('weighted_vote', ascending=False)[:top_n]
+    return genre_rec_df.iloc[similar_indexes].sort_values('weighted_vote', ascending=False)[:top_n]
 
-#%%
-similar_movies = find_sim_movie(genre_rec_df, genre_sim_sorted_ind, '스파이더맨: 노 웨이 홈', 10)
-print(similar_movies[['title', 'ratings', 'weighted_vote']])
+similar_movies = find_sim_movie(547)
+# print(similar_movies[['title', 'ratings', 'weighted_vote']])
+# print(similar_movies['title'].values.tolist())

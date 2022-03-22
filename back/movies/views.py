@@ -3,6 +3,8 @@ import requests
 from rest_framework import response
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
+
+from movies.recommend.genre_recommend import find_sim_movie
 from .models import Movie, Genre, Rating
 from .serializers import MovieListSerializer, MovieSerializer, GenreSerializer, MovieIdSerializer
 from rest_framework import serializers, status
@@ -190,3 +192,18 @@ def rating(request):
         rating = Rating.objects.create(user=user_id,rank=rank,movie=movie_id)
         rating.save()
     return Response()
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def recommend_genre(request, id):
+    if request.method == 'GET':
+        movie_df = find_sim_movie(id)
+        # movie_list = movie_df['title'].values.tolist()
+        rec_list = movie_df.values.tolist()
+        movie_list = []
+        for movie in rec_list:
+            if movie.title == word:
+                movie_list.append(movie)
+        movies = Movie.objects.filter()
+        serializer = MovieListSerializer(movie_list, many=True)
+    return Response(serializer.data)
