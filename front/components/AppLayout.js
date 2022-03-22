@@ -27,6 +27,7 @@ import {
 } from '@ant-design/icons';
 import jwt_decode from 'jwt-decode';
 import Router from 'next/router';
+import SearchInput from './SearchInput';
 
 const { Header, Content, Footer } = Layout;
 
@@ -40,13 +41,13 @@ const StyledLayout = styled(Layout)`
   }
 `;
 
-const SearchInput = styled(Input.Search)`
-  vertical-align: middle;
-  .ant-btn-primary {
-    background: #2cd4ac;
-    border-color: #2cd4ac;
-  }
-`;
+// const SearchInput = styled(Input.Search)`
+//   vertical-align: middle;
+//   .ant-btn-primary {
+//     background: #2cd4ac;
+//     border-color: #2cd4ac;
+//   }
+// `;
 
 const SiteLayoutContent = styled.div`
   min-height: 280px;
