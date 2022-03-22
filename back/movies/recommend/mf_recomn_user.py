@@ -26,9 +26,9 @@ try:
     user_rating_mean = np.mean(matrix, axis = 1)
 
     matrix_user_mean = matrix - user_rating_mean.reshape(-1,1)
-
+    print(matrix_user_mean)
     U, sigma, Vt = scipy.sparse.linalg.svds(matrix_user_mean, k=12)
-
+    
     sigma = np.diag(sigma)
 
     svd_user_predicted_ratings = np.dot(np.dot(U, sigma), Vt) + user_rating_mean.reshape(-1,1)

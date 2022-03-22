@@ -21,7 +21,7 @@ try:
 
     movie_user_rank = user_movie_rank.values.T
 
-    SVD = TruncatedSVD(n_components=12)
+    SVD = TruncatedSVD(n_components=2)
     matrix = SVD.fit_transform(movie_user_rank)
     
     corr = np.corrcoef(matrix)
@@ -29,24 +29,7 @@ try:
     movie_id = user_movie_rank.columns
     movie_id_list = list(movie_id)
 
-<<<<<<< Updated upstream
-    coffey_hands = movie_id_list.index(883)
-    # movie list 안에 있는 movie id값
-    corr_coffey_hands = corr[coffey_hands]
-    corr_coffey_hands = pd.DataFrame(corr_coffey_hands)
-    top_20_corr_coffey_hands = corr_coffey_hands.nlargest(20, 0)
-=======
-corr = np.corrcoef(matrix)
 
-movie_id = user_movie_rank.columns
-
-movie_id_list = list(movie_id)
-
-coffey_hands = movie_id_list.index(883)
-corr_coffey_hands = corr[coffey_hands]
-corr_coffey_hands = pd.DataFrame(corr_coffey_hands)
-top_20_corr_coffey_hands = corr_coffey_hands.nlargest(20, 0)
->>>>>>> Stashed changes
 
 except Exception as e:
     con.close()

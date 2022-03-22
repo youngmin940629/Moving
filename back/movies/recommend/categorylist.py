@@ -33,8 +33,5 @@ def categoryPick(category, movie_genre_mean_data):
     categorypick_list = movie_genre_mean_data[movie_genre_mean_data.genre_id == category]
     categorypick_list = categorypick_list.sort_values('평점평균', ascending=False)
     return categorypick_list[:20]
-<<<<<<< Updated upstream
 
-# print(categoryPick(28,movie_genre_mean_data))
-=======
->>>>>>> Stashed changes
+
