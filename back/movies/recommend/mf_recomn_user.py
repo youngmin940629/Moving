@@ -43,7 +43,9 @@ def user_recommend(user_index,user_id):
     recommendations = movie_data[~movie_data['movie_id'].isin(user_history['movie_id'])]
 
     recommendations = recommendations.merge(pd.DataFrame(sorted_user_prediction).reset_index(), on='movie_id')
-
-    recommendations = recommendations.rename(columns = {user_id:'Predictions'}).sort_values('Predictions', ascending=False)
+    recommendations = recommendations.rename(columns = {user_index:'Predictions'}).sort_values('Predictions', ascending=False)
+    # print("recommendations= ", recommendations, sep='\n')
 
     return user_history, recommendations.head(20)
+
+# print(user_recommend(4, 6))
