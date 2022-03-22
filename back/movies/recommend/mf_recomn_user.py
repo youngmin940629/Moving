@@ -34,21 +34,21 @@ svd_user_predicted_ratings = np.dot(np.dot(U, sigma), Vt) + user_rating_mean.res
 
 svd_predicts = pd.DataFrame(svd_user_predicted_ratings, columns = user_movie_ratings.columns)
 
-def user_recommend(svd_predicts, user_id, movies, ratings, num = 5):
+def user_recommend(user_id):
     user_id = user_id
     sorted_user_prediction = svd_predicts.iloc[user_id].sort_values(ascending=False)
-    user_data = ratings[ratings.user_id == user_id]
+    user_data = rating_data[rating_data.user_id == user_id]
     user_history = user_data.merge(movie_data, on='movie_id').sort_values(['rank'], ascending=False)
 
-    recommendations = movies[~movies['movie_id'].isin(user_history['movie_id'])]
+    recommendations = movie_data[~movie_data['movie_id'].isin(user_history['movie_id'])]
 
     recommendations = recommendations.merge(pd.DataFrame(sorted_user_prediction).reset_index(), on='movie_id')
 
     recommendations = recommendations.rename(columns = {user_id:'Predictions'}).sort_values('Predictions', ascending=False)
 
-    return user_history, recommendations.head(num)
+    return user_history, recommendations.head(20)
 
-already_rated, prediction = user_recommend(svd_predicts, 100, movie_data, rating_data, 20)
+already_rated, prediction = user_recommend(100)
 
-# print(already_rated)
-# print(prediction)
+print(already_rated)
+print(prediction)

@@ -32,10 +32,14 @@ coffey_hands = movie_id_list.index(883)
 corr_coffey_hands = corr[coffey_hands]
 corr_coffey_hands = pd.DataFrame(corr_coffey_hands)
 top_20_corr_coffey_hands = corr_coffey_hands.nlargest(20, 0)
-print(top_20_corr_coffey_hands.index)
-# print(list(movie_id[(corr_coffey_hands) >= 0.95][:]))
 
-# def mf_recomnend(index):
-#     coffey_hands = movie_id_list.index(index)
-#     corr_coffey_hands = corr[coffey_hands]
-#     return list(movie_id[(corr_coffey_hands) >= 0.9])[:]
+def mf_recomnend(id):
+    coffey_hands = movie_id_list.index(id)
+    corr_coffey_hands = corr[coffey_hands]
+    corr_coffey_hands = pd.DataFrame(corr_coffey_hands)
+    top_20_corr_coffey_hands = corr_coffey_hands.nlargest(20, 0)
+    movie_list = []
+    for idx in top_20_corr_coffey_hands.index:
+        movie_list.append(movie_id[idx])
+        
+    return movie_list

@@ -14,7 +14,9 @@ import random
 from bs4 import BeautifulSoup
 from community.models import Review
 
-# from .recommend.mf_recommend import mf_recomnend
+from .recommend.mf_recommend import mf_recomnend
+from .recommend.mf_recomn_user import user_recommend
+
 # Create your views here.
 
 key = "733c7d5145ecf236ad387093e2d52047"
@@ -154,10 +156,27 @@ def recommend_genre(request, id):
         serializer = MovieListSerializer(movie_list, many=True)
     return Response(serializer.data)
 
-# @api_view(['GET'])
-# @permission_classes([AllowAny])
-# def mf_recommend(request,id):
-#     if request.method == 'GET':
-#         # movie_list = mf_recomnend(id)
-#         print(movie_list)
-#         return Response(movie_list)
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def mf_recommend(request,id):
+    if request.method == 'GET':
+        recommend_movie_list = mf_recomnend(id)
+        movie_list = []
+        for recommend in recommend_movie_list:
+            movie = Movie.objects.filter(pk=recommend)
+            movie_list.append(movie[0])
+        serializer = MovieListSerializer(movie_list, many=True)
+        return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def mf_user_recommend(request,id):
+    if request.method == 'GET':
+        user_history, recommendationList = user_recommend(id)
+        print(recommendationList.values)
+        movie_list = []
+        for recommend in recommendationList.values:
+            movie = Movie.objects.filter(pk=recommend[0])
+            movie_list.append(movie[0])
+        serializer = MovieListSerializer(movie_list, many=True)
+        return Response(serializer.data)

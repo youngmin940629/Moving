@@ -12,5 +12,6 @@ urlpatterns = [
     path('rating/<int:id>/<int:user>/', views.rating_movie),
     path('rating_movie/', views.rating),
     path('genre_rec/<int:id>/', views.recommend_genre),
-    # path('mf_recommend/<int:id>/', views.mf_recommend),
+    path('mf_recommend/<int:id>/', views.mf_recommend),
+    path('mf_user_recommend/<int:id>/', views.mf_user_recommend),
 ]
