@@ -47,8 +47,3 @@ def user_recommend(user_id):
     recommendations = recommendations.rename(columns = {user_id:'Predictions'}).sort_values('Predictions', ascending=False)
 
     return user_history, recommendations.head(20)
-
-already_rated, prediction = user_recommend(100)
-
-print(already_rated)
-print(prediction)

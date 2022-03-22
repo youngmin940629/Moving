@@ -14,4 +14,5 @@ urlpatterns = [
     path('genre_rec/<int:id>/', views.recommend_genre),
     path('mf_recommend/<int:id>/', views.mf_recommend),
     path('mf_user_recommend/<int:id>/', views.mf_user_recommend),
+    path('user_category_recommend/<int:id>/', views.user_category_recommend),
 ]

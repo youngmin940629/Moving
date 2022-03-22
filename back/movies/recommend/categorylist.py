@@ -28,6 +28,6 @@ movie_genre_mean_data.rename(columns={0:'평점평균'}, inplace=True)
 def categoryPick(category, movie_genre_mean_data):
     categorypick_list = movie_genre_mean_data[movie_genre_mean_data.genre_id == category]
     categorypick_list = categorypick_list.sort_values('평점평균', ascending=False)
-    return categorypick_list[:30]
+    return categorypick_list[:20]
 
 print(categoryPick(28,movie_genre_mean_data))

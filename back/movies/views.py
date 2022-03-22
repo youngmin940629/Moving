@@ -16,6 +16,7 @@ from community.models import Review
 
 from .recommend.mf_recommend import mf_recomnend
 from .recommend.mf_recomn_user import user_recommend
+from .recommend.categorylist import categoryPick
 
 # Create your views here.
 
@@ -173,10 +174,18 @@ def mf_recommend(request,id):
 def mf_user_recommend(request,id):
     if request.method == 'GET':
         user_history, recommendationList = user_recommend(id)
-        print(recommendationList.values)
         movie_list = []
         for recommend in recommendationList.values:
             movie = Movie.objects.filter(pk=recommend[0])
             movie_list.append(movie[0])
         serializer = MovieListSerializer(movie_list, many=True)
         return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def user_category_recommend(request,id):
+    if request.method == 'GET':
+        user = get_object_or_404(User, pk=id)
+        print(user)
+
+        return Response([])
