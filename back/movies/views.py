@@ -173,7 +173,14 @@ def mf_recommend(request,id):
 @permission_classes([AllowAny])
 def mf_user_recommend(request,id):
     if request.method == 'GET':
-        user_history, recommendationList = user_recommend(id)
+        user_list = get_list_or_404(User)
+        index = 0
+        for i in range(len(user_list)):
+            if user_list[i].pk == id:
+                print(i)
+                index = i
+                break
+        user_history, recommendationList = user_recommend(index, id)
         movie_list = []
         for recommend in recommendationList.values:
             movie = Movie.objects.filter(pk=recommend[0])

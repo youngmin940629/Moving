@@ -36,10 +36,9 @@ except Exception as e:
     print(e)
     con.close()
     
-def user_recommend(user_id):
-    user_id = user_id - 1
-    sorted_user_prediction = svd_predicts.iloc[user_id].sort_values(ascending=False)
-    user_data = rating_data[rating_data.user_id == (user_id+1)]
+def user_recommend(user_index,user_id):
+    sorted_user_prediction = svd_predicts.iloc[user_index].sort_values(ascending=False)
+    user_data = rating_data[rating_data.user_id == (user_id)]
     user_history = user_data.merge(movie_data, on='movie_id').sort_values(['rank'], ascending=False)
     recommendations = movie_data[~movie_data['movie_id'].isin(user_history['movie_id'])]
 
