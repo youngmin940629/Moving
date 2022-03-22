@@ -4,7 +4,6 @@ import axios from "axios";
 
 export default function Comments(props) {
     const [comments, setComments] = useState([{}]);
-    const [userID, setUserID] = useState(null);
     const dateFormat = (data)=>{
         let originDate;
         for(let i=0; i<data.length; i++){
@@ -19,9 +18,8 @@ export default function Comments(props) {
         }
         setComments(data);
     }
-
+    const [userID, setUserID] = useState();
     const [form] = Form.useForm();
-
     useEffect(()=>{
         if(sessionStorage.getItem("id")){
             setUserID(sessionStorage.getItem("id"));
@@ -44,8 +42,8 @@ export default function Comments(props) {
             .then(()=>{
                 axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/community/review/${props.data}/`)
                     .then(res=>{
-                        dateFormat(res.data.comments);
                         setComments(res.data.comments)
+                        
                     });
         })
     }

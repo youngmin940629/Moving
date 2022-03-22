@@ -22,11 +22,20 @@ movie_user_rank = user_movie_rank.values.T
 SVD = TruncatedSVD(n_components=12)
 matrix = SVD.fit_transform(movie_user_rank)
 
+
 corr = np.corrcoef(matrix)
 
 movie_id = user_movie_rank.columns
 movie_id_list = list(movie_id)
-coffey_hands = movie_id_list.index(883)
 
+coffey_hands = movie_id_list.index(883)
 corr_coffey_hands = corr[coffey_hands]
-print(list(movie_id[(corr_coffey_hands) >= 0.9])[:50])
+corr_coffey_hands = pd.DataFrame(corr_coffey_hands)
+top_20_corr_coffey_hands = corr_coffey_hands.nlargest(20, 0)
+print(top_20_corr_coffey_hands.index)
+# print(list(movie_id[(corr_coffey_hands) >= 0.95][:]))
+
+# def mf_recomnend(index):
+#     coffey_hands = movie_id_list.index(index)
+#     corr_coffey_hands = corr[coffey_hands]
+#     return list(movie_id[(corr_coffey_hands) >= 0.9])[:]
