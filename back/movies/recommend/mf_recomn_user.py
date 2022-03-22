@@ -39,11 +39,10 @@ except:
     con.close()
     
 def user_recommend(user_id):
-    user_id = user_id
+    user_id = user_id - 1
     sorted_user_prediction = svd_predicts.iloc[user_id].sort_values(ascending=False)
-    user_data = rating_data[rating_data.user_id == user_id]
+    user_data = rating_data[rating_data.user_id == (user_id+1)]
     user_history = user_data.merge(movie_data, on='movie_id').sort_values(['rank'], ascending=False)
-
     recommendations = movie_data[~movie_data['movie_id'].isin(user_history['movie_id'])]
 
     recommendations = recommendations.merge(pd.DataFrame(sorted_user_prediction).reset_index(), on='movie_id')

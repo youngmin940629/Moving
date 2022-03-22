@@ -6,6 +6,7 @@ from .serializers import UserSerializer, UserSignupSerializer
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from .models import User
+from movies.models import Rating,Movie
 
 
 @api_view(['POST'])
@@ -28,7 +29,6 @@ def signup(request):
     data["username"] = email
     data["username2"] = username
 
-    print(data)
 
     # 2. UserSerializer를 통해 데이터 직렬화
     serializer = UserSignupSerializer(data=data)
@@ -40,6 +40,11 @@ def signup(request):
         # 4. 비밀번호 해싱 후
         user.set_password(request.data.get('password'))
         user.save()
+        user_id = User.objects.get(pk=user.id)
+        movie_id = Movie.objects.get(pk=5)
+        rating = Rating.objects.create(user=user_id,rank=0,movie=movie_id)
+        rating.save()
+
         # password는 직렬화 과정에는 포함 되지만 → 표현(response)할 때는 나타나지 않는다.
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
