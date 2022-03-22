@@ -5,7 +5,6 @@ import axios from 'axios';
 import Link from 'next/link';
 import { SearchOutlined } from '@ant-design/icons';
 
-
 const { Option } = Select;
 
 const SearchInput = () => {
