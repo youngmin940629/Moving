@@ -15,7 +15,6 @@ const SearchInput = () => {
       axios
       .get(`${process.env.NEXT_PUBLIC_BASE_URL}/movies/search/${value}`)
       .then(res => {
-        console.log(res)
         setSearchResult(res.data)
       })
       .catch(err => {

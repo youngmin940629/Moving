@@ -123,7 +123,7 @@ const AppLayout = ({ children }) => {
             </Col>
             <Col span={8} offset={8} style={{ color: 'white' }}>
               <Menu theme="dark" mode="horizontal">
-                <Menu.Item key="3">
+                <Menu.Item key="1">
                   <SearchInput enterButton placeholder="영화 검색" />
                 </Menu.Item>
                 {me ? (
