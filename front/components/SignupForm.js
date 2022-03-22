@@ -172,182 +172,195 @@ const SignupForm = () => {
   ]);
 
   return (
-    <>
-      <LogoWrapper>
-        <Logo src="/img/logo-colored.png" />
-      </LogoWrapper>
-      <SignupTitle>회원가입</SignupTitle>
-      <Form
-        name="basic"
-        labelCol={{
-          span: 6,
+    <div style={{ textAlign: 'center' }}>
+      <div
+        style={{
+          width: '600px',
+          display: 'inline-block',
         }}
-        wrapperCol={{
-          span: 12,
-        }}
-        autoComplete="off"
-        onFinish={onSubmit}
       >
-        <Form.Item
-          label="E-mail"
-          name="user-email"
-          type="email"
-          rules={[
-            {
-              required: true,
-              message: 'E-mail을 입력해주세요.',
-            },
-          ]}
+        <LogoWrapper>
+          <Logo src="/img/logo-colored.png" />
+        </LogoWrapper>
+        <SignupTitle>회원가입</SignupTitle>
+        <Form
+          name="basic"
+          labelCol={{
+            span: 6,
+          }}
+          wrapperCol={{
+            span: 12,
+          }}
+          autoComplete="off"
+          onFinish={onSubmit}
         >
-          <Input
+          <Form.Item
+            label="이메일"
+            name="user-email"
             type="email"
-            placeholder="이메일을 입력해주세요."
-            value={email}
-            onChange={onChangeEmail}
-          />
-        </Form.Item>
-        <Form.Item
-          layout="inline"
-          label="닉네임"
-          name="user-nickname"
-          rules={[
-            {
-              required: true,
-              message: '',
-            },
-          ]}
-        >
-          <Row>
-            <Col span={20}>
-              <Form.Item
-                name="user-username"
-                rules={[
-                  {
-                    required: true,
-                    message: '닉네임을 입력해주세요.',
-                  },
-                ]}
-                style={{ margin: '0 15px 0 0' }}
-              >
-                <Input
-                  placeholder="닉네임을 입력해주세요."
-                  value={username}
-                  onChange={onChangeUsername}
-                />
-              </Form.Item>
-            </Col>
-            <Col span={4}>
-              <Button onClick={nicknameCheck} style={{ width: '100%' }}>
-                중복확인
-              </Button>
-            </Col>
-            {username2Check && (
-              <ErrorMessage>닉네임 중복확인을 진행해주세요.</ErrorMessage>
-            )}
-          </Row>
-        </Form.Item>
-        <Form.Item
-          label="비밀번호"
-          name="user-password"
-          rules={[
-            {
-              required: true,
-              message: '비밀번호를 입력해주세요.',
-            },
-          ]}
-        >
-          <Input.Password
-            placeholder="비밀번호를 입력해주세요."
-            value={password}
-            onChange={onChangePassowrd}
-          />
-        </Form.Item>
-        <Form.Item
-          label="비밀번호 확인"
-          name="user-password-check"
-          rules={[
-            {
-              required: true,
-              message: '비밀번호 확인란을 입력해주세요.',
-            },
-          ]}
-          style={{ marginBottom: '0px' }}
-        >
-          <Input.Password
-            placeholder="비밀번호를 확인해주세요."
-            value={passwordCheck}
-            onChange={onChangePasswordCheck}
-          />
-        </Form.Item>
-        <Col offset={6} span={6}>
-          {passwordError && (
-            <ErrorMessage>비밀번호가 일치하지 않습니다.</ErrorMessage>
-          )}
-        </Col>
-        <FormMargin />
-        <Form.Item
-          label="선호 장르"
-          name="category_list"
-          rules={[
-            {
-              required: true,
-              message: '장르를 선택해주세요.',
-            },
-          ]}
-        >
-          <Select
-            mode="multiple"
-            allowClear
-            style={{ width: '100%' }}
-            placeholder="장르를 선택해주세요."
-            onChange={handleChange}
+            rules={[
+              {
+                required: true,
+                message: 'E-mail을 입력해주세요.',
+              },
+            ]}
           >
-            {children}
-          </Select>
-        </Form.Item>
-        <Form.Item
-          label="성별"
-          name="gender"
-          rules={[
-            {
-              required: true,
-              message: '성별을 선택해주세요.',
-            },
-          ]}
-        >
-          <Radio.Group
-            options={options}
-            onChange={onChangeGender}
-            value={gender}
-            optionType="button"
-            buttonStyle="solid"
-          />
-        </Form.Item>
-        <Form.Item
-          label="생년월일"
-          name="birthDate"
-          rules={[
-            {
-              required: true,
-              message: '생년월일을 선택해주세요.',
-            },
-          ]}
-        >
-          <DatePicker onChange={onChange} />
-        </Form.Item>
-        <CheckboxWrapper>
-          <Checkbox name="user-term" checked={term} onChange={onChangeTerm}>
-            약관에 동의합니까?
-          </Checkbox>
-          {termError && <ErrorMessage>약관에 동의하셔야 합니다.</ErrorMessage>}
-        </CheckboxWrapper>
-        <SignupButton>
-          <Button type="primary" htmlType="submit" loading={signUpLoading}>
-            가입하기
-          </Button>
-        </SignupButton>
-      </Form>
-    </>
+            <Input
+              type="email"
+              placeholder="이메일을 입력해주세요."
+              value={email}
+              onChange={onChangeEmail}
+            />
+          </Form.Item>
+          <Form.Item
+            layout="inline"
+            label="닉네임"
+            name="user-nickname"
+            rules={[
+              {
+                required: true,
+                message: '',
+              },
+            ]}
+          >
+            <Row>
+              <Col span={16}>
+                <Form.Item
+                  name="user-username"
+                  rules={[
+                    {
+                      required: true,
+                      message: '닉네임을 입력해주세요.',
+                    },
+                  ]}
+                  style={{ margin: '0 15px 0 0' }}
+                >
+                  <Input
+                    placeholder="닉네임을 입력해주세요."
+                    value={username}
+                    onChange={onChangeUsername}
+                  />
+                </Form.Item>
+              </Col>
+              <Col span={8}>
+                <Button onClick={nicknameCheck} style={{ width: '100%' }}>
+                  중복확인
+                </Button>
+              </Col>
+              {username2Check && (
+                <ErrorMessage>닉네임 중복확인을 진행해주세요.</ErrorMessage>
+              )}
+            </Row>
+          </Form.Item>
+          <Form.Item
+            label="비밀번호"
+            name="user-password"
+            rules={[
+              {
+                required: true,
+                message: '비밀번호를 입력해주세요.',
+              },
+            ]}
+          >
+            <Input.Password
+              placeholder="비밀번호를 입력해주세요."
+              value={password}
+              onChange={onChangePassowrd}
+            />
+          </Form.Item>
+          <Form.Item
+            label="비밀번호 확인"
+            name="user-password-check"
+            rules={[
+              {
+                required: true,
+                message: '비밀번호 확인란을 입력해주세요.',
+              },
+            ]}
+            style={{ marginBottom: '0px' }}
+          >
+            <Input.Password
+              placeholder="비밀번호를 확인해주세요."
+              value={passwordCheck}
+              onChange={onChangePasswordCheck}
+            />
+          </Form.Item>
+          <Col offset={6} span={6}>
+            {passwordError && (
+              <ErrorMessage>비밀번호가 일치하지 않습니다.</ErrorMessage>
+            )}
+          </Col>
+          <FormMargin />
+          <Form.Item
+            label="선호 장르"
+            name="category_list"
+            rules={[
+              {
+                required: true,
+                message: '장르를 선택해주세요.',
+              },
+            ]}
+          >
+            <Select
+              mode="multiple"
+              allowClear
+              style={{ width: '100%' }}
+              placeholder="장르를 선택해주세요."
+              onChange={handleChange}
+            >
+              {children}
+            </Select>
+          </Form.Item>
+          <Form.Item
+            label="성별"
+            name="gender"
+            rules={[
+              {
+                required: true,
+                message: '성별을 선택해주세요.',
+              },
+            ]}
+          >
+            <Radio.Group
+              options={options}
+              onChange={onChangeGender}
+              value={gender}
+              optionType="button"
+              buttonStyle="solid"
+            />
+          </Form.Item>
+          <Form.Item
+            label="생년월일"
+            name="birthDate"
+            rules={[
+              {
+                required: true,
+                message: '생년월일을 선택해주세요.',
+              },
+            ]}
+          >
+            <DatePicker style={{ width: '100%' }} onChange={onChange} />
+          </Form.Item>
+
+          <SignupButton>
+            <Button
+              style={{
+                width: '52%',
+                height: '50px',
+                backgroundColor: '#2cd4ac',
+                color: 'white',
+                fontSize: '20px',
+                fontWeight: 'bold',
+              }}
+              htmlType="submit"
+              loading={signUpLoading}
+            >
+              가입하기
+            </Button>
+          </SignupButton>
+        </Form>
+      </div>
+    </div>
   );
 };
 

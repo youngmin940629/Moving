@@ -27,7 +27,7 @@ const PrevArrow = ({ onClick }) => {
   );
 };
 
-const IndexRecommend = () => {
+const IndexRecommend2 = () => {
   const settings = {
     infinite: true,
     speed: 500,
@@ -71,16 +71,24 @@ const IndexRecommend = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.NEXT_PUBLIC_BASE_URL}/movies/recommend1/`)
+      .get(
+        `${
+          process.env.NEXT_PUBLIC_BASE_URL
+        }/movies/mf_user_recommend/${sessionStorage.getItem('id')}/`
+      )
       .then(res => {
+        console.log('res', res);
         setMovies(res.data);
+      })
+      .catch(err => {
+        console.log(err);
       });
   }, []);
 
   return (
     <>
       <Divider orientation="left" orientationMargin="0">
-        <Title level={2}>랜덤 추천 영화</Title>
+        <Title level={2}>나와 비슷한 취향을 가진 사용자들이 시청한 영화</Title>
       </Divider>
       <Slider {...settings}>
         {movies.map(movie => {
@@ -110,4 +118,4 @@ const IndexRecommend = () => {
   );
 };
 
-export default IndexRecommend;
+export default IndexRecommend2;

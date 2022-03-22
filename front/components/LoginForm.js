@@ -3,7 +3,7 @@ import { Form, Input, Button, Checkbox } from 'antd';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginRequestAction } from '../reducers/user';
+import { loaduserRequestAction, loginRequestAction } from '../reducers/user';
 import Router from 'next/router';
 import useInput from '../hooks/useInput';
 
@@ -33,7 +33,7 @@ const LoginLinkWrapper = styled.div`
   display: block;
 `;
 
-const LoginForm = () => {
+const LoginForm = ({ setIsModalVisible }) => {
   // antD 제공 함수 : onFinish / onFinishFailed
   // const onFinish = (values) => {
   //   console.log('Success:', values);
@@ -48,7 +48,7 @@ const LoginForm = () => {
   const [password, onChangePassword] = useInput();
 
   const onSubmitForm = useCallback(() => {
-    dispatch(loginRequestAction({ username, password }));
+    dispatch(loginRequestAction({ username, password, setIsModalVisible }));
   }, [username, password]);
 
   return (
@@ -111,7 +111,7 @@ const LoginForm = () => {
           <Form.Item
             wrapperCol={{
               offset: 8,
-              span: 16,
+              span: 8,
             }}
           >
             <Button type="primary" htmlType="submit" loading={loginLoading}>

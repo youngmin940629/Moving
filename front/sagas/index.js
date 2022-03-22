@@ -55,13 +55,16 @@ function* logIn(action) {
       method: 'post',
       headers: { Authorization: `JWT ${token}` },
     })
-      .then(function (res) {
+      .then(res => {
+        console.log('res', res);
         sessionStorage.setItem('id', res.data.pk);
       })
       .then(() => {
+        action.data.setIsModalVisible(false);
         Router.push('/');
       });
   } catch (err) {
+    action.data.setIsModalVisible(true);
     yield put({ type: LOG_IN_FAILURE, error: err.response.data });
     alert('아이디와 비밀번호를 확인해주세요');
   }

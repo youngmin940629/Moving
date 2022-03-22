@@ -11,6 +11,7 @@ import {
   Row,
   Col,
   Divider,
+  Modal,
 } from 'antd';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
@@ -27,7 +28,11 @@ import {
 } from '@ant-design/icons';
 import jwt_decode from 'jwt-decode';
 import Router from 'next/router';
+<<<<<<< Updated upstream
 import SearchInput from './SearchInput';
+=======
+import LoginForm from './LoginForm';
+>>>>>>> Stashed changes
 
 const { Header, Content, Footer } = Layout;
 
@@ -86,7 +91,19 @@ const AppLayout = ({ children }) => {
       </Menu.Item>
     </Menu>
   );
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
   const dispatch = useDispatch();
   const { me } = useSelector(state => state.user);
   const [userInfo, setUserInfo] = useState(null);
@@ -114,7 +131,7 @@ const AppLayout = ({ children }) => {
                 <MovingLogo src="/img/logo-colored.png" />
               </Link>
               <Menu theme="dark" mode="horizontal">
-                <Menu.Item key="0">
+                <Menu.Item key="community">
                   <Link href="/community">
                     <a>커뮤니티</a>
                   </Link>
@@ -123,12 +140,16 @@ const AppLayout = ({ children }) => {
             </Col>
             <Col span={8} offset={8} style={{ color: 'white' }}>
               <Menu theme="dark" mode="horizontal">
+<<<<<<< Updated upstream
                 <Menu.Item key="1">
+=======
+                <Menu.Item key="search">
+>>>>>>> Stashed changes
                   <SearchInput enterButton placeholder="영화 검색" />
                 </Menu.Item>
                 {me ? (
                   <>
-                    <Menu.Item key="2">
+                    <Menu.Item key="dropdown">
                       <Dropdown overlay={menu}>
                         <Button
                           style={{ background: '#2CD4AC', color: 'white' }}
@@ -141,12 +162,10 @@ const AppLayout = ({ children }) => {
                   </>
                 ) : (
                   <>
-                    <Menu.Item key="3">
-                      <Link href="/login">
-                        <a>로그인</a>
-                      </Link>
+                    <Menu.Item key="login">
+                      <div onClick={showModal}>로그인</div>
                     </Menu.Item>
-                    <Menu.Item key="4">
+                    <Menu.Item key="signup">
                       <Link href="/signup">
                         <a>회원가입</a>
                       </Link>
@@ -164,6 +183,14 @@ const AppLayout = ({ children }) => {
           Ant Design ©2018 Created by Ant UED
         </Footer>
       </StyledLayout>
+      <Modal
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={null}
+      >
+        <LoginForm setIsModalVisible={setIsModalVisible} />
+      </Modal>
     </div>
   );
 };
