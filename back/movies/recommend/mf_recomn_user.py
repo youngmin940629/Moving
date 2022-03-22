@@ -6,34 +6,38 @@ import scipy
 
 # 데이터베이스에서 영화, 평점 데이터 불러오기
 con = sqlite3.connect("db.sqlite3")
-movie_data = pd.read_sql_query("SELECT id,title from movies_movie", con)
-rating_data = pd.read_sql_query("SELECT * from movies_rating", con)
-rating_data.drop('id', axis=1, inplace=True)
+try:
+    movie_data = pd.read_sql_query("SELECT id,title from movies_movie", con)
+    rating_data = pd.read_sql_query("SELECT * from movies_rating", con)
+    rating_data.drop('id', axis=1, inplace=True)
 
-movie_data.rename(columns = {'id' : 'movie_id'}, inplace = True)
+    movie_data.rename(columns = {'id' : 'movie_id'}, inplace = True)
 
-user_movie_ratings = rating_data.pivot(
-    index='user_id',
-    columns='movie_id',
-    values='rank'
-).fillna(0)
+    user_movie_ratings = rating_data.pivot(
+        index='user_id',
+        columns='movie_id',
+        values='rank'
+    ).fillna(0)
 
 
 
-matrix = user_movie_ratings.values
+    matrix = user_movie_ratings.values
 
-user_rating_mean = np.mean(matrix, axis = 1)
+    user_rating_mean = np.mean(matrix, axis = 1)
 
-matrix_user_mean = matrix - user_rating_mean.reshape(-1,1)
+    matrix_user_mean = matrix - user_rating_mean.reshape(-1,1)
 
-U, sigma, Vt = scipy.sparse.linalg.svds(matrix_user_mean, k=12)
+    U, sigma, Vt = scipy.sparse.linalg.svds(matrix_user_mean, k=12)
 
-sigma = np.diag(sigma)
+    sigma = np.diag(sigma)
 
-svd_user_predicted_ratings = np.dot(np.dot(U, sigma), Vt) + user_rating_mean.reshape(-1,1)
+    svd_user_predicted_ratings = np.dot(np.dot(U, sigma), Vt) + user_rating_mean.reshape(-1,1)
 
-svd_predicts = pd.DataFrame(svd_user_predicted_ratings, columns = user_movie_ratings.columns)
+    svd_predicts = pd.DataFrame(svd_user_predicted_ratings, columns = user_movie_ratings.columns)
 
+except:
+    con.close()
+    
 def user_recommend(user_id):
     user_id = user_id
     sorted_user_prediction = svd_predicts.iloc[user_id].sort_values(ascending=False)
