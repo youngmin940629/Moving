@@ -14,7 +14,7 @@ import random
 from bs4 import BeautifulSoup
 from community.models import Review
 
-from .recommend.mf_recommend import mf_recomnend
+# from .recommend.mf_recommend import mf_recomnend
 # Create your views here.
 
 key = "733c7d5145ecf236ad387093e2d52047"
@@ -140,28 +140,24 @@ def rating(request):
         rating.save()
     return Response()
 
-<<<<<<< Updated upstream
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def recommend_genre(request, id):
     if request.method == 'GET':
         movie_df = find_sim_movie(id)
         # movie_list = movie_df['title'].values.tolist()
-        rec_list = movie_df.values.tolist()
+        rec_list = movie_df['title'].values.tolist()
         movie_list = []
         for movie in rec_list:
-            if movie.title == word:
-                movie_list.append(movie)
-        movies = Movie.objects.filter()
+            movie_object = Movie.objects.filter(title=movie)
+            movie_list.append(movie_object[0])
         serializer = MovieListSerializer(movie_list, many=True)
     return Response(serializer.data)
-=======
 
-@api_view(['GET'])
-@permission_classes([AllowAny])
-def mf_recommend(request,id):
-    if request.method == 'GET':
-        movie_list = mf_recomnend(id)
-        print(movie_list)
-        return Response(movie_list)
->>>>>>> Stashed changes
+# @api_view(['GET'])
+# @permission_classes([AllowAny])
+# def mf_recommend(request,id):
+#     if request.method == 'GET':
+#         # movie_list = mf_recomnend(id)
+#         print(movie_list)
+#         return Response(movie_list)
