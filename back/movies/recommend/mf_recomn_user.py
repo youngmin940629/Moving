@@ -19,23 +19,21 @@ try:
         values='rank'
     ).fillna(0)
 
-
-
     matrix = user_movie_ratings.values
 
     user_rating_mean = np.mean(matrix, axis = 1)
-
-    matrix_user_mean = matrix - user_rating_mean.reshape(-1,1)
-    print(matrix_user_mean)
-    U, sigma, Vt = scipy.sparse.linalg.svds(matrix_user_mean, k=12)
     
+    matrix_user_mean = matrix - user_rating_mean.reshape(-1,1)
+
+    U, sigma, Vt = scipy.sparse.linalg.svds(matrix_user_mean)
     sigma = np.diag(sigma)
 
     svd_user_predicted_ratings = np.dot(np.dot(U, sigma), Vt) + user_rating_mean.reshape(-1,1)
 
     svd_predicts = pd.DataFrame(svd_user_predicted_ratings, columns = user_movie_ratings.columns)
-
-except:
+    print(svd_predicts)
+except Exception as e:
+    print(e)
     con.close()
     
 def user_recommend(user_id):

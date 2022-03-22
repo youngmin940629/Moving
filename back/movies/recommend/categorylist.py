@@ -18,8 +18,6 @@ try:
     )
 
     movie_genre_data = movie_data = pd.read_sql_query("SELECT movie_id,genre_id from movies_movie_genres", con)
-    # print(movie_genre_data)
-
     movie_mean_vote = np.mean(user_movie_ratings.T, axis=1)
     movie_mean_vote = pd.DataFrame(movie_mean_vote)
 
@@ -34,4 +32,4 @@ def categoryPick(category, movie_genre_mean_data):
     categorypick_list = categorypick_list.sort_values('평점평균', ascending=False)
     return categorypick_list[:20]
 
-
+print(categoryPick(28,movie_genre_mean_data))

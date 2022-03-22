@@ -27,9 +27,14 @@ try:
     corr = np.corrcoef(matrix)
 
     movie_id = user_movie_rank.columns
+    print("movie_id= ", movie_id)
     movie_id_list = list(movie_id)
-
-
+    
+    coffey_hands = movie_id_list.index(883)
+    # movie list 안에 있는 movie id값
+    corr_coffey_hands = corr[coffey_hands]
+    corr_coffey_hands = pd.DataFrame(corr_coffey_hands)
+    top_20_corr_coffey_hands = corr_coffey_hands.nlargest(20, 0)
 
 except Exception as e:
     con.close()
