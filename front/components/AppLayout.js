@@ -1,7 +1,17 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
-import { Layout, Menu, Input, Button, Dropdown, message } from 'antd';
+import {
+  Layout,
+  Menu,
+  Input,
+  Button,
+  Dropdown,
+  message,
+  Row,
+  Col,
+  Divider,
+} from 'antd';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -105,53 +115,54 @@ const AppLayout = ({ children }) => {
     <div>
       <StyledLayout className="layout">
         <Header>
-          <Link href="/">
-            <MovingLogo src="/img/logo-colored.png" />
-          </Link>
-
-          <Menu theme="dark" mode="horizontal">
-            {me ? (
-              <>
+          <Row>
+            <Col span={8} style={{ color: 'white' }}>
+              <Link href="/">
+                <MovingLogo src="/img/logo-colored.png" />
+              </Link>
+              <Menu theme="dark" mode="horizontal">
                 <Menu.Item key="0">
                   <Link href="/community">
                     <a>커뮤니티</a>
                   </Link>
                 </Menu.Item>
-                <Menu.Item key="1">
-                  <SearchInput enterButton placeholder="영화 검색" />
-                </Menu.Item>
-                <Menu.Item key="2">
-                  <Dropdown overlay={menu}>
-                    <Button style={{ background: '#2CD4AC', color: 'white' }}>
-                      {userInfo !== null && userInfo.username}
-                      <UserOutlined />
-                    </Button>
-                  </Dropdown>
-                </Menu.Item>
-              </>
-            ) : (
-              <>
+              </Menu>
+            </Col>
+            <Col span={8} offset={8} style={{ color: 'white' }}>
+              <Menu theme="dark" mode="horizontal">
                 <Menu.Item key="3">
-                  <Link href="/login">
-                    <a>로그인</a>
-                  </Link>
-                </Menu.Item>
-                <Menu.Item key="4">
-                  <Link href="/signup">
-                    <a>회원가입</a>
-                  </Link>
-                </Menu.Item>
-                <Menu.Item key="5">
-                  <Link href="/community">
-                    <a>커뮤니티</a>
-                  </Link>
-                </Menu.Item>
-                <Menu.Item key="6">
                   <SearchInput enterButton placeholder="영화 검색" />
                 </Menu.Item>
-              </>
-            )}
-          </Menu>
+                {me ? (
+                  <>
+                    <Menu.Item key="2">
+                      <Dropdown overlay={menu}>
+                        <Button
+                          style={{ background: '#2CD4AC', color: 'white' }}
+                        >
+                          {userInfo !== null && userInfo.username}
+                          <UserOutlined />
+                        </Button>
+                      </Dropdown>
+                    </Menu.Item>
+                  </>
+                ) : (
+                  <>
+                    <Menu.Item key="3">
+                      <Link href="/login">
+                        <a>로그인</a>
+                      </Link>
+                    </Menu.Item>
+                    <Menu.Item key="4">
+                      <Link href="/signup">
+                        <a>회원가입</a>
+                      </Link>
+                    </Menu.Item>
+                  </>
+                )}
+              </Menu>
+            </Col>
+          </Row>
         </Header>
         <Content style={{ padding: '0 50px' }}>
           <SiteLayoutContent>{children}</SiteLayoutContent>
