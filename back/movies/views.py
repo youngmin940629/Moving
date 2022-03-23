@@ -194,5 +194,5 @@ def user_category_recommend(request,id):
     if request.method == 'GET':
         user = get_object_or_404(User, pk=id)
         print(user)
-
+        
         return Response([])

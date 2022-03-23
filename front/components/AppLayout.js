@@ -28,11 +28,8 @@ import {
 } from '@ant-design/icons';
 import jwt_decode from 'jwt-decode';
 import Router from 'next/router';
-<<<<<<< Updated upstream
 import SearchInput from './SearchInput';
-=======
 import LoginForm from './LoginForm';
->>>>>>> Stashed changes
 
 const { Header, Content, Footer } = Layout;
 
@@ -140,11 +137,7 @@ const AppLayout = ({ children }) => {
             </Col>
             <Col span={8} offset={8} style={{ color: 'white' }}>
               <Menu theme="dark" mode="horizontal">
-<<<<<<< Updated upstream
-                <Menu.Item key="1">
-=======
                 <Menu.Item key="search">
->>>>>>> Stashed changes
                   <SearchInput enterButton placeholder="영화 검색" />
                 </Menu.Item>
                 {me ? (
