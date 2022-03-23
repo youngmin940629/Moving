@@ -9,11 +9,11 @@ export default function Comments(props) {
         for(let i=0; i<data.length; i++){
             originDate= new Date(data[i].created_at);
             let date="";
-            date += originDate.getFullYear()+"-";
-            date += originDate.getMonth()+1+"-";
-            date += originDate.getDate()+"-";
-            date += originDate.getHours()+"-";
-            date += originDate.getMinutes();
+            date += originDate.getFullYear()+".";
+            date += originDate.getMonth()+1+".";
+            date += originDate.getDate()+". ";
+            date += originDate.getHours()+":";
+            date += originDate.getMinutes() < 10? '0'+originDate.getMinutes() : originDate.getMinutes();
             data[i].created_at = date;
         }
         setComments(data);
@@ -42,7 +42,7 @@ export default function Comments(props) {
             .then(()=>{
                 axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/community/review/${props.data}/`)
                     .then(res=>{
-                        setComments(res.data.comments)
+                        dateFormat(res.data.comments);
                         
                     });
         })
@@ -67,22 +67,27 @@ export default function Comments(props) {
             })
     },[])
     return(
-        <>
+        <div className="commentDiv">
             <Form
                 onFinish={submitComment}
                 form={form}
             >
-                <Form.Item
-                    label="댓글"
-                    name="comment"
-                >
-                    <Input.TextArea defaultValue="" rows={4}/>
-                </Form.Item>
+                    <div className="commentDiv-area">
+                        <div>
+                        총 {comments.length} 개의 댓글이 달렸습니다.
+                        </div>
+                        <Form.Item
+                            name="comment"
+                        >
+                        <Input.TextArea defaultValue="" rows={7}
+                        style={{width: 500}}/>
+                        </Form.Item>
+                    </div>
                 <Form.Item>
                  <div className="commentBtn">
                      {userID != null ?(
                          <Button htmlType="submit" type="primary">
-                             Add Comment
+                             댓글 작성
                          </Button>
                      ) : <span>댓글 작성은 로그인 후 이용해 주세요</span>
                      }
@@ -114,7 +119,14 @@ export default function Comments(props) {
                 .commentBtn{
                     text-align: center;
                 }
+                .commentDiv-area{
+                    text-align: center;
+                }
+                .commentDiv{
+                    margin: auto;
+                }
+
             `}</style>
-        </>
+        </div>
     )
 }

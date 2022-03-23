@@ -1,98 +1,107 @@
 import {Table} from "antd";
 import {useEffect, useState} from "react"
+import {useRouter} from "next/router";
 
 export default function detailContent(props){
     const [data, setData] = useState([{}]);
     useEffect(()=>{
         setData([props.data]);
     },[])
-    console.log(props)
-    const columns = [
-        {
-            title: "title",
-            dataIndex: "title"
-        },
-        {
-            title: "작성자",
-            dataIndex: "username"
-        },
-        {
-            title: '평점',
-            dataIndex: 'rank',
-        },
-        {
-            title: "작성일",
-            dataIndex: "created_at"
-        },
-        {
-            title: '수정일',
-            dataIndex: 'updated_at',
-        }
-    ];
-
+    const router = useRouter();
     return(
-        <>
-            <section className="tableSection">
-               <Table  dataSource={data}
-                       pagination={{ hideOnSinglePage: true}}
-                       columns={columns}
-                />
-            </section>
-            영화정보
-            <section className="movieInfo-container">
-                <div className="container-item">
-                    <img className="posterImg" src={props.movies[0].poster_path}
-                        alt="이미지가 없습니다."
-                    />
+        <div className="boardInfo">
+            <div className="postInfo">
+
+                <div className="postInfo-header">
+
+                    <div className="postInfo-header-title">
+                        <h2>{data[0].title}</h2>
+                    </div>
+
+                    <div className="postInfo-header-subtitle">
+                        <h4 className="username">{data[0].username}</h4>
+                        <span>&nbsp;&nbsp;&nbsp;{data[0].created_at}</span>
+                    </div>
+
                 </div>
-                <div className="container-item">
-                    <span className="movieTitle">
-                        {props.movies[0].title}
-                        <br/>
-                    </span>
-                    <span>{props.movies[0].overview}</span>
-                </div>
-            </section>
+
+            </div>
+            <div className="content">
             <section className="contentDiv">
                 {data[0].content}
             </section>
 
-
+            <div className="movieInfo-div" onClick={()=>router.push(`/movie/${props.movies[0].id}`)}>
+                <section className="movieInfo-container">
+                    <figure className="container-item">
+                        <img className="posterImg" src={props.movies[0].poster_path}
+                            alt="이미지가 없습니다."
+                        />
+                    </figure>
+                    <div className="container-item">
+                        <span className="movieTitle">
+                            {props.movies[0].title}
+                            <br/>
+                        </span>
+                        <span>{props.movies[0].overview}</span>
+                    </div>
+                </section>
+            </div>
+            </div>
             <style jsx>{`
+                .postInfo-header{
+                    border-bottom: 1px solid #f1f3f5;
+                }
+                .postInfo-header-subtitle{
+                    display: flex;
+                }
+                .movieInfo-div{
+                    text-align: center;
+                }
+                .movieInfo-container:hover {
+                    transform: scale(1.1);
+                    transition-duration: 0.5s;
+                }
                 .contentDiv{
-                     text-align: center;
                      font-size: 30px;
                      padding-top: 70px;
                      padding-bottom : 70px;
                 }
                 .posterImg{
-                      width: 40%;
+                      width: 200px;
                 }
                 .movieInfo-container{
-                    max-width: 100%;
-                    display: flex;
-                    border-top: 2px groove grey;
-                    border-bottom : 2px groove grey;
-                   
-                }
-                .container-img{
-                    width : 50%;
+                    display: inline-flex;
+                    border: 1px solid #e9ebee;
+                    border-radius: 8px;
+                    width: 70%;
+                    margin-bottom: 20px;
+                    align-items: center;
                 }
                 .container-item{
                     margin: auto;
-                    padding: 10% auto 10% auto;
-                    text-align: center;
+                    display: inline-block;
                 }
                 .movieTitle{
                     font-size: 28px;
-
+                }
+                .movieInfo-div{
+                    cursor: pointer;
                 }
                 .description{
                     font-size: 16px;
-                }   
+                }  
+                .content{
+                    border-bottom: 1px solid #f1f3f5; 
+                    margin-bottom: 20px;
+                }
+                .username{
+                    font-weight: 600;
+                    
+                }
                 `}
 
             </style>
-        </>
+        </div>
     )
 }

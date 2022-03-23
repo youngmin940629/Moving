@@ -4,6 +4,8 @@ import Link from "next/link"
 import {useEffect, useState} from "react";
 import axios from "axios";
 
+// 게시글 갯수 : props.boards.length
+
 export default function BoardTable(props) {
   const router = useRouter();
   const [userID, setUserID] =  useState(null);
@@ -63,7 +65,6 @@ export default function BoardTable(props) {
 
   // 게시글 등록 창으로 이동
   const goWrite=()=>{
-    console.log("submit");
     router.push(`board/write`);
   }
 
@@ -78,7 +79,7 @@ export default function BoardTable(props) {
 
       <Table dataSource={props.boards} columns={columns} pagination={{
         position:["bottomCenter"]
-      }}/>;
+      }}/>
 
       <style jsx>{`
         .boardWriteBtn{
