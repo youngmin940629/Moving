@@ -27,9 +27,9 @@ const SearchInput = () => {
 
   const options = searchResult.map(movie => 
     <Option key={movie.id}>
-      <Link href={`/movie/${movie.id}`}>
+      <a href={`/movie/${movie.id}`} style={{ color:'black' }}>
         {movie.title}
-      </Link>
+      </a>
     </Option>
   );
 
