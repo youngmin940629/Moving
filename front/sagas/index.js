@@ -17,7 +17,9 @@ import {
   WITH_DRAWAL_REQUEST,
   WITH_DRAWAL_SUCCESS,
   WITH_DRAWAL_FAILURE,
+  loaduserRequestAction,
 } from '../reducers/user';
+import { useDispatch } from 'react-redux';
 
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -26,8 +28,10 @@ function loadUserAPI(data) {
 }
 
 function* loadUser(action) {
+  console.log('===action===', action);
   try {
     const result = yield call(loadUserAPI, action.data);
+    console.log('===loadUser===', result);
     yield put({
       type: LOAD_USER_SUCCESS,
       data: result,
@@ -61,6 +65,9 @@ function* logIn(action) {
       })
       .then(() => {
         action.data.setIsModalVisible(false);
+        if (window.location.pathname === '/') {
+          document.location.href = '/';
+        }
         Router.push('/');
       });
   } catch (err) {
@@ -94,8 +101,8 @@ function* signUp(action) {
       type: SIGN_UP_SUCCESS,
     });
     yield call(() => {
-      alert('회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.');
-      Router.push('/login');
+      alert('회원가입이 완료되었습니다. 메인 페이지로 이동합니다.');
+      Router.push('/');
     });
   } catch (err) {
     yield put({ type: SIGN_UP_FAILURE, error: err.response.data });

@@ -150,9 +150,7 @@ const SignupForm = () => {
     if (password !== passwordCheck) {
       return setPasswordError(true);
     }
-    if (!term) {
-      return setTermError(true);
-    }
+
     if (username2Check === '' || username2Check === true) {
       console.log(username2Check);
       return setUsername2Check(true);

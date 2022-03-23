@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import AppLayout from '../components/AppLayout';
 import MainCarousel from '../components/MainCarousel';
 import MoviePoster from '../components/MoviePoster';
 import IndexRecommend from '../components/IndexRecommend';
 import IndexRecommend2 from '../components/IndexRecommend2';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Home = () => {
+  const dispatch = useDispatch();
   const poster = [1, 2, 3, 4, 5, 6, 7];
   const { me } = useSelector(state => state.user);
-
+  useEffect(() => {
+    console.log('memememe', me);
+  }, []);
   return (
     <>
       <AppLayout>
