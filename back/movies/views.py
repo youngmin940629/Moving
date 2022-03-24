@@ -13,7 +13,7 @@ import requests
 import random
 from bs4 import BeautifulSoup
 from community.models import Review
-
+from datetime import datetime
 from .recommend.mf_recommend import mf_recomnend
 from .recommend.mf_recomn_user import user_recommend
 from .recommend.categorylist import categoryPick
@@ -230,6 +230,7 @@ def latest_movie(request):
     if request.method == 'GET':
         movie_list=[]
         movies = Movie.objects.all().order_by('-release_date')
+        print(datetime.today())
         for movie in movies[:20]:
             movie_list.append(movie)
         serializer = MoviePosterSerializer(movie_list, many=True)

@@ -17,7 +17,7 @@ urlpatterns = [
     path('user_category_recommend/<int:user_id>/', views.user_category_recommend),
     path('top_rate/', views.top_rate),
     path('latest_movie/', views.latest_movie),
-    path('scrap_check/<int:user_id>/<int:movie_id>/', views.movie_scrap_check),
-    path('scrap/<int:user_id>/', views.movie_scrap),
-    path('scrap_cancel/<int:user_id>/', views.movie_scrap_cancel),
+    path('scrap_check/<int:user_id>/<int:movie_id>/', views.scrap_check),
+    path('scrap/<int:user_id>/', views.scrap),
+    path('scrap_cancel/<int:user_id>/', views.scrap_cancel),
 ]
