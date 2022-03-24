@@ -104,15 +104,28 @@ export default function ModifyBoard({post,movieTitle}){
                         fields={fields}
                     >
 
-                        <Form.Item label="제목" name="title"  >
-                            <Input />
+                        <Form.Item 
+                            label="제목" 
+                            name="title"
+                            rules={[
+                                {
+                                required: true,
+                                message: '수정할 리뷰 제목을 입력해주세요.',
+                                },
+                            ]} 
+                        >
+                            <Input placeholder="수정할 리뷰 제목을 입력해주세요." />
                         </Form.Item>
                         <div className="select">
-                            <Form.Item label="영화 검색">
+                            {/* <Form.Item label="영화 검색">
                                 <Input onKeyPress={inputEnter} placeholder="Press Enter "/>
-                            </Form.Item>
-                                <Form.Item label="Movie" name="movie">
-                                    <Select
+                            </Form.Item> */}
+                                <Form.Item 
+                                    label="Movie" 
+                                    name="movie" 
+                                >
+                                    <Input disabled />
+                                    {/* <Select
                                         placeholder="select option"
                                         name="movie"
                                     >
@@ -124,17 +137,35 @@ export default function ModifyBoard({post,movieTitle}){
                                                 {movie.title}
                                             </Select.Option>
                                         )))}
-                                    </Select>
+                                    </Select> */}
                                 </Form.Item>
 
-                            <Form.Item label="평점" name="rank">
-                                <Input type="number"></Input>
+                            <Form.Item 
+                                label="평점" 
+                                name="rank"
+                                rules={[
+                                    {
+                                    required: true,
+                                    message: '수정할 평점을 등록해주세요.',
+                                    },
+                                ]}
+                            >
+                                <Input type="number" placeholder="수정할 평점을 입력해주세요."></Input>
                             </Form.Item>
                         </div>
 
-                        <Form.Item label="내용" name="content">
-                            <TextArea placeholder="내용을 입력해주세요" rows={10}>
-
+                        <Form.Item 
+                            label="내용" 
+                            name="content"
+                            rules={[
+                                {
+                                required: true,
+                                message: '수정할 리뷰 내용을 입력해주세요.',
+                                },
+                            ]}    
+                        >
+                            <TextArea placeholder="수정할 리뷰 내용을 입력해주세요." rows={10}>
+                                
                             </TextArea>
                         </Form.Item>
                         <div className="submitBtnDiv">
@@ -143,6 +174,12 @@ export default function ModifyBoard({post,movieTitle}){
                     </Form>
                 </div>
             </AppLayout>
+
+            <style jsx>{`
+                .submitBtnDiv {
+                    text-align: center;
+                }  
+            `}</style>
         </>
     )
 }
