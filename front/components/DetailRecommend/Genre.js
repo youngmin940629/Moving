@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import { Typography, Card, Row, Col, Divider } from 'antd';
+import { Typography, Divider } from 'antd';
 import Router from 'next/router';
 import Slider from 'react-slick';
 import { MdArrowForwardIos, MdArrowBackIos } from 'react-icons/md';
-import Image from 'rc-image';
-
-// import styled from 'styled-components';
 
 const { Title } = Typography; // Typograpy.Title
-const { Meta } = Card;
 
 const NextArrow = ({ onClick }) => {
   return (
@@ -86,17 +82,28 @@ const GenreRecommend = () => {
       <Slider {...settings}>
         {movies.map(movie => {
           return (
-            <Image
+            <img
+              className='posterImg'
               key={movie.id}
               alt={`${movie.title} 포스터 이미지`}
-                  src={movie.poster_path}
-                  onError={onErrorImg}
-                  height="280"
+              src={movie.poster_path}
+              onError={onErrorImg}
               onClick={() => Router.push(`/movie/${movie.id}`)}
             />
           );
         })}
       </Slider>
+      <style jsx>
+        {`
+          .posterImg{
+            cursor: pointer;
+            height: 170px;
+          }
+          .posterImg:hover{
+            box-shadow: 0 1px 8px black;
+          }
+        `}
+      </style>
     </>
   );
 };
