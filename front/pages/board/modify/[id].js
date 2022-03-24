@@ -5,6 +5,23 @@ import {Button, Form, Input, Select} from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
+import styled from 'styled-components';
+
+const LogoWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+`;
+
+const Logo = styled.img``;
+
+const BoardTitle = styled.h2`
+  text-align: center;
+  padding-bottom: 5px;
+  font-weight: bold;
+  color: #2cd4ac;
+`;
 
 export default function ModifyBoard({post,movieTitle}){
     const router = useRouter();
@@ -70,14 +87,18 @@ export default function ModifyBoard({post,movieTitle}){
                 <title>게시글 수정 | moving</title>
             </Head>
             <AppLayout>
+                <LogoWrapper>
+                    <Logo src="/img/logo-colored.png" />
+                </LogoWrapper>
+                <BoardTitle>리뷰 수정하기</BoardTitle>
                 <div>
                     <Form
                         labelCol={{
-                            span: 4,
-                        }}
-                        wrapperCol={{
-                            span: 14,
-                        }}
+                        span: 6,
+                    }}
+                    wrapperCol={{
+                        span: 14,
+                    }}
                         layout="horizontal"
                         onFinish={onFinish}
                         fields={fields}
@@ -104,7 +125,7 @@ export default function ModifyBoard({post,movieTitle}){
                                             </Select.Option>
                                         )))}
                                     </Select>
-                                </Form.Item>}
+                                </Form.Item>
 
                             <Form.Item label="평점" name="rank">
                                 <Input type="number"></Input>

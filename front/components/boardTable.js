@@ -69,6 +69,7 @@ export default function BoardTable(props) {
     {
       title: '제목',
       dataIndex: 'title',
+      // width: '30rem',
       render: (title, record) => <a
           style={{color:'black', fontWeight:'bold'}}
           href={`board/${record.id}`}
@@ -79,6 +80,7 @@ export default function BoardTable(props) {
       dataIndex: 'created_at',
     },
     {
+      // width: '5rem',
       render: (record) => (
           <>
             {/*
