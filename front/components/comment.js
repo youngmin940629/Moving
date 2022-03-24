@@ -4,6 +4,7 @@ import axios from "axios";
 
 export default function Comments(props) {
     const [comments, setComments] = useState([{}]);
+    console.log("props", props)
     const dateFormat = (data)=>{
         let originDate;
         for(let i=0; i<data.length; i++){
@@ -33,14 +34,14 @@ export default function Comments(props) {
     const submitComment=(data)=>{
         console.log(data.comment);
         form.resetFields();
-        axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/community/review/${props.data}/comment/`,
+        axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/community/review/${props.data.id}/comment/`,
             {
                 user:userID,
-                review:props.data, //게시글 id
+                review:props.data.id, //게시글 id
                 content:data.comment // 댓글 내용
             })
             .then(()=>{
-                axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/community/review/${props.data}/`)
+                axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/community/review/${props.data.id}/`)
                     .then(res=>{
                         dateFormat(res.data.comments);
                         
@@ -51,7 +52,7 @@ export default function Comments(props) {
     const commentDelete = (id)=>{
         axios.delete(`${process.env.NEXT_PUBLIC_BASE_URL}/community/comment/${id}/`)
             .then(async () => {
-                await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/community/review/${props.data}/`)
+                await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/community/review/${props.data.id}/`)
                     .then(res => {
                         dateFormat(res.data.comments);
                     });
@@ -60,12 +61,9 @@ export default function Comments(props) {
     }
     // 댓글 가져오기
     useEffect(async ()=>{
-        console.log("effect call")
-        await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/community/review/${props.data}/`)
-            .then(res=>{
-                dateFormat(res.data.comments);
-            })
+                dateFormat(props.data.comments);
     },[])
+
     return(
         <div className="commentDiv">
             <div className="commentInfo">

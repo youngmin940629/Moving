@@ -73,7 +73,10 @@ export default function BoardTable(props) {
       render: (title, record) => <a
           style={{color:'black', fontWeight:'bold'}}
           href={`board/${record.id}`}
-          value={record.id} key={record.id}>{title}</a>
+          value={record.id} key={record.id}
+          onClick={()=>
+              axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/community/visit_count/${record.id}/`)}
+          >{title}</a>
     },
     {
       title: '작성일',

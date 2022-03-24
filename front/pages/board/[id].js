@@ -13,7 +13,7 @@ export default function BoardDetail({post, movieInfo}) {
       </Head>
       <AppLayout>
         <DetailContent data={post} movies={movieInfo}></DetailContent>
-        <Comment data={post.id}></Comment>
+        <Comment data={post}></Comment>
       </AppLayout>
 
     </>

@@ -6,7 +6,7 @@ export default function detailContent(props){
     const [userID, setUserID] = useState(null);
     const [data, setData] = useState([{}]);
     const router = useRouter();
-
+    console.log("props", props.data)
     useEffect(()=>{
         setData([props.data]);
         if(sessionStorage.getItem("id")){
@@ -15,7 +15,6 @@ export default function detailContent(props){
             setUserID(null);
         }
     },[])
-    console.log(props.data)
     return(
         <div className="boardInfo">
             <div className="postInfo">
@@ -27,13 +26,14 @@ export default function detailContent(props){
 
                     <div className="postInfo-header-subtitle">
                         <div className="subtitle-info">
-                            <h4 className="username">{data[0].username}</h4>
-                            <span>&nbsp;&nbsp;&nbsp;{data[0].created_at}</span>
+                            <h4 className="username">{props.data.username}</h4>
+                            <span>&nbsp;&nbsp;&nbsp;{props.data.created_at}</span>
+                            <span>&nbsp;&nbsp;&nbsp;조회수:&nbsp;&nbsp;{props.data.visit_count}</span>
                             <span>&nbsp;&nbsp;&nbsp;댓글수:&nbsp;&nbsp;{props.data.comments.length}</span>
                         </div>
                         {props.data.user == userID? (
                             <div className="modifyBtn">
-                                <Button onClick={()=>router.push(`/board/modify/${props.data.id}`)}>
+                                <Button onClick={()=>router.push(`/board/modify/`)}>
                                     수정
                                 </Button>
                             </div>
