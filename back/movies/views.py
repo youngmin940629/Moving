@@ -230,9 +230,14 @@ def latest_movie(request):
     if request.method == 'GET':
         movie_list=[]
         movies = Movie.objects.all().order_by('-release_date')
-        print(datetime.today())
-        for movie in movies[:20]:
-            movie_list.append(movie)
+        today = datetime.today().strftime("%Y-%m-%d")
+        cnt = 0
+        for movie in movies:
+            if str(movie.release_date) < today:
+                movie_list.append(movie)
+                cnt += 1
+            if cnt == 20:
+                break
         serializer = MoviePosterSerializer(movie_list, many=True)
         return Response(serializer.data)
 
