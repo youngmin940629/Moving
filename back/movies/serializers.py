@@ -58,4 +58,8 @@ class MoviePosterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Movie
+<<<<<<< Updated upstream
         fields = ('id', 'title', 'poster_path', 'vote_average', 'overview',)
+=======
+        fields = ('id','title','poster_path','vote_average','overview','release_date',)
+>>>>>>> Stashed changes

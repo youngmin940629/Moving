@@ -16,7 +16,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = ('username', 'password', 'gender',
-                  'picture', 'birthDate', 'category_list', 'username2')
+                  'picture', 'birthDate', 'category_list', 'username2', 'scrap_movie',)
 
 class UserSignupSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -24,4 +24,4 @@ class UserSignupSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = ('username', 'password', 'gender',
-                  'picture', 'birthDate', 'category_list', 'username2')
+                  'picture', 'birthDate', 'category_list', 'username2', 'scrap_movie',)

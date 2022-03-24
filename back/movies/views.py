@@ -3,7 +3,7 @@ import requests
 from rest_framework import response
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
-
+from accounts.models import User
 from movies.recommend.genre_recommend import find_sim_movie
 from .models import Movie, Genre, Rating
 from .serializers import MovieListSerializer, MovieSerializer, GenreSerializer, MovieIdSerializer,MoviePosterSerializer
@@ -146,9 +146,9 @@ def rating(request):
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
-def recommend_genre(request, id):
+def recommend_genre(request, movie_id):
     if request.method == 'GET':
-        movie_df = find_sim_movie(id)
+        movie_df = find_sim_movie(movie_id)
         # movie_list = movie_df['title'].values.tolist()
         rec_list = movie_df['title'].values.tolist()
         movie_list = []
@@ -160,9 +160,9 @@ def recommend_genre(request, id):
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
-def mf_recommend(request,id):
+def mf_recommend(request,movie_id):
     if request.method == 'GET':
-        recommend_movie_list = mf_recomnend(id)
+        recommend_movie_list = mf_recomnend(movie_id)
         movie_list = []
         for recommend in recommend_movie_list:
             movie = Movie.objects.filter(pk=recommend)
@@ -172,16 +172,16 @@ def mf_recommend(request,id):
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
-def mf_user_recommend(request,id):
+def mf_user_recommend(request,user_id):
     if request.method == 'GET':
         user_list = get_list_or_404(User)
         index = 0
         for i in range(len(user_list)):
-            if user_list[i].pk == id:
+            if user_list[i].pk == user_id:
                 print(i)
                 index = i
                 break
-        user_history, recommendationList = user_recommend(index, id)
+        user_history, recommendationList = user_recommend(index, user_id)
         movie_list = []
         for recommend in recommendationList.values:
             movie = Movie.objects.filter(pk=recommend[0])
@@ -191,9 +191,9 @@ def mf_user_recommend(request,id):
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
-def user_category_recommend(request,id):
+def user_category_recommend(request,user_id):
     if request.method == 'GET':
-        user = get_object_or_404(User, pk=id)
+        user = get_object_or_404(User, pk=user_id)
         user_catetory = user.category_list.all()
         data = []
         for index in range(len(user_catetory)):
@@ -234,3 +234,38 @@ def latest_movie(request):
             movie_list.append(movie)
         serializer = MoviePosterSerializer(movie_list, many=True)
         return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def scrap_check(request,user_id,movie_id):
+    if request.method == "GET":
+        data = []
+        user = User.objects.get(id=user_id)
+        scrap_list = user.scrap_movie.all()
+        data.append(scrap_list.filter(id=movie_id).exists())
+        return Response(data)
+
+@api_view(['GET','POST'])
+@permission_classes([AllowAny])
+def scrap(request,user_id):
+    user = User.objects.get(id=user_id)
+    scrap_list = user.scrap_movie.all()
+    if request.method == "GET":
+        scraps = []
+        for scrap in scrap_list:
+            scraps.append(scrap)
+        serializers = MoviePosterSerializer(scraps, many=True)
+        return Response(serializers.data)
+    elif request.method == "POST":
+        movie_id = request.data["movie_id"]
+        user.scrap_movie.add(movie_id)
+        return Response(["추가 성공"])
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def scrap_cancel(request,user_id):
+    user = User.objects.get(id=user_id)
+    if request.method == "POST":
+        movie_id = request.data["movie_id"]
+        user.scrap_movie.remove(movie_id)
+        return Response(["삭제 성공"])
