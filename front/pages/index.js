@@ -5,6 +5,8 @@ import MoviePoster from '../components/MoviePoster';
 import IndexRecommend from '../components/IndexRecommend';
 import IndexRecommend2 from '../components/IndexRecommend2';
 import { useDispatch, useSelector } from 'react-redux';
+import IndexRecommend3 from '../components/IndexRecommend3';
+import IndexRecommend4 from '../components/IndexRecommend4';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -17,36 +19,14 @@ const Home = () => {
     <>
       <AppLayout>
         <MainCarousel />
-        <IndexRecommend />
+        {/* 나와 비슷한 취향을 가진 사용자들이 시청한 영화 */}
         {me !== null && <IndexRecommend2 />}
-        <hr />
-        <div>OO별 추천</div>
-        <div
-          style={{
-            width: '90%',
-            margin: '0 auto',
-            paddingTop: '10px',
-            overflow: 'hidden',
-          }}
-        >
-          {poster.map((a, i) => {
-            return <MoviePoster i={i} key={i} />;
-          })}
-        </div>
-        <hr />
-        <div>OO별 추천</div>
-        <div
-          style={{
-            width: '90%',
-            margin: '0 auto',
-            paddingTop: '10px',
-            overflow: 'hidden',
-          }}
-        >
-          {poster.map((a, i) => {
-            return <MoviePoster i={i} key={i} />;
-          })}
-        </div>
+        {/* 장르별 추천 영화 */}
+        {me !== null && <IndexRecommend3 />}
+        {/* 평점순 */}
+        <IndexRecommend4 />
+        {/* 랜덤 추천 영화 */}
+        <IndexRecommend />
       </AppLayout>
     </>
   );
