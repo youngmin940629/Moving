@@ -1,11 +1,17 @@
-import {Table} from "antd";
 import {useEffect, useState} from "react"
 import {useRouter} from "next/router";
+import {Button} from "antd";
 
 export default function detailContent(props){
+    const [userID, setUserID] = useState(null);
     const [data, setData] = useState([{}]);
     useEffect(()=>{
         setData([props.data]);
+        if(sessionStorage.getItem("id")){
+            setUserID(sessionStorage.getItem("id"));
+        }else{
+            setUserID(null);
+        }
     },[])
     const router = useRouter();
     return(
@@ -13,50 +19,71 @@ export default function detailContent(props){
             <div className="postInfo">
 
                 <div className="postInfo-header">
-
                     <div className="postInfo-header-title">
                         <h2>{data[0].title}</h2>
                     </div>
 
                     <div className="postInfo-header-subtitle">
-                        <h4 className="username">{data[0].username}</h4>
-                        <span>&nbsp;&nbsp;&nbsp;{data[0].created_at}</span>
+                        <div className="subtitle-info">
+                            <h4 className="username">{data[0].username}</h4>
+                            <span>&nbsp;&nbsp;&nbsp;{data[0].created_at}</span>
+                        </div>
+                        {props.data.user == userID? (
+                            <div className="modifyBtn">
+                                <Button onClick={()=>router.push(`/board/modify/${props.data.id}`)}>
+                                    수정
+                                </Button>
+                            </div>
+                        ) : null}
                     </div>
 
                 </div>
 
-            </div>
-            <div className="content">
-            <section className="contentDiv">
-                {data[0].content}
-            </section>
-
-            <div className="movieInfo-div" onClick={()=>router.push(`/movie/${props.movies[0].id}`)}>
-                <section className="movieInfo-container">
-                    <figure className="container-item">
-                        <img className="posterImg" src={props.movies[0].poster_path}
-                            alt="이미지가 없습니다."
-                        />
-                    </figure>
-                    <div className="container-item">
-                        <span className="movieTitle">
-                            {props.movies[0].title}
-                            <br/>
-                        </span>
-                        <span>{props.movies[0].overview}</span>
-                    </div>
+                <div className="content">
+                <section className="contentDiv">
+                    {data[0].content}
                 </section>
-            </div>
+
+                <div className="movieInfo-div">
+                    <section className="movieInfo-container" onClick={()=>router.push(`/movie/${props.movies[0].id}`)}>
+                        <figure className="container-item">
+                            <img className="posterImg" src={props.movies[0].poster_path}
+                                alt="이미지가 없습니다."
+                            />
+                        </figure>
+                        <div className="container-item">
+                            <span className="movieTitle">
+                                {props.movies[0].title}
+                                <br/>
+                            </span>
+                            <span>{props.movies[0].overview}</span>
+                        </div>
+                    </section>
+                </div>
+                </div>
             </div>
             <style jsx>{`
+                .boardInfo{
+                    margin: 50px;
+                    border-top: 2px solid #f1f3f5;
+                    border-bottom: 2px solid #f1f3f5;
+                    width: 80%;
+                    margin: auto;
+                }
+                .subtitle-info{
+                    display: flex;
+                }
                 .postInfo-header{
                     border-bottom: 1px solid #f1f3f5;
+                    margin: auto;
                 }
                 .postInfo-header-subtitle{
                     display: flex;
+                    justify-content: space-between;
                 }
                 .movieInfo-div{
-                    text-align: center;
+                    width: 70%;
+                    margin: 0 auto;
                 }
                 .movieInfo-container:hover {
                     transform: scale(1.1);
@@ -66,6 +93,7 @@ export default function detailContent(props){
                      font-size: 30px;
                      padding-top: 70px;
                      padding-bottom : 70px;
+                     text-align: left;
                 }
                 .posterImg{
                       width: 200px;
@@ -74,7 +102,6 @@ export default function detailContent(props){
                     display: inline-flex;
                     border: 1px solid #e9ebee;
                     border-radius: 8px;
-                    width: 70%;
                     margin-bottom: 20px;
                     align-items: center;
                 }
@@ -92,12 +119,10 @@ export default function detailContent(props){
                     font-size: 16px;
                 }  
                 .content{
-                    border-bottom: 1px solid #f1f3f5; 
                     margin-bottom: 20px;
                 }
                 .username{
-                    font-weight: 600;
-                    
+                    font-weight: 600;    
                 }
                 `}
 

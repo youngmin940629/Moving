@@ -68,6 +68,7 @@ export default function Comments(props) {
     },[])
     return(
         <div className="commentDiv">
+            <div className="commentInfo">
             <Form
                 onFinish={submitComment}
                 form={form}
@@ -79,8 +80,7 @@ export default function Comments(props) {
                         <Form.Item
                             name="comment"
                         >
-                        <Input.TextArea defaultValue="" rows={7}
-                        style={{width: 500}}/>
+                        <Input.TextArea defaultValue="" rows={7}/>
                         </Form.Item>
                     </div>
                 <Form.Item>
@@ -115,6 +115,7 @@ export default function Comments(props) {
                     )}
                 />
             }
+            </div>
             <style jsx>{`
                 .commentBtn{
                     text-align: center;
@@ -123,9 +124,12 @@ export default function Comments(props) {
                     text-align: center;
                 }
                 .commentDiv{
-                    margin: auto;
+                    margin: 50px;
                 }
-
+                .commentInfo{
+                    width: 80%;
+                    margin: auto;   
+                }
             `}</style>
         </div>
     )
