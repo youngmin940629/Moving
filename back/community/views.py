@@ -20,6 +20,8 @@ def review_list(request):
     if request.method == 'GET':
         try:
             review = get_list_or_404(Review)
+            review.sort(key=lambda x : x.id, reverse=True)
+            print(review)
         except:
             review = []
         serializer = ReviewListSerializer(review, many=True)
