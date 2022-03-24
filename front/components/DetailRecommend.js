@@ -1,9 +1,12 @@
 import React from 'react'
+import GenreRecommend from './DetailRecommend/genre'
 
 export default function DetailRecommend() {
   return (
     <>
-      <div className='container'>여기에 영화 추천 목록들 띄울꺼임.</div>
+      <div className='container'>
+        <GenreRecommend/>
+      </div>
       <style jsx>
         {`
           .container{
