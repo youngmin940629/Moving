@@ -76,7 +76,7 @@ const GenreRecommend = () => {
       .then(res => {
         setMovies(res.data);
       });
-  }, []);
+  }, [movies]);
 
   return (
     <>
