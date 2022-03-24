@@ -6,7 +6,7 @@ from rest_framework.decorators import api_view, permission_classes
 from accounts.models import User
 from movies.recommend.genre_recommend import find_sim_movie
 from .models import Movie, Genre, Rating
-from .serializers import MovieListSerializer, MovieSerializer, GenreSerializer, MovieIdSerializer,MoviePosterSerializer
+from .serializers import MovieListSerializer, MovieSerializer, GenreSerializer, MovieIdSerializer,MoviePosterSerializer,MovieDetailSerializer
 from rest_framework import serializers, status
 from rest_framework.permissions import AllowAny
 import requests
@@ -31,7 +31,7 @@ youtube_base_url = 'https://www.youtube.com/embed/'
 def movie_detail(request,id):
     if request.method == 'GET':
         movie = Movie.objects.filter(id = id)
-        serializers = MovieSerializer(movie, many=True)
+        serializers = MovieDetailSerializer(movie, many=True)
         return Response(serializers.data)
 
 @api_view(['GET'])

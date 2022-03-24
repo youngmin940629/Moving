@@ -1,7 +1,8 @@
+from dataclasses import field
 from django.db import models
 from rest_framework import serializers
 
-from .models import Movie, Genre, OnelineReview
+from .models import Cast, Movie, Genre, OnelineReview
 
 
 class OnelinereviewSerializer(serializers.ModelSerializer):
@@ -24,7 +25,6 @@ class MovieSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
         fields = '__all__'
-
 
 class MovieListSerializer(serializers.ModelSerializer):
 
@@ -59,3 +59,19 @@ class MoviePosterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
         fields = ('id','title','poster_path','vote_average','overview','release_date',)
+
+
+class MovieDetailSerializer(serializers.ModelSerializer):
+    
+    class CastSerializer(serializers.ModelSerializer):
+
+        class Meta:
+            model = Cast
+            fields = ('__all__')
+
+    genres = GenreSerializer(many=True)
+    casts = CastSerializer(many=True)
+
+    class Meta:
+        model = Movie
+        fields = ('__all__')
