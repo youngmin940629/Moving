@@ -35,8 +35,6 @@ def review_list(request):
 def review(request, review_pk):
     review = get_object_or_404(Review, pk=review_pk)
     if request.method == 'GET':
-        review.visit_count += 1
-        review.save()
         serializer = ReviewSerializer(review)
         return Response(serializer.data)
     elif request.method == 'DELETE':
@@ -50,6 +48,15 @@ def review(request, review_pk):
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def visit_count(request, review_pk):
+    review = get_object_or_404(Review, pk=review_pk)
+    review.visit_count += 1
+    review.save()
+    return Response([])
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
