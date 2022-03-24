@@ -33,7 +33,7 @@ export default function detailContent(props){
                         </div>
                         {props.data.user == userID? (
                             <div className="modifyBtn">
-                                <Button onClick={()=>router.push(`/board/modify/`)}>
+                                <Button onClick={()=>router.push(`/board/modify/${props.data.id}`)}>
                                     수정
                                 </Button>
                             </div>

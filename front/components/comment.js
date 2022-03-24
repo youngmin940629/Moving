@@ -75,7 +75,7 @@ export default function Comments(props) {
                         <Form.Item
                             name="comment"
                         >
-                        <Input.TextArea defaultValue="" rows={7}/>
+                        <Input.TextArea defaultValue="" rows={7} style={{resize: "none"}}/>
                         </Form.Item>
                     </div>
                 <Form.Item>
