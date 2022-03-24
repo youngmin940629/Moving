@@ -15,4 +15,6 @@ urlpatterns = [
     path('mf_recommend/<int:id>/', views.mf_recommend),
     path('mf_user_recommend/<int:id>/', views.mf_user_recommend),
     path('user_category_recommend/<int:id>/', views.user_category_recommend),
+    path('top_rate/', views.top_rate),
+    path('latest_movie/', views.latest_movie),
 ]

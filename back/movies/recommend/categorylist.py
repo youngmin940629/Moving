@@ -6,11 +6,11 @@ import scipy
 
 # 데이터베이스에서 영화, 평점 데이터 불러오기
 con = sqlite3.connect("db.sqlite3")
-try:
+rating_data = pd.read_sql_query("SELECT * from movies_rating", con )
+if len(rating_data) > 100:
     movie_data = pd.read_sql_query("SELECT id,title from movies_movie", con)
-    rating_data = pd.read_sql_query("SELECT * from movies_rating", con)
     rating_data.drop('id', axis=1, inplace=True)
-
+    print(rating_data)
     user_movie_ratings = rating_data.pivot(
         index='user_id',
         columns='movie_id',
@@ -23,13 +23,15 @@ try:
 
     movie_genre_mean_data = pd.merge(movie_genre_data, movie_mean_vote, on='movie_id')
     movie_genre_mean_data.rename(columns={0:'평점평균'}, inplace=True)
+else:
+    movie_genre_data = pd.read_sql_query("SELECT movie_id,genre_id from movies_movie_genres", con)
+    movie_data = pd.read_sql_query("SELECT id,title,vote_average from movies_movie", con)
+    movie_data.rename(columns={"id":"movie_id"}, inplace=True)
+    movie_genre_mean_data = pd.merge(movie_genre_data, movie_data, on='movie_id')
+    movie_genre_mean_data.rename(columns={"vote_average" : '평점평균'},inplace=True)
+con.close()
 
-except:
-    con.close()
-
-def categoryPick(category, movie_genre_mean_data):
+def categoryPick(category):
     categorypick_list = movie_genre_mean_data[movie_genre_mean_data.genre_id == category]
     categorypick_list = categorypick_list.sort_values('평점평균', ascending=False)
-    return categorypick_list[:20]
-
-print(categoryPick(28,movie_genre_mean_data))
+    return categorypick_list

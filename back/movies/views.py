@@ -6,7 +6,7 @@ from rest_framework.decorators import api_view, permission_classes
 
 from movies.recommend.genre_recommend import find_sim_movie
 from .models import Movie, Genre, Rating
-from .serializers import MovieListSerializer, MovieSerializer, GenreSerializer, MovieIdSerializer
+from .serializers import MovieListSerializer, MovieSerializer, GenreSerializer, MovieIdSerializer,MoviePosterSerializer
 from rest_framework import serializers, status
 from rest_framework.permissions import AllowAny
 import requests
@@ -17,6 +17,7 @@ from community.models import Review
 from .recommend.mf_recommend import mf_recomnend
 from .recommend.mf_recomn_user import user_recommend
 from .recommend.categorylist import categoryPick
+from .recommend.toprate import toprate
 
 # Create your views here.
 
@@ -193,6 +194,43 @@ def mf_user_recommend(request,id):
 def user_category_recommend(request,id):
     if request.method == 'GET':
         user = get_object_or_404(User, pk=id)
-        print(user)
-        
-        return Response([])
+        user_catetory = user.category_list.all()
+        data = []
+        for index in range(len(user_catetory)):
+            recommend_list = []
+            recommend_list.append(user_catetory[index].name)
+            recommend_movies = categoryPick(user_catetory[index].id)
+            if len(recommend_movies) > 20:
+                recommend_movies = recommend_movies[:20]
+            movie_list = []
+            for movieId in recommend_movies["movie_id"]:
+                movie = Movie.objects.filter(id=movieId)
+                movie_list.append(movie[0])
+            serializer = MoviePosterSerializer(movie_list, many=True)
+            recommend_list.append(serializer.data)
+            data.append(recommend_list)
+        return Response(data)
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def top_rate(request):
+    if request.method == 'GET':
+        movie_list = []
+        top_rating_movies = toprate()
+        for movieId in top_rating_movies["movie_id"]:
+            movie = Movie.objects.filter(id=movieId)
+            movie_list.append(movie[0])
+        serializer = MoviePosterSerializer(movie_list, many=True)
+        return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def latest_movie(request):
+    if request.method == 'GET':
+        movie_list=[]
+        movies = Movie.objects.all().order_by('-release_date')
+        for movie in movies[:20]:
+            movie_list.append(movie)
+        serializer = MoviePosterSerializer(movie_list, many=True)
+        return Response(serializer.data)

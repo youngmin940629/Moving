@@ -47,3 +47,9 @@ class MovieIdSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
         fields = ('id',)
+
+class MoviePosterSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Movie
+        fields = ('id','title','poster_path','vote_average',)
