@@ -5,6 +5,8 @@ import {Button} from "antd";
 export default function detailContent(props){
     const [userID, setUserID] = useState(null);
     const [data, setData] = useState([{}]);
+    const router = useRouter();
+
     useEffect(()=>{
         setData([props.data]);
         if(sessionStorage.getItem("id")){
@@ -13,7 +15,7 @@ export default function detailContent(props){
             setUserID(null);
         }
     },[])
-    const router = useRouter();
+    console.log(props.data)
     return(
         <div className="boardInfo">
             <div className="postInfo">
@@ -27,6 +29,7 @@ export default function detailContent(props){
                         <div className="subtitle-info">
                             <h4 className="username">{data[0].username}</h4>
                             <span>&nbsp;&nbsp;&nbsp;{data[0].created_at}</span>
+                            <span>&nbsp;&nbsp;&nbsp;댓글수:&nbsp;&nbsp;{props.data.comments.length}</span>
                         </div>
                         {props.data.user == userID? (
                             <div className="modifyBtn">

@@ -74,9 +74,6 @@ export default function Comments(props) {
                 form={form}
             >
                     <div className="commentDiv-area">
-                        <div>
-                        총 {comments.length} 개의 댓글이 달렸습니다.
-                        </div>
                         <Form.Item
                             name="comment"
                         >
