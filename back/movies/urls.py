@@ -20,4 +20,6 @@ urlpatterns = [
     path('scrap_check/<int:user_id>/<int:movie_id>/', views.scrap_check),
     path('scrap/<int:user_id>/', views.scrap),
     path('scrap_cancel/<int:user_id>/', views.scrap_cancel),
+    path('oneline_review/<int:movie_id>/', views.oneline_review),
+    path('oneline_review_detail/<int:oneline_id>/', views.oneline_review_detail),
 ]

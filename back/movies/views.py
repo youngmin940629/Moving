@@ -5,8 +5,8 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from accounts.models import User
 from movies.recommend.genre_recommend import find_sim_movie
-from .models import Movie, Genre, Rating
-from .serializers import MovieListSerializer, MovieSerializer, GenreSerializer, MovieIdSerializer,MoviePosterSerializer,MovieDetailSerializer
+from .models import Movie, Genre, Rating, OnelineReview
+from .serializers import MovieListSerializer, MovieSerializer, GenreSerializer, MovieIdSerializer,MoviePosterSerializer,MovieDetailSerializer, OnelinereviewSerializer
 from rest_framework import serializers, status
 from rest_framework.permissions import AllowAny
 import requests
@@ -275,3 +275,37 @@ def scrap_cancel(request,user_id):
         movie_id = request.data["movie_id"]
         user.scrap_movie.remove(movie_id)
         return Response(["삭제 성공"])
+
+@api_view(['GET','POST'])
+@permission_classes([AllowAny])
+def oneline_review(request,movie_id):
+    if request.method == 'GET':
+        try:
+            onelinereview = get_list_or_404(OnelineReview, movie=movie_id)
+            serializer = OnelinereviewSerializer(onelinereview, many=True)
+            return Response(serializer.data)
+        except:
+            return Response([])
+    elif request.method == 'POST':
+        serializer = OnelinereviewSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save(user=request.user, movie=movie_id)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+@api_view(['PUT','DELETE'])
+@permission_classes([AllowAny])
+def oneline_review_detail(request,oneline_id):
+    onelinereview = get_object_or_404(OnelineReview, id=oneline_id)
+    if request.method == 'PUT':
+        try:
+            onelinereview = get_list_or_404(OnelineReview, movie=movie_id)
+            serializer = OnelinereviewSerializer(onelinereview, many=True)
+            return Response(serializer.data)
+        except:
+            return Response([])
+    elif request.method == 'DELETE':
+        onelinereview.delete()
+        data = {
+            'delete' : f'리뷰가 삭제되었습니다.'
+        }
+        return Response(data, status=status.HTTP_204_NO_CONTENT)
