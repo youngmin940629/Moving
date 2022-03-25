@@ -5,29 +5,18 @@ export default function BoardMovieDesc(props){
     const router = useRouter();
     return(
         <div className="movieInfo-div">
-            <section className="movieInfo-container" onClick={()=>router.push(`/movie/${props.movies[0].id}`)}>
 
-                <div className="movieInfo-main">
-                    <figure className="container-item">
-                        <img className="posterImg" src={props.movies[0].poster_path}
-                             alt="이미지가 없습니다."
-                        />
-                    </figure>
+                <div className="movieInfo-main" onClick={()=>router.push(`/movie/${props.movies[0].id}`)}>
                     <div className="container-item">
+                        <figure className="poster-img-figure">
+                            <img className="posterImg" src={props.movies[0].poster_path}
+                                 alt="이미지가 없습니다."
+                            />
+                            <figcaption>{props.movies[0].title}</figcaption>
+                        </figure>
+                    </div>
 
-                        <div className="subMovie-info">
-                            <div className="movie-title-overview">
-                                <span className="movieTitle">
-                                    {props.movies[0].title}
-                                        <br/>
-                                </span>
-                                <span>
-                                    {props.movies[0].overview.length > 100?(
-                                        props.movies[0].overview.substr(0, 101)+"..."
-                                    ): props.movies[0].overview}
-                                </span>
-                            </div>
-                            <div>
+                            <div className="container-item">
                                 <table>
                                     <tbody>
                                     <tr>
@@ -68,49 +57,36 @@ export default function BoardMovieDesc(props){
                                 </table>
                             </div>
 
-                        </div>
-                    </div>
                 </div>
 
-            </section>
-
             <style jsx>{`
-                .movieInfo-div{
-                    width: 80%;
-                    margin: 0 auto;
-                    margin-top: 50px;
-                }
-                .movieInfo-container:hover {
+                .movieInfo-main:hover {
                     transform: scale(1.1);
                     transition-duration: 0.5s;
                 }
                 .posterImg{
-                      width: 120px;
+                      position: relative;
+                      width: 50%;
                 }
                 .movieInfo-main{
-                    display: inline-flex;  
-                }
-                .movieInfo-container{
+                    display: flex;  
                     border: 1px solid #e9ebee;
-                    border-radius: 8px;
-                    margin-bottom: 20px;
+                    flex-wrap: wrap;
+                    cursor: pointer;
+                    justify-content: center;
+                }
+                .movieInfo-div{
+                    margin: auto;
+                    width: fit-content;
                 }
                 .container-item{
-                    margin: auto;
-                    display: inline-block;
-                    padding: 10px;
+                    margin: 1rem;
+                    width: 20rem;
+                    display: flex;
+                    align-items: center;
                 }
                 .movieTitle{
                     font-size: 28px;
-                }
-                .movieInfo-div{
-                    cursor: pointer;
-                }
-                .description{
-                    font-size: 16px;
-                }
-                .subMovie-info{
-                    display: flex;
                 }
                 .actor-info{
                     display: flex;
@@ -128,8 +104,9 @@ export default function BoardMovieDesc(props){
                 }
                 .movie-title-overview{
                     text-align: center;
-                    margin: auto;
-                    width: 60%;
+                }
+                .poster-img-figure{
+                    text-align: center;
                 }
                 
             `}</style>

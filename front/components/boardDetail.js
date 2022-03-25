@@ -5,7 +5,6 @@ import {Button} from "antd";
 export default function detailContent(props){
     const [userID, setUserID] = useState(null);
     const router = useRouter();
-    console.log("data", props.data)
     useEffect(()=>{
         if(sessionStorage.getItem("id")){
             setUserID(sessionStorage.getItem("id"));
@@ -54,13 +53,13 @@ export default function detailContent(props){
                 .boardInfo{
                     margin: 50px;
                     border-top: 2px solid #f1f3f5;
-                    border-bottom: 2px solid #f1f3f5;
                     width: 80%;
                     margin: auto;
                     
                 }
                 .subtitle-info{
                     display: flex;
+                    flex-wrap: wrap;
                 }
                 .postInfo-header{
                     border-bottom: 1px solid #f1f3f5;
