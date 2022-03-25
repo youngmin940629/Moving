@@ -16,7 +16,7 @@ export default function DetailMenu(props) {
 
       {select==0 && <div className='movie_recommend'><DetailRecommend/></div>}
       {select==1 && <div className='movie_detail'><DetailDetail overview={props.overview} youtube_url={props.youtube_url}/></div>}
-      {select==2 && <div className='movie_reviews'><DetailReviews/></div>}
+      {select==2 && <div className='movie_reviews'><DetailReviews id={props.id} isLogined={props.isLogined}/></div>}
 
     </>
   )
