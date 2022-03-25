@@ -80,7 +80,13 @@ const AppLayout = ({ children }) => {
       >
         프로필
       </Menu.Item>
-      <Menu.Item key="8" icon={<HeartOutlined />}>
+      <Menu.Item 
+        key="8" 
+        icon={<HeartOutlined />}
+        onClick={() => {
+          Router.push('/scrap');
+        }}
+      >
         좋아요한 영화
       </Menu.Item>
       <Menu.Item key="9" icon={<LogoutOutlined />} onClick={logout}>
