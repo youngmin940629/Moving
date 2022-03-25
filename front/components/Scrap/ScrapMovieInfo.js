@@ -1,13 +1,22 @@
 import React from 'react'
-import { Card, Avatar, Col, Row  } from 'antd';
+import { Card, Avatar, Col, Row, Checkbox  } from 'antd';
 
 const { Meta } = Card;
 
-const ScrapMovieInfo = ({movies}) => {
+const ScrapMovieInfo = ({movies, deleteScrapList}) => {
 
   const onErrorImg = e => {
     e.target.src = '/img/default_img.jpg';
   };
+
+  const deleteCheck = (e, id) => {
+    if (e.target.checked) {
+      deleteScrapList.push(id)
+    } else {
+      deleteScrapList.pop(id)
+    }
+    
+  }
   
   if (movies.length !== 0) {
     return (
@@ -16,10 +25,13 @@ const ScrapMovieInfo = ({movies}) => {
           return (
             <Col span={12} style={{ margin: '16px 0' }}>
               <Card
-                style={{ margin: 16,  height:'100%' }}
+                style={{ margin: 16,  height: '100%' }}
                 key={movie.id}
               >
-                <input type="checkbox" />
+                <Checkbox 
+                  style={{ position: 'absolute', top: '5px', left: '6px' }}
+                  onClick={(e) => deleteCheck(e, movie.id)}
+                />
                 <Meta
                   avatar={<Avatar shape="square" size={100} src={movie.poster_path} alt={`${movie.title} 포스터 이미지`} onError={onErrorImg} />}
                   title={<><h4>{movie.title} <span style={{fontSize:'10px', color:'red', fontWeight:'bold'}}>{movie.vote_average}</span></h4> </>}
