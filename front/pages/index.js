@@ -7,6 +7,7 @@ import IndexRecommend2 from '../components/IndexRecommend2';
 import { useDispatch, useSelector } from 'react-redux';
 import IndexRecommend3 from '../components/IndexRecommend3';
 import IndexRecommend4 from '../components/IndexRecommend4';
+import IndexRecommend5 from '../components/IndexRecommend5';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -23,6 +24,8 @@ const Home = () => {
         {me !== null && <IndexRecommend2 />}
         {/* 장르별 추천 영화 */}
         {me !== null && <IndexRecommend3 />}
+        {/* 최신순 */}
+        <IndexRecommend5 />
         {/* 평점순 */}
         <IndexRecommend4 />
         {/* 랜덤 추천 영화 */}

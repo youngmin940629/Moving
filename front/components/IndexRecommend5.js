@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import { Typography, Divider } from 'antd';
-import Router, { useRouter } from 'next/router';
+import { Typography, Card, Row, Col, Divider } from 'antd';
+import Router from 'next/router';
 import Slider from 'react-slick';
 import { MdArrowForwardIos, MdArrowBackIos } from 'react-icons/md';
 
-const { Title } = Typography;
+// import styled from 'styled-components';
+
+const { Title } = Typography; // Typograpy.Title
+const { Meta } = Card;
 
 const NextArrow = ({ onClick }) => {
   return (
@@ -24,7 +27,7 @@ const PrevArrow = ({ onClick }) => {
   );
 };
 
-const GenreRecommend = () => {
+const IndexRecommend5 = () => {
   const settings = {
     infinite: true,
     speed: 500,
@@ -66,50 +69,45 @@ const GenreRecommend = () => {
 
   const [movies, setMovies] = useState([]);
 
-  const router = useRouter();
-  const { query } = router;
-  const movieId = query.id;
-
   useEffect(() => {
     axios
-      .get(`${process.env.NEXT_PUBLIC_BASE_URL}/movies/genre_rec/${movieId}/`)
+      .get(`${process.env.NEXT_PUBLIC_BASE_URL}/movies/latest_movie/`)
       .then(res => {
         setMovies(res.data);
       });
-  }, [movieId]);
+  }, []);
 
   return (
     <>
-      <Divider orientation="left" style={{ marginBottom: '0' }}>
-        <Title level={5}>비슷한 장르 영화 추천</Title>
+      <Divider orientation="left" orientationMargin="0">
+        <Title level={2}>최신순</Title>
       </Divider>
       <Slider {...settings}>
         {movies.map(movie => {
           return (
-            <img
-              className="posterImg"
+            <Card
               key={movie.id}
-              alt={`${movie.title} 포스터 이미지`}
-              src={movie.poster_path}
-              onError={onErrorImg}
+              hoverable
+              cover={
+                <img
+                  alt={`${movie.title} 포스터 이미지`}
+                  src={movie.poster_path}
+                  onError={onErrorImg}
+                  height="280"
+                />
+              }
               onClick={() => Router.push(`/movie/${movie.id}`)}
-            />
+            >
+              <Meta
+                title={movie.title}
+                description={`${movie.overview.slice(0, 100)}...`}
+              />
+            </Card>
           );
         })}
       </Slider>
-      <style jsx>
-        {`
-          .posterImg {
-            cursor: pointer;
-            height: 150px;
-          }
-          .posterImg:hover {
-            box-shadow: 0 1px 8px black;
-          }
-        `}
-      </style>
     </>
   );
 };
 
-export default GenreRecommend;
+export default IndexRecommend5;
