@@ -24,7 +24,7 @@ const PrevArrow = ({ onClick }) => {
   );
 };
 
-const GenreRecommend = () => {
+const MovieMfRecommend = () => {
   const settings = {
     infinite: true,
     speed: 500,
@@ -72,7 +72,7 @@ const GenreRecommend = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.NEXT_PUBLIC_BASE_URL}/movies/genre_rec/${movieId}/`)
+      .get(`${process.env.NEXT_PUBLIC_BASE_URL}/movies/mf_recommend/${movieId}/`)
       .then(res => {
         setMovies(res.data);
       });
@@ -81,7 +81,7 @@ const GenreRecommend = () => {
   return (
     <>
       <Divider orientation="left" style={{marginBottom:'0'}}>
-        <Title level={5}>비슷한 장르 영화 추천</Title>
+        <Title level={5}>유저 평점 기준 영화 추천</Title>
       </Divider>
       <Slider {...settings}>
         {movies.map(movie => {
@@ -112,4 +112,4 @@ const GenreRecommend = () => {
   );
 };
 
-export default GenreRecommend;
+export default MovieMfRecommend;
