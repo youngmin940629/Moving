@@ -87,7 +87,7 @@ const AppLayout = ({ children }) => {
           Router.push('/scrap');
         }}
       >
-        좋아요한 영화
+        스크랩한 영화
       </Menu.Item>
       <Menu.Item key="9" icon={<LogoutOutlined />} onClick={logout}>
         로그아웃
