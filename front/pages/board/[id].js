@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Comment from '../../components/comment';
 import DetailContent from '../../components/boardDetail';
 import axios from "axios";
+import BoardMovieDesc from "../../components/boardMovieDesc";
 
 export default function BoardDetail({post, movieInfo}) {
 
@@ -13,6 +14,7 @@ export default function BoardDetail({post, movieInfo}) {
       </Head>
       <AppLayout>
         <DetailContent data={post} movies={movieInfo}></DetailContent>
+          <BoardMovieDesc movies={movieInfo}></BoardMovieDesc>
         <Comment data={post}></Comment>
       </AppLayout>
 
@@ -21,7 +23,6 @@ export default function BoardDetail({post, movieInfo}) {
 }
 
 export async function getServerSideProps({ params }) {
-    console.log("id[] call")
     const id = parseInt(params.id);
     let post;
     let movieInfo;
