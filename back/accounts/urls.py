@@ -15,5 +15,6 @@ urlpatterns = [
     path('isexist/',views.isexist),
     path('changepassword/<int:user_id>/',views.changePassword),
     path('getuserpk/',views.get_userpk),
-    path('change_password/', auth_views.PasswordChangeView.as_view())
+    path('change_password/', auth_views.PasswordChangeView.as_view()),
+    path('activate/<str:uid64>/<str:token>/', views.activate, name='activate'),
 ]

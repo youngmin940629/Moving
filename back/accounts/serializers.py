@@ -24,4 +24,4 @@ class UserSignupSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = ('username', 'password', 'gender',
-                  'picture', 'birthDate', 'category_list', 'username2', 'scrap_movie',)
+                  'picture', 'birthDate', 'category_list', 'username2', 'scrap_movie','is_active')

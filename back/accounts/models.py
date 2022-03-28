@@ -11,3 +11,4 @@ class User(AbstractUser):
     oauth_type = models.CharField(max_length=255, null=True,blank=True)
     username2 = models.CharField(max_length=255,null=True,blank=True)
     scrap_movie = models.ManyToManyField(Movie, blank=True)
+    

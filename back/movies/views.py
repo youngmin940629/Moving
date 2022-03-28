@@ -297,15 +297,25 @@ def oneline_review(request,movie_id):
 def oneline_review_detail(request,oneline_id):
     onelinereview = get_object_or_404(OnelineReview, id=oneline_id)
     if request.method == 'PUT':
-        try:
-            onelinereview = get_list_or_404(OnelineReview, movie=movie_id)
-            serializer = OnelinereviewSerializer(onelinereview, many=True)
+        serializer = OnelinereviewSerializer(OnelineReview, data=request.data["data"])
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
             return Response(serializer.data)
-        except:
-            return Response([])
+
     elif request.method == 'DELETE':
         onelinereview.delete()
         data = {
             'delete' : f'리뷰가 삭제되었습니다.'
         }
         return Response(data, status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def movie_all(request):
+    if request.method == 'GET':
+        movie_list = []
+        movies = Movie.objects.all()
+        print(movies)
+        movie_list.append(movies)
+        serializer = MovieSerializer(movies, many=True)
+        return Response(serializer.data)

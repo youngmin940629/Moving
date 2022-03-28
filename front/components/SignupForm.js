@@ -86,7 +86,7 @@ const SignupForm = () => {
   const children = [];
   if (data) {
     for (let i = 0; i < data.length; i++) {
-      children.push(<Select.Option key={i}>{data[i].name}</Select.Option>);
+      children.push(<Select.Option key={i} value={data[i].name} >{data[i].name}</Select.Option>);
     }
   }
   function handleChange(value) {
