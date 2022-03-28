@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Form, Input, Button, Checkbox } from 'antd';
 import StarRating from './StarRating';
 import DetailMenu from './DetailMenu';
+import ScrapIcon from './ScrapIcon';
 
 export default function MovieDetail({id, detail}) {
   const [isLogined, setIsLogined] = useState(false)
@@ -17,6 +18,7 @@ export default function MovieDetail({id, detail}) {
   return (
     <>
       <div className='container'>
+        <ScrapIcon id={id}/>
         <div className='content'>
           <h1 className='movie_title'>{detail.title}</h1>
           {isLogined ? 
@@ -36,6 +38,7 @@ export default function MovieDetail({id, detail}) {
             height:100vh;
             background:url(${detail.backdrop_path});
             background-size:100% 100%;
+            position:relative;
           }
           .content{
             padding-top:5%;

@@ -75,41 +75,47 @@ const MovieMfRecommend = () => {
       .get(`${process.env.NEXT_PUBLIC_BASE_URL}/movies/mf_recommend/${movieId}/`)
       .then(res => {
         setMovies(res.data);
-      });
+      })
+      .catch(
+        setMovies([])
+      )
   }, [movieId]);
 
-  return (
-    <>
-      <Divider orientation="left" style={{marginBottom:'0'}}>
-        <Title level={5}>유저 평점 기준 영화 추천</Title>
-      </Divider>
-      <Slider {...settings}>
-        {movies.map(movie => {
-          return (
-            <img
-              className='posterImg'
-              key={movie.id}
-              alt={`${movie.title} 포스터 이미지`}
-              src={movie.poster_path}
-              onError={onErrorImg}
-              onClick={() => Router.push(`/movie/${movie.id}`)}
-            />
-          );
-        })}
-      </Slider>
-      <style jsx>
-        {`
-          .posterImg{
-            cursor: pointer;
-            height: 150px;
-          }
-          .posterImg:hover{
-            box-shadow: 0 1px 8px black;
-          }
-        `}
-      </style>
-    </>
-  );
+  if (movies.length !== 0) {  
+    return (
+      <>
+        <Divider orientation="left" style={{marginBottom:'0'}}>
+          <Title level={5}>유저 평점 기준 영화 추천</Title>
+        </Divider>
+        <Slider {...settings}>
+          {movies.map(movie => {
+            return (
+              <img
+                className='posterImg'
+                key={movie.id}
+                alt={`${movie.title} 포스터 이미지`}
+                src={movie.poster_path}
+                onError={onErrorImg}
+                onClick={() => Router.push(`/movie/${movie.id}`)}
+              />
+            );
+          })}
+        </Slider>
+        <style jsx>
+          {`
+            .posterImg{
+              cursor: pointer;
+              height: 150px;
+            }
+            .posterImg:hover{
+              box-shadow: 0 1px 8px black;
+            }
+          `}
+        </style>
+      </>
+  )} else {
+    return <></> // 유저 평점 기준 영화 추천 없는 경우
+  }
 };
 
 export default MovieMfRecommend;
