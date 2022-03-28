@@ -99,14 +99,6 @@
         "model": "movies.rating",
         "fields": {
             "user": 1,
-            "movie": 27,
-            "rank": 1
-        }
-    },
-    {
-        "model": "movies.rating",
-        "fields": {
-            "user": 1,
             "movie": 28,
             "rank": 1
         }
