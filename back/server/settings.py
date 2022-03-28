@@ -157,3 +157,10 @@ CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:9000',
 ]
 CORS_ALLOW_ALL_ORIGINS = True
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.googlemail.com' 	# 메일 호스트 서버
+EMAIL_PORT = '587' 	# 서버 포트
+EMAIL_HOST_USER = 'movingofficialacc@gmail.com' # 우리가 사용할 Gmail
+EMAIL_HOST_PASSWORD = '1q2w3e4r!@'	# 우리가 사용할 Gmail p
+EMAIL_USE_TLS = True	# TLS 보안 설정
