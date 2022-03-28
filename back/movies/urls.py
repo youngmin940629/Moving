@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     path('', views.movie_index),
+    path('movie_all/', views.movie_all),
     path('recommend1/', views.random_recommend),
     path('search/<str:word>/', views.movie_search),
     path('fordetail/<str:word>/', views.fordetail),
