@@ -63,7 +63,7 @@ def signup(request):
             subject='Moving | email 인증으로 계정을 활성화하세요.',
             message=message,
             from_email = settings.EMAIL_HOST_USER,
-            recipient_list=['ybj121725@gmail.com'],
+            recipient_list=[email],
             html_message=message,
         )
         print(account_activation_token)
