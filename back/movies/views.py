@@ -308,3 +308,14 @@ def oneline_review_detail(request,oneline_id):
             'delete' : f'리뷰가 삭제되었습니다.'
         }
         return Response(data, status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def movie_all(request):
+    if request.method == 'GET':
+        movie_list = []
+        movies = Movie.objects.all()
+        print(movies)
+        movie_list.append(movies)
+        serializer = MovieSerializer(movies, many=True)
+        return Response(serializer.data)
