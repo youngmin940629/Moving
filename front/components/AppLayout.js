@@ -80,8 +80,8 @@ const AppLayout = ({ children }) => {
       >
         프로필
       </Menu.Item>
-      <Menu.Item 
-        key="8" 
+      <Menu.Item
+        key="8"
         icon={<HeartOutlined />}
         onClick={() => {
           Router.push('/scrap');
@@ -116,7 +116,6 @@ const AppLayout = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    console.log(('me', me));
     if (me) {
       if (me.data) {
         setUserInfo(me.data);

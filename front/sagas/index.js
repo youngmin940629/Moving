@@ -28,13 +28,19 @@ function loadUserAPI(data) {
 }
 
 function* loadUser(action) {
-  console.log('===action===', action);
   try {
     const result = yield call(loadUserAPI, action.data);
-    console.log('===loadUser===', result);
     yield put({
       type: LOAD_USER_SUCCESS,
       data: result,
+    });
+    let token = localStorage.getItem('JWT token');
+    yield axios({
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/accounts/getuserpk/`,
+      method: 'post',
+      headers: { Authorization: `JWT ${token}` },
+    }).then(res => {
+      sessionStorage.setItem('id', res.data.pk);
     });
   } catch (err) {
     yield put({ type: LOAD_USER_FAILURE, error: err.response.data });
@@ -60,7 +66,6 @@ function* logIn(action) {
       headers: { Authorization: `JWT ${token}` },
     })
       .then(res => {
-        console.log('res', res);
         sessionStorage.setItem('id', res.data.pk);
       })
       .then(() => {
@@ -101,7 +106,7 @@ function* signUp(action) {
       type: SIGN_UP_SUCCESS,
     });
     yield call(() => {
-      alert('회원가입이 완료되었습니다. 메인 페이지로 이동합니다.');
+      alert('입력하신 이메일을 확인하시고 이메일 인증을 해주세요.');
       Router.push('/');
     });
   } catch (err) {

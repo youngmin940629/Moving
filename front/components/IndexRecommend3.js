@@ -77,7 +77,6 @@ const IndexRecommend3 = () => {
         }/movies/user_category_recommend/${sessionStorage.getItem('id')}/`
       )
       .then(res => {
-        console.log('무비데이터', res);
         setMovies(res.data);
       })
       .catch(err => {
@@ -95,7 +94,6 @@ const IndexRecommend3 = () => {
                 <Title level={2}>{item[0]}</Title>
               </Divider>
               <Slider {...settings}>
-                {console.log('장르별 영화 추천', item[1])}
                 {item[1].map(item2 => {
                   return (
                     <Card

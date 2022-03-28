@@ -10,12 +10,7 @@ import IndexRecommend4 from '../components/IndexRecommend4';
 import IndexRecommend5 from '../components/IndexRecommend5';
 
 const Home = () => {
-  const dispatch = useDispatch();
-  const poster = [1, 2, 3, 4, 5, 6, 7];
   const { me } = useSelector(state => state.user);
-  useEffect(() => {
-    console.log('memememe', me);
-  }, []);
   return (
     <>
       <AppLayout>
