@@ -6,26 +6,17 @@ export default function StarRating({id}) {
   const [rating,setRating] = useState(0);
   const [user, setUser] = useState(null)
   const [originRating, setOriginRating] = useState(0);
+  
   useEffect(()=>{
-
     const token = localStorage.getItem('JWT token');
     const decoded = jwtDecode(token);
     setUser(decoded.user_id);
     axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/movies/rating/${id}/${decoded.user_id}`)
     .then(function(res){
-      if(res.data){
-        setOriginRating(res.data);
-        if(0<=res.data && res.data<2){
-          setRating(2)
-        }else if(2<=res.data && res.data<4){
-          setRating(4)
-        }else if(4<=res.data && res.data<6){
-          setRating(6)
-        }else if(6<=res.data && res.data<8){
-          setRating(8)
-        }else if(8<=res.data && res.data<=10){
-          setRating(10)
-        }
+      if (res.data) {
+        setOriginRating(res.data)
+      } else {
+        setOriginRating(0)
       }
     })
 
@@ -50,7 +41,8 @@ export default function StarRating({id}) {
         star_array[i].removeEventListener("click",()=>click(i))
       }
     }
-  },[])
+  },[id])
+
   useEffect(()=>{
     if(rating!==0){
       if(user !== null){
@@ -69,11 +61,16 @@ export default function StarRating({id}) {
       }
     }
   },[rating])
+
   useEffect(()=>{
     const originRatingArr = new Array(5)
     for (let i = 0; i < originRatingArr.length; i++) {
       originRatingArr[i] = document.querySelector(`.star${i+1}`)
-      if(originRating/2 > i) originRatingArr[i].style.color="#fc0"
+      if (originRating/2 > i) {
+        originRatingArr[i].style.color="#fc0"
+      } else {
+        originRatingArr[i].style.color="#ccc"
+      }
     }
   },[originRating])
 
