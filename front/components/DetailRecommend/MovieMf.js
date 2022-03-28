@@ -75,7 +75,10 @@ const MovieMfRecommend = () => {
       .get(`${process.env.NEXT_PUBLIC_BASE_URL}/movies/mf_recommend/${movieId}/`)
       .then(res => {
         setMovies(res.data);
-      });
+      })
+      .catch(
+        setMovies([])
+      )
   }, [movieId]);
 
   if (movies.length !== 0) {  
