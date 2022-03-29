@@ -5,6 +5,7 @@ import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import { useRouter } from 'next/router';
 import UseInput from '../hooks/useInput';
+import ImageUpload from './ImageUpload';
 
 const MyButton = styled(Button)`
   width: 150px;
@@ -29,7 +30,7 @@ const SignupTitle = styled.h2`
   color: #2cd4ac;
 `;
 
-const UserProfileModify = () => {
+const UserProfileModify = ({ imageUploader }) => {
   const router = useRouter();
   const [id, setId] = useState(null);
   const [user, setUser] = useState(null);
@@ -43,6 +44,7 @@ const UserProfileModify = () => {
   const [passwordCheck, setPasswordCheck] = useState('');
   const [passwordError, setPasswordError] = useState(false);
   const [state, setState] = useState(false);
+  const [image, setImage] = useState(null);
   const onChangePasswordCheck = useCallback(
     e => {
       setPasswordCheck(e.target.value);
@@ -123,6 +125,7 @@ const UserProfileModify = () => {
     const data = {
       username2: userInfo.username2,
       category_list: category_list,
+      picture: image,
     };
     console.log('data', data);
 
@@ -133,6 +136,7 @@ const UserProfileModify = () => {
     })
       .then(res => {
         console.log(res);
+        alert('프로필이 수정되었습니다. 프로필 페이지로 이동합니다.');
         router.push('/profile');
       })
       .catch(err => {
@@ -168,6 +172,7 @@ const UserProfileModify = () => {
             username2: res.data.username2,
             birthDate: res.data.birthDate,
             gender: res.data.gender,
+            picture: res.data.picture,
           });
         })
         .catch(err => {
@@ -205,6 +210,13 @@ const UserProfileModify = () => {
                       }}
                       autoComplete="off"
                     >
+                      <ImageUpload
+                        setState={setState}
+                        userInfo={userInfo}
+                        imageUploader={imageUploader}
+                        image={image}
+                        setImage={setImage}
+                      />
                       <Form.Item label="이메일">
                         <span>{userInfo.username}</span>
                       </Form.Item>

@@ -13,6 +13,7 @@ import {
   logoutRequestAction,
   withdrawalRequestAction,
 } from '../reducers/user';
+import ImageUpload from './ImageUpload';
 
 const MyButton = styled(Button)`
   width: 150px;
@@ -98,6 +99,7 @@ const UserProfile = () => {
         username2: me.data.username2,
         birthDate: me.data.birthDate,
         gender: me.data.gender,
+        picture: me.data.picture || '/img/뚜잇.jpg',
       });
     }
   }, [me]);
@@ -128,10 +130,24 @@ const UserProfile = () => {
                         span: 6,
                       }}
                       wrapperCol={{
-                        span: 12,
+                        span: 14,
                       }}
                       autoComplete="off"
                     >
+                      <div
+                        style={{
+                          marginBottom: '20px',
+                        }}
+                      >
+                        <img
+                          style={{
+                            width: '250px',
+                            height: '250px',
+                            borderRadius: '50%',
+                          }}
+                          src={userInfo.picture}
+                        />
+                      </div>
                       <Form.Item label="이메일">
                         <span>{userInfo.username}</span>
                       </Form.Item>
@@ -144,7 +160,7 @@ const UserProfile = () => {
                       <Form.Item label="생년월일">
                         <span>{userInfo.birthDate}</span>
                       </Form.Item>
-                      <Form.Item label="좋아하는 장르">
+                      <Form.Item label="선호 장르">
                         {category.map(item => {
                           return (
                             <span key={item.id}>

@@ -82,15 +82,6 @@ const AppLayout = ({ children }) => {
       </Menu.Item>
       <Menu.Item
         key="8"
-        icon={<UserOutlined />}
-        onClick={() => {
-          Router.push('/imageUpload');
-        }}
-      >
-        이미지업로드
-      </Menu.Item>
-      <Menu.Item
-        key="9"
         icon={<HeartOutlined />}
         onClick={() => {
           Router.push('/scrap');
@@ -98,7 +89,7 @@ const AppLayout = ({ children }) => {
       >
         스크랩한 영화
       </Menu.Item>
-      <Menu.Item key="10" icon={<LogoutOutlined />} onClick={logout}>
+      <Menu.Item key="9" icon={<LogoutOutlined />} onClick={logout}>
         로그아웃
       </Menu.Item>
     </Menu>
@@ -158,12 +149,22 @@ const AppLayout = ({ children }) => {
                   <>
                     <Menu.Item key="dropdown">
                       <Dropdown overlay={menu}>
-                        <Button
-                          style={{ background: '#2CD4AC', color: 'white' }}
-                        >
-                          {userInfo !== null && userInfo.username2}
-                          <UserOutlined />
-                        </Button>
+                        <div>
+                          {userInfo !== null && (
+                            <img
+                              style={{
+                                width: '50px',
+                                height: '50px',
+                                borderRadius: '50%',
+                                marginRight: '10px',
+                              }}
+                              src={userInfo.picture}
+                            />
+                          )}
+                          <span style={{ fontSize: '15px' }}>
+                            {userInfo !== null && userInfo.username2}
+                          </span>
+                        </div>
                       </Dropdown>
                     </Menu.Item>
                   </>
