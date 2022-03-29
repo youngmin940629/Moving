@@ -82,6 +82,15 @@ const AppLayout = ({ children }) => {
       </Menu.Item>
       <Menu.Item
         key="8"
+        icon={<UserOutlined />}
+        onClick={() => {
+          Router.push('/imageUpload');
+        }}
+      >
+        이미지업로드
+      </Menu.Item>
+      <Menu.Item
+        key="9"
         icon={<HeartOutlined />}
         onClick={() => {
           Router.push('/scrap');
@@ -89,7 +98,7 @@ const AppLayout = ({ children }) => {
       >
         스크랩한 영화
       </Menu.Item>
-      <Menu.Item key="9" icon={<LogoutOutlined />} onClick={logout}>
+      <Menu.Item key="10" icon={<LogoutOutlined />} onClick={logout}>
         로그아웃
       </Menu.Item>
     </Menu>
