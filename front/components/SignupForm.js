@@ -111,13 +111,11 @@ const SignupForm = () => {
 
   const [birthDate, setBirthDate] = useState(null);
   function onChange(date, dateString) {
-    console.log(dateString);
     setBirthDate(dateString);
   }
 
   const [gender, setGender] = useState(null);
   const onChangeGender = e => {
-    console.log(e.target.value);
     setGender(e.target.value);
   };
 
@@ -125,16 +123,12 @@ const SignupForm = () => {
 
   const nicknameCheckTrue = () => {
     alert('사용 불가능한 닉네임 입니다.');
-    console.log(username2Check);
     setUsername2Check(true);
-    console.log(username2Check);
   };
 
   const nicknameCheckFalse = () => {
     alert('사용 가능한 닉네임 입니다.');
-    console.log(username2Check);
     setUsername2Check(false);
-    console.log(username2Check);
   };
 
   const nicknameCheck = () => {
@@ -143,7 +137,6 @@ const SignupForm = () => {
         username2: username,
       })
       .then(res => {
-        console.log(res);
         res.data ? nicknameCheckTrue() : nicknameCheckFalse();
       })
       .catch(err => {
@@ -246,7 +239,7 @@ const SignupForm = () => {
                 </Form.Item>
               </Col>
               <Col span={8}>
-                <Button onClick={nicknameCheck} style={{ width: '100%' }}>
+                <Button onClick={nicknameCheck} style={{ width: '100%' }} disabled={!Boolean(username)}>
                   중복확인
                 </Button>
               </Col>
@@ -288,11 +281,9 @@ const SignupForm = () => {
               onChange={onChangePasswordCheck}
             />
           </Form.Item>
-          <Col offset={6} span={6}>
-            {passwordError && (
-              <ErrorMessage>비밀번호가 일치하지 않습니다.</ErrorMessage>
-            )}
-          </Col>
+          {passwordError && (
+            <ErrorMessage>비밀번호가 일치하지 않습니다.</ErrorMessage>
+          )}
           <FormMargin />
           <Form.Item
             label="선호 장르"

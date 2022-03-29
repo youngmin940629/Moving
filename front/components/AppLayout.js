@@ -75,7 +75,7 @@ const AppLayout = ({ children }) => {
         key="7"
         icon={<UserOutlined />}
         onClick={() => {
-          Router.push('/profile');
+          Router.push('/profile/');
         }}
       >
         프로필
@@ -161,7 +161,7 @@ const AppLayout = ({ children }) => {
                         <Button
                           style={{ background: '#2CD4AC', color: 'white' }}
                         >
-                          {userInfo !== null && userInfo.username}
+                          {userInfo !== null && userInfo.username2}
                           <UserOutlined />
                         </Button>
                       </Dropdown>
