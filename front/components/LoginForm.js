@@ -34,10 +34,6 @@ const LoginLinkWrapper = styled.div`
 `;
 
 const LoginForm = ({ setIsModalVisible }) => {
-  // antD 제공 함수 : onFinish / onFinishFailed
-  // const onFinish = (values) => {
-  //   console.log('Success:', values);
-  // };
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo);
   };
@@ -61,10 +57,10 @@ const LoginForm = ({ setIsModalVisible }) => {
         <Form
           name="basic"
           labelCol={{
-            span: 6,
+            span: 7,
           }}
           wrapperCol={{
-            span: 18,
+            span: 17,
           }}
           initialValues={{
             remember: false,
