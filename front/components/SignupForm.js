@@ -49,7 +49,7 @@ const SignupButton = styled.div`
 `;
 
 const FormMargin = styled.div`
-  margin-top: 20px;
+  margin-top: 22px;
 `;
 
 const options = [
@@ -73,6 +73,27 @@ const SignupForm = () => {
     },
     [password]
   );
+
+  const [pwValidErrMsg, setPwValidErrMsg] = useState('');
+
+  useEffect(() => {
+    //  8~20자 숫자 포함 영문 포함 숫자 포함 특수문자 포함 공백X
+    if (password) {
+      var num = password.search(/[0-9]/g);
+      var eng = password.search(/[a-z]/ig);
+      var spe = password.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+      if (password.length < 8 || password.length > 20){
+        setPwValidErrMsg("8자리 ~ 20자리 이내로 입력해주세요.");
+      } else if (password.search(/\s/) != -1){
+        setPwValidErrMsg("비밀번호는 공백 없이 입력해주세요.");
+      } else if (num < 0 || eng < 0 || spe < 0 ){
+        setPwValidErrMsg("영문,숫자, 특수문자를 혼합하여 입력해주세요.");
+      } else {
+        setPwValidErrMsg('')
+      }
+    }
+  }, [password]);
+  
 
   const [term, setTerm] = useState('');
   const [termError, setTermError] = useState(false);
@@ -150,9 +171,15 @@ const SignupForm = () => {
     }
 
     if (username2Check === '' || username2Check === true) {
-      console.log(username2Check);
+      // console.log(username2Check);
       return setUsername2Check(true);
     }
+
+    if (pwValidErrMsg) {
+      // console.log(pwValidErrMsg)
+      return setPwValidErrMsg(`***${pwValidErrMsg}***`)
+    }
+
     dispatch({
       type: SIGN_UP_REQUEST,
       data: { email, username, password, category_list, birthDate, gender },
@@ -257,6 +284,7 @@ const SignupForm = () => {
                 message: '비밀번호를 입력해주세요.',
               },
             ]}
+            style={{ marginBottom: '0px' }}
           >
             <Input.Password
               placeholder="비밀번호를 입력해주세요."
@@ -264,6 +292,8 @@ const SignupForm = () => {
               onChange={onChangePassowrd}
             />
           </Form.Item>
+          <ErrorMessage>{pwValidErrMsg}</ErrorMessage>
+          <FormMargin />
           <Form.Item
             label="비밀번호 확인"
             name="user-password-check"
