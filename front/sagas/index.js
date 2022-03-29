@@ -78,7 +78,7 @@ function* logIn(action) {
   } catch (err) {
     action.data.setIsModalVisible(true);
     yield put({ type: LOG_IN_FAILURE, error: err.response.data });
-    alert('아이디와 비밀번호를 확인해주세요');
+    alert('아이디와 비밀번호를 확인해주세요. 이메일 인증 전이시면 인증 후 로그인해주세요.');
   }
 }
 
@@ -106,7 +106,7 @@ function* signUp(action) {
       type: SIGN_UP_SUCCESS,
     });
     yield call(() => {
-      alert('입력하신 이메일을 확인하시고 이메일 인증을 해주세요.');
+      alert('가입 인증 메일이 발송되었습니다. 입력하신 이메일을 확인하시고 인증을 진행해주세요.');
       Router.push('/');
     });
   } catch (err) {

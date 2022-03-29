@@ -117,7 +117,7 @@ const SignupForm = () => {
   function handleChange(value) {
     const temp = [];
     value.map(idx => {
-      console.log('idx', idx);
+      // console.log('idx', idx);
       temp.push(idx);
     });
     setCategoryList(temp);
