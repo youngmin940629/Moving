@@ -123,6 +123,8 @@ def edit(request,user_id):
                 user.category_list.clear()
                 for genre in genres_list:
                     user.category_list.add(Genre.objects.get(pk=genre))
+            elif d=="picture":
+                user.picture = data[d]
         user.save()
         return Response(status=status.HTTP_200_OK)
     else:
