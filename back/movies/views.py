@@ -279,6 +279,7 @@ def scrap_cancel(request,user_id):
 @api_view(['GET','POST'])
 @permission_classes([AllowAny])
 def oneline_review(request,movie_id):
+    print(request.data)
     if request.method == 'GET':
         try:
             onelinereview = get_list_or_404(OnelineReview, movie=movie_id)

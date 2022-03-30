@@ -20,6 +20,7 @@ export default function DetailReviews({id, isLogined}) {
 
   const postReview = () => {
     let user = sessionStorage.getItem('id');
+    let token = localStorage.getItem('JWT token')
     if (user !== undefined) {
 
       if(myreview !== null && myrank !== null){
@@ -29,9 +30,10 @@ export default function DetailReviews({id, isLogined}) {
           data:{
             content:myreview,
             rank:myrank,
-            user:user,
-            movie:id,
-          }
+            user:Number(user),
+            movie:Number(id),
+          },
+          headers: { Authorization: `JWT ${token}` }
         })
       }else{
         alert('글을쓰거나, 랭크를 주세요..')
