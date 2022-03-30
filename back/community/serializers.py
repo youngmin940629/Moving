@@ -89,6 +89,7 @@ class ReviewSearchSerializer(serializers.ModelSerializer):
         class Meta:
             model = Comment
             fields = ('__all__')
+    comments = CommentSerializer(many=True, read_only=True)
     class Meta:
         model = Review
         fields = ('__all__')
