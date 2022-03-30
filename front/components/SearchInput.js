@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "antd/dist/antd.css";
 import { Select } from "antd";
 import axios from 'axios';
 import Link from 'next/link';
-import { SearchOutlined } from '@ant-design/icons';
+import { ConsoleSqlOutlined, SearchOutlined } from '@ant-design/icons';
+import router from 'next/router';
 
 const { Option } = Select;
 
+
+
 const SearchInput = () => {
+
   const [searchResult, setSearchResult] = useState([]);
 
   const handleSearch = (value) => {
@@ -26,23 +30,21 @@ const SearchInput = () => {
   };
 
   const options = searchResult.map(movie => 
-    <Option key={movie.id}>
-      <a href={`/movie/${movie.id}`} style={{ color:'black' }}>
-        {movie.title}
-      </a>
+    <Option key={movie.id} value={movie.id}>
+      {movie.title}
     </Option>
   );
 
   return (
     <Select
       showSearch
-      defaultActiveFirstOption={false}
       filterOption={false}
       notFoundContent={null}
       onSearch={handleSearch}
+      onChange={(value) => {router.push(`/movie/${value}`)}}
       placeholder="영화 검색"
       style={{ width: 200 }}
-      suffixIcon={<SearchOutlined />}
+      suffixIcon={<SearchOutlined onClick={handleSearch} style={{ color:'grey', cursor:'default'}}/>}
     >
       {options}
     </Select>
