@@ -103,26 +103,37 @@ export default function Comments(props) {
           <List
             itemLayout="horizontal"
             dataSource={comments}
-            renderItem={(item, idx) => (
-              <List.Item>
-                <List.Item.Meta
-                  key={idx}
-                  title={item.username}
-                  description={item.content}
-                />
-                <span>{item.created_at}</span>
-                {console.log('item', item)}
-                {item.user == userID ? (
-                  <Button
-                    onClick={() => {
-                      commentDelete(item.id);
+            renderItem={(item, idx) =>
+              item.user !== undefined && (
+                <List.Item>
+                  <img
+                    style={{
+                      width: '50px',
+                      height: '50px',
+                      borderRadius: '50%',
+                      marginRight: '10px',
                     }}
-                  >
-                    삭제
-                  </Button>
-                ) : null}
-              </List.Item>
-            )}
+                    src={item.user.picture}
+                  />
+                  <List.Item.Meta
+                    key={idx}
+                    title={item.user.username}
+                    description={item.content}
+                  />
+                  <span>{item.created_at}</span>
+                  {console.log('item', item)}
+                  {item.user.id == userID ? (
+                    <Button
+                      onClick={() => {
+                        commentDelete(item.id);
+                      }}
+                    >
+                      삭제
+                    </Button>
+                  ) : null}
+                </List.Item>
+              )
+            }
           />
         )}
       </div>
