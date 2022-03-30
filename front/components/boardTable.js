@@ -1,7 +1,7 @@
 import { Button, Table } from 'antd';
 import { useRouter } from 'next/router';
-import {useEffect, useState} from "react";
-import axios from "axios";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 
 const LogoWrapper = styled.div`
@@ -34,28 +34,32 @@ const BoardWriteBtn = styled(Button)`
 
 export default function BoardTable(props) {
   const router = useRouter();
-  const [userID, setUserID] =  useState(null);
+  const [userID, setUserID] = useState(null);
+  const [hit, setHit] = useState(null);
 
-  useEffect(()=>{
-    if(sessionStorage.getItem("id")){
-      setUserID(sessionStorage.getItem("id"));
-    }else{
+  useEffect(() => {
+    if (sessionStorage.getItem('id')) {
+      setUserID(sessionStorage.getItem('id'));
+    } else {
       setUserID(null);
     }
-  },[])
+    console.log('props.boards', props.boards);
+    console.log('props.data', props.data);
+  }, [props.data]);
 
   // 게시글 삭제 함수 id : 게시글 번호
-  const deleteBoard = (id)=>{
-    console.log(id)
+  const deleteBoard = id => {
+    console.log(id);
     try {
-      if(confirm("삭제하사겠습니까?")){
-        axios.delete(`${process.env.NEXT_PUBLIC_BASE_URL}/community/review/${id}/`);
-        alert("삭제완료");
+      if (confirm('삭제하사겠습니까?')) {
+        axios.delete(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/community/review/${id}/`
+        );
+        alert('삭제완료');
         router.replace(router.asPath);
       }
-
-    }catch (e){}
-  }
+    } catch (e) {}
+  };
   // 게시글 테이블 컬럼 내용
   const columns = [
     {
@@ -70,47 +74,62 @@ export default function BoardTable(props) {
       title: '제목',
       dataIndex: 'title',
       // width: '30rem',
-      render: (title, record) => <a
-          style={{color:'black', fontWeight:'bold'}}
+      render: (title, record) => (
+        <a
+          style={{ color: 'black', fontWeight: 'bold' }}
           href={`board/${record.id}`}
-          value={record.id} key={record.id}
-          onClick={()=>
-              axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/community/visit_count/${record.id}/`)}
-          >{title}</a>
+          value={record.id}
+          key={record.id}
+          onClick={() =>
+            axios.get(
+              `${process.env.NEXT_PUBLIC_BASE_URL}/community/visit_count/${record.id}/`
+            )
+          }
+        >
+          {title}
+        </a>
+      ),
     },
     {
       title: '작성일',
       dataIndex: 'created_at',
     },
     {
+      title: '조회수',
+      dataIndex: 'visit_count',
+    },
+    {
+      title: '댓글수',
+      dataIndex: 'comments',
+    },
+    {
       // width: '5rem',
-      render: (record) => (
-          <>
-            {/*
+      render: record => (
+        <>
+          {/*
             로그인 사용자ID == 게시글 작성자ID
             삭제 버튼 보여주기
             */}
-            {userID == record.user ?
-                <Button 
-                  type="primary" 
-                  danger 
-                  ghost
-                  key={record.id} 
-                  onClick={()=>deleteBoard(record.id)}
-                >
-                  삭제
-                </Button>
-            : null}
-          </>
+          {userID == record.user ? (
+            <Button
+              type="primary"
+              danger
+              ghost
+              key={record.id}
+              onClick={() => deleteBoard(record.id)}
+            >
+              삭제
+            </Button>
+          ) : null}
+        </>
       ),
     },
-
   ];
 
   // 게시글 등록 창으로 이동
-  const goWrite=()=>{
+  const goWrite = () => {
     router.push(`board/write`);
-  }
+  };
 
   return (
     <TableWrapper>
@@ -119,13 +138,15 @@ export default function BoardTable(props) {
       </LogoWrapper>
       <BoardTitle>Review Board</BoardTitle>
       {userID != null ? (
-          <BoardWriteBtn type="primary" onClick={goWrite}>게시글 쓰기</BoardWriteBtn>
-        ) : null
-      }
-      <Table dataSource={props.boards} 
+        <BoardWriteBtn type="primary" onClick={goWrite}>
+          게시글 쓰기
+        </BoardWriteBtn>
+      ) : null}
+      <Table
+        dataSource={props.data}
         columns={columns}
         pagination={{
-        position:["bottomCenter"]
+          position: ['bottomCenter'],
         }}
       />
     </TableWrapper>
