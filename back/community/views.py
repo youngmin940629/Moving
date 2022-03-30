@@ -7,7 +7,7 @@ from rest_framework.decorators import api_view, permission_classes
 
 from accounts.models import User
 from .models import Review, Comment
-from .serializers import ReviewListSerializer, ReviewSerializer, CommentSerializer, ReviewReadSerializer, CommentPostSerializer
+from .serializers import ReviewListSerializer, ReviewSerializer, CommentSerializer, ReviewReadSerializer, CommentPostSerializer, ReviewSearchSerializer
 from rest_framework import status
 from rest_framework.permissions import AllowAny
 
@@ -107,18 +107,18 @@ def review_search(request, word):
 
         for review in reviews:
             if review.user.id == userID:
-                serializer = ReviewListSerializer([review], many=True)
+                serializer = ReviewSearchSerializer([review], many=True)
                 search_list['username'].append(serializer.data)
             if word in review.title:
-                serializer = ReviewListSerializer([review], many=True)
+                serializer = ReviewSearchSerializer([review], many=True)
                 search_list['title'].append(serializer.data)
             elif word in review.content:
-                serializer = ReviewListSerializer([review], many=True)
+                serializer = ReviewSearchSerializer([review], many=True)
                 search_list['content'].append(serializer.data)
             elif review.comments.all():
                 for comment in review.comments.all():
                     if word in comment.content:
-                        serializer = ReviewListSerializer([review], many=True)
+                        serializer = ReviewSearchSerializer([review], many=True)
                         search_list['review'].append(serializer.data)
                         break
         if search_list:

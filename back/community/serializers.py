@@ -1,3 +1,4 @@
+from dataclasses import field
 from django.db.models.query import QuerySet
 from accounts.models import User
 from rest_framework import serializers
@@ -6,9 +7,9 @@ from django.contrib.auth import get_user_model
 
 class UserSerializer(serializers.ModelSerializer):
 
-        class Meta:
-            model = get_user_model()
-            fields = ('id', 'username', 'picture','username2',)
+    class Meta:
+        model = get_user_model()
+        fields = ('id', 'username', 'picture','username2',)
 
 class ReviewReadSerializer(serializers.ModelSerializer):
     class Meta:
@@ -78,3 +79,16 @@ class CommentPostSerializer(serializers.ModelSerializer):
         model = Comment
         fields = ('__all__')
         read_only_fileds = ('review',)
+
+
+class ReviewSearchSerializer(serializers.ModelSerializer):
+    
+    user = UserSerializer(read_only=True)
+
+    class CommentSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = Comment
+            fields = ('__all__')
+    class Meta:
+        model = Review
+        fields = ('__all__')
