@@ -78,7 +78,7 @@ function* logIn(action) {
   } catch (err) {
     action.data.setIsModalVisible(true);
     yield put({ type: LOG_IN_FAILURE, error: err.response.data });
-    alert('아이디와 비밀번호를 확인해주세요. 이메일 인증 전이시면 인증 후 로그인해주세요.');
+    alert('아이디와 비밀번호를 확인해주세요. 이메일 인증 전이시면 인증완료 후 로그인해주세요.');
   }
 }
 

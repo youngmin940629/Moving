@@ -79,15 +79,15 @@ const SignupForm = () => {
   useEffect(() => {
     //  8~20자 숫자 포함 영문 포함 숫자 포함 특수문자 포함 공백X
     if (password) {
-      var num = password.search(/[0-9]/g);
-      var eng = password.search(/[a-z]/ig);
-      var spe = password.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+      const num = password.search(/[0-9]/g);
+      const eng = password.search(/[a-z]/ig);
+      const spe = password.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
       if (password.length < 8 || password.length > 20){
         setPwValidErrMsg("8자리 ~ 20자리 이내로 입력해주세요.");
       } else if (password.search(/\s/) != -1){
         setPwValidErrMsg("비밀번호는 공백 없이 입력해주세요.");
       } else if (num < 0 || eng < 0 || spe < 0 ){
-        setPwValidErrMsg("영문,숫자, 특수문자를 혼합하여 입력해주세요.");
+        setPwValidErrMsg("영문, 숫자, 특수문자를 혼합하여 입력해주세요.");
       } else {
         setPwValidErrMsg('')
       }
@@ -108,17 +108,20 @@ const SignupForm = () => {
   if (data) {
     for (let i = 0; i < data.length; i++) {
       children.push(
-        <Select.Option key={i} value={data[i].id}>
-          {data[i].name}
+        <Select.Option key={data[i].id} value={data[i].name}>
         </Select.Option>
       );
     }
   }
+
   function handleChange(value) {
     const temp = [];
-    value.map(idx => {
-      // console.log('idx', idx);
-      temp.push(idx);
+    value.map(title => {
+      function findId(element)  {
+        if(element.name === title) return true
+      }
+      const idx = data.findIndex(findId)
+      temp.push(data[idx].id);
     });
     setCategoryList(temp);
   }
