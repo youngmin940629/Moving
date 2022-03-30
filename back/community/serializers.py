@@ -8,7 +8,7 @@ class UserSerializer(serializers.ModelSerializer):
 
         class Meta:
             model = get_user_model()
-            fields = ('id', 'username', 'picture',)
+            fields = ('id', 'username', 'picture','username2',)
 
 class ReviewReadSerializer(serializers.ModelSerializer):
     class Meta:
@@ -60,6 +60,19 @@ class CommentSerializer(serializers.ModelSerializer):
     username = serializers.SerializerMethodField("getUsername")
     
     user = UserSerializer(read_only=True)
+
+    class Meta:
+        model = Comment
+        fields = ('__all__')
+        read_only_fileds = ('review',)
+
+class CommentPostSerializer(serializers.ModelSerializer):
+    
+    def getUsername(self, obj):
+        return obj.user.username
+        
+    username = serializers.SerializerMethodField("getUsername")
+    
 
     class Meta:
         model = Comment

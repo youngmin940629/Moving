@@ -7,7 +7,7 @@ from rest_framework.decorators import api_view, permission_classes
 
 
 from .models import Review, Comment
-from .serializers import ReviewListSerializer, ReviewSerializer, CommentSerializer, ReviewReadSerializer
+from .serializers import ReviewListSerializer, ReviewSerializer, CommentSerializer, ReviewReadSerializer, CommentPostSerializer
 from rest_framework import status
 from rest_framework.permissions import AllowAny
 
@@ -84,7 +84,7 @@ def comment(request, comment_pk):
 @permission_classes([AllowAny])
 def comment_create(request, review_pk):
     review = get_object_or_404(Review, pk=review_pk)
-    serializer = CommentSerializer(data=request.data)
+    serializer = CommentPostSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
         serializer.save(review=review)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
