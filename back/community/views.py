@@ -99,7 +99,7 @@ def review_search(request, word):
             if word in review.title:
                 search_list.append(review)
         if search_list:
-            serializer = ReviewSerializer(search_list, many=True)
+            serializer = ReviewListSerializer(search_list, many=True)
             return Response(serializer.data)
         else:
             data = {
