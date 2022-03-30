@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 # from django.http import HttpResponse
 
-
+from accounts.models import User
 from .models import Review, Comment
 from .serializers import ReviewListSerializer, ReviewSerializer, CommentSerializer, ReviewReadSerializer, CommentPostSerializer
 from rest_framework import status
@@ -21,7 +21,6 @@ def review_list(request):
         try:
             review = get_list_or_404(Review)
             review.sort(key=lambda x : x.id, reverse=True)
-            print(review)
         except:
             review = []
         serializer = ReviewListSerializer(review, many=True)
@@ -94,18 +93,42 @@ def comment_create(request, review_pk):
 def review_search(request, word):
     if request.method == 'GET':
         reviews = Review.objects.all()
-        search_list = []
+        try:
+            user = User.objects.get(username2=word)
+            userID = user.id
+        except:
+            userID = 0
+        search_list = {
+            'title' : [],
+            'content' : [],
+            'review' : [],
+            'username': []
+        }
+
         for review in reviews:
+            if review.user.id == userID:
+                serializer = ReviewListSerializer([review], many=True)
+                search_list['username'].append(serializer.data)
             if word in review.title:
-                search_list.append(review)
+                serializer = ReviewListSerializer([review], many=True)
+                search_list['title'].append(serializer.data)
+            elif word in review.content:
+                serializer = ReviewListSerializer([review], many=True)
+                search_list['content'].append(serializer.data)
+            elif review.comments.all():
+                for comment in review.comments.all():
+                    if word in comment.content:
+                        serializer = ReviewListSerializer([review], many=True)
+                        search_list['review'].append(serializer.data)
+                        break
         if search_list:
-            serializer = ReviewListSerializer(search_list, many=True)
-            return Response(serializer.data)
+            return Response(search_list)
         else:
             data = {
                 "일치하는 게시글이 없습니다."
             }
             return Response(data, status=status.HTTP_204_NO_CONTENT)
+
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
