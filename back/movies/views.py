@@ -290,7 +290,8 @@ def oneline_review(request,movie_id):
     elif request.method == 'POST':
         serializer = OnelinereviewSerializer(data = request.data)
         if serializer.is_valid():
-            serializer.save(user=request.user, movie=movie_id)
+            movie = Movie.objects.get(id=movie_id)
+            serializer.save(user=request.user, movie=movie)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 @api_view(['PUT','DELETE'])
