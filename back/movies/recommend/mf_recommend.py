@@ -23,7 +23,7 @@ try:
 
     SVD = TruncatedSVD(n_components=2)
     matrix = SVD.fit_transform(movie_user_rank)
-    
+
     corr = np.corrcoef(matrix)
 
     movie_id = user_movie_rank.columns

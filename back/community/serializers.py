@@ -2,7 +2,13 @@ from django.db.models.query import QuerySet
 from accounts.models import User
 from rest_framework import serializers
 from .models import Review, Comment
+from django.contrib.auth import get_user_model
 
+class UserSerializer(serializers.ModelSerializer):
+
+        class Meta:
+            model = get_user_model()
+            fields = ('id', 'username', 'picture',)
 
 class ReviewReadSerializer(serializers.ModelSerializer):
     class Meta:
@@ -13,9 +19,7 @@ class ReviewReadSerializer(serializers.ModelSerializer):
 class ReviewSerializer(serializers.ModelSerializer):
 
     class CommentSerializer(serializers.ModelSerializer):
-        def getUsername(self, obj):
-            return obj.user.username
-        username = serializers.SerializerMethodField("getUsername")
+        user = UserSerializer(read_only=True)
         class Meta:
             model = Comment
             fields = ('__all__')
@@ -54,6 +58,8 @@ class CommentSerializer(serializers.ModelSerializer):
         return obj.user.username
         
     username = serializers.SerializerMethodField("getUsername")
+    
+    user = UserSerializer(read_only=True)
 
     class Meta:
         model = Comment
