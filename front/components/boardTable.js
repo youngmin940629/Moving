@@ -1,4 +1,4 @@
-import { Button, Table } from 'antd';
+import { Button, Select, Space, Table, Input } from 'antd';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -67,10 +67,6 @@ export default function BoardTable(props) {
       dataIndex: 'id',
     },
     {
-      title: '작성자',
-      dataIndex: 'username',
-    },
-    {
       title: '제목',
       dataIndex: 'title',
       // width: '30rem',
@@ -89,6 +85,10 @@ export default function BoardTable(props) {
           {title}
         </a>
       ),
+    },
+    {
+      title: '작성자',
+      dataIndex: 'username',
     },
     {
       title: '작성일',
@@ -131,24 +131,89 @@ export default function BoardTable(props) {
     router.push(`board/write`);
   };
 
+  // 게시글 검색
+  const [item, setItem] = useState(null);
+  const { Option } = Select;
+  const handleChange = value => {
+    console.log(`selected ${value}`);
+    setItem(value);
+  };
+  const handleChange2 = value => {
+    console.log(`selected ${value}`);
+    const _data = [...props.data];
+    if (value === 'comment') {
+      const temp = _data.sort((a, b) => b.comments - a.comments);
+      props.setData(temp);
+    }
+    if (value === 'visit_count') {
+      const temp = _data.sort((a, b) => b.visit_count - a.visit_count);
+      props.setData(temp);
+    }
+    if (value === 'created_at') {
+      const temp = _data.sort(
+        (a, b) => new Date(b.created_at) - new Date(a.created_at)
+      );
+      props.setData(temp);
+    }
+  };
+  const { Search } = Input;
+  const onSearch = value => {
+    console.log(value);
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/community/review/search/${item}/${value}/`
+      )
+      .then(res => {
+        console.log('res.data', res.data);
+      })
+      .catch(err => {
+        console.log('err', err);
+      });
+  };
+
   return (
-    <TableWrapper>
-      <LogoWrapper>
-        <Logo src="/img/logo-colored.png" />
-      </LogoWrapper>
-      <BoardTitle>Review Board</BoardTitle>
-      {userID != null ? (
-        <BoardWriteBtn type="primary" onClick={goWrite}>
-          게시글 쓰기
-        </BoardWriteBtn>
-      ) : null}
-      <Table
-        dataSource={props.data}
-        columns={columns}
-        pagination={{
-          position: ['bottomCenter'],
-        }}
-      />
-    </TableWrapper>
+    <>
+      <TableWrapper>
+        <LogoWrapper>
+          <Logo src="/img/logo-colored.png" />
+        </LogoWrapper>
+        <BoardTitle>Review Board</BoardTitle>
+        {userID != null ? (
+          <BoardWriteBtn type="primary" onClick={goWrite}>
+            게시글 쓰기
+          </BoardWriteBtn>
+        ) : null}
+        <Select
+          defaultValue="선택"
+          style={{ width: 120 }}
+          onChange={handleChange}
+        >
+          <Option value="title">제목</Option>
+          <Option value="comment">댓글</Option>
+          <Option value="nickname">닉네임</Option>
+        </Select>
+        <Search
+          placeholder="input search text"
+          onSearch={onSearch}
+          style={{ width: 200 }}
+        />
+        <Select
+          defaultValue="선택"
+          style={{ width: 120 }}
+          onChange={handleChange2}
+        >
+          <Option value="visit_count">조회수</Option>
+          <Option value="comment">댓글수</Option>
+          <Option value="created_at">작성일</Option>
+        </Select>
+        <Table
+          dataSource={props.data}
+          columns={columns}
+          pagination={{
+            position: ['bottomCenter'],
+          }}
+        />
+      </TableWrapper>
+    </>
   );
 }

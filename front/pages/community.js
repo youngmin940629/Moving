@@ -30,7 +30,7 @@ export default function Community({ boards }) {
         <title>커뮤니티 | moving</title>
       </Head>
       <AppLayout>
-        <BoardTable boards={boards} data={data} />
+        <BoardTable boards={boards} data={data} setData={setData} />
       </AppLayout>
     </>
   );
