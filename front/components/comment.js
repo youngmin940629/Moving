@@ -117,11 +117,10 @@ export default function Comments(props) {
                   />
                   <List.Item.Meta
                     key={idx}
-                    title={item.user.username}
+                    title={item.user.username2}
                     description={item.content}
                   />
                   <span>{item.created_at}</span>
-                  {console.log('item', item)}
                   {item.user.id == userID ? (
                     <Button
                       onClick={() => {
