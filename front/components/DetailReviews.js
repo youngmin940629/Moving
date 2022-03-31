@@ -93,7 +93,7 @@ export default function DetailReviews({ id, isLogined }) {
             movie: Number(id),
           },
           headers: { Authorization: `JWT ${token}` },
-        }).then(() => {
+        }).then((res) => {
           let reviews_copy = [...reviews];
           console.log(reviews_copy);
           reviews_copy = reviews_copy.concat([
@@ -102,6 +102,7 @@ export default function DetailReviews({ id, isLogined }) {
                 id:userID,
                 username2:username,
               },
+              id:res.data.id,
               content: myreview,
               rank: myrank,
               created_at: dateString,
