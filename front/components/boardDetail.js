@@ -12,6 +12,7 @@ export default function detailContent(props){
         }else{
             setUserID(null);
         }
+        console.log(props.data)
     },[])
 
     return(
@@ -25,7 +26,7 @@ export default function detailContent(props){
 
                     <div className="postInfo-header-subtitle">
                         <div className="subtitle-info">
-                            <h4 className="username">{props.data.username}</h4>
+                            <h4 className="username">{props.data.user.username2}</h4>
                             <span>&nbsp;&nbsp;&nbsp;작성일:&nbsp;&nbsp;{props.data.created_at}</span>
                             <span>&nbsp;&nbsp;&nbsp;수정일:&nbsp;&nbsp;{props.data.updated_at}</span>
                             <span>&nbsp;&nbsp;&nbsp;조회수:&nbsp;&nbsp;{props.data.visit_count}</span>
