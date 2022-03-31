@@ -158,7 +158,7 @@ const AppLayout = ({ children }) => {
                                 borderRadius: '50%',
                                 marginRight: '10px',
                               }}
-                              src={userInfo.picture}
+                              src={userInfo.picture || '/img/profile.png'}
                             />
                           )}
                           <span style={{ fontSize: '15px' }}>

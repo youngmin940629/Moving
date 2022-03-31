@@ -189,15 +189,11 @@ const UserProfileModify = ({ imageUploader }) => {
               <div
                 style={{
                   textAlign: 'center',
-                  border: '10px solid #2cd4ac',
                   width: '100%',
                   borderRadius: '10px',
                 }}
               >
                 <div>
-                  <LogoWrapper>
-                    <img src="/img/logo-colored.png" />
-                  </LogoWrapper>
                   <SignupTitle>프로필 수정</SignupTitle>
                   <div>
                     <Form
@@ -263,7 +259,7 @@ const UserProfileModify = ({ imageUploader }) => {
                       <Form.Item label="생년월일">
                         <span>{userInfo.birthDate}</span>
                       </Form.Item>
-                      <Form.Item label="좋아하는 장르">
+                      <Form.Item label="선호 장르">
                         <Select
                           mode="multiple"
                           allowClear

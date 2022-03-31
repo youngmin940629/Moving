@@ -27,7 +27,7 @@ const PrevArrow = ({ onClick }) => {
   );
 };
 
-const IndexRecommend2 = () => {
+const IndexRecommend2 = ({ movies, setMovies }) => {
   const settings = {
     infinite: true,
     speed: 500,
@@ -66,8 +66,6 @@ const IndexRecommend2 = () => {
   const onErrorImg = e => {
     e.target.src = '/img/default_img.jpg';
   };
-
-  const [movies, setMovies] = useState([]);
 
   useEffect(() => {
     axios

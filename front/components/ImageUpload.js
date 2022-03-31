@@ -72,7 +72,7 @@ const ImageUpload = ({
           ) : (
             <img
               style={{ width: '250px', height: '250px', borderRadius: '50%' }}
-              src="/img/뚜잇.jpg"
+              src="/img/profile.png"
             />
           )}
         </button>

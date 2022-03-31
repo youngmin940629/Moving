@@ -99,7 +99,7 @@ const UserProfile = () => {
         username2: me.data.username2,
         birthDate: me.data.birthDate,
         gender: me.data.gender,
-        picture: me.data.picture || '/img/뚜잇.jpg',
+        picture: me.data.picture || '/img/profile.png',
       });
     }
   }, [me]);
@@ -113,15 +113,11 @@ const UserProfile = () => {
               <div
                 style={{
                   textAlign: 'center',
-                  border: '10px solid #2cd4ac',
                   width: '100%',
                   borderRadius: '10px',
                 }}
               >
                 <div>
-                  <LogoWrapper>
-                    <img src="/img/logo-colored.png" />
-                  </LogoWrapper>
                   <SignupTitle>프로필</SignupTitle>
                   <div>
                     <Form

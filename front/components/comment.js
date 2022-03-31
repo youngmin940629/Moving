@@ -113,7 +113,7 @@ export default function Comments(props) {
                       borderRadius: '50%',
                       marginRight: '10px',
                     }}
-                    src={item.user.picture}
+                    src={item.user.picture || '/img/profile.png'}
                   />
                   <List.Item.Meta
                     key={idx}
