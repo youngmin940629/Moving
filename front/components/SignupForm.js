@@ -80,20 +80,19 @@ const SignupForm = () => {
     //  8~20자 숫자 포함 영문 포함 숫자 포함 특수문자 포함 공백X
     if (password) {
       const num = password.search(/[0-9]/g);
-      const eng = password.search(/[a-z]/ig);
+      const eng = password.search(/[a-z]/gi);
       const spe = password.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
-      if (password.length < 8 || password.length > 20){
-        setPwValidErrMsg("8자리 ~ 20자리 이내로 입력해주세요.");
-      } else if (password.search(/\s/) != -1){
-        setPwValidErrMsg("비밀번호는 공백 없이 입력해주세요.");
-      } else if (num < 0 || eng < 0 || spe < 0 ){
-        setPwValidErrMsg("영문, 숫자, 특수문자를 혼합하여 입력해주세요.");
+      if (password.length < 8 || password.length > 20) {
+        setPwValidErrMsg('8자리 ~ 20자리 이내로 입력해주세요.');
+      } else if (password.search(/\s/) != -1) {
+        setPwValidErrMsg('비밀번호는 공백 없이 입력해주세요.');
+      } else if (num < 0 || eng < 0 || spe < 0) {
+        setPwValidErrMsg('영문, 숫자, 특수문자를 혼합하여 입력해주세요.');
       } else {
-        setPwValidErrMsg('')
+        setPwValidErrMsg('');
       }
     }
   }, [password]);
-  
 
   const [term, setTerm] = useState('');
   const [termError, setTermError] = useState(false);
@@ -108,8 +107,7 @@ const SignupForm = () => {
   if (data) {
     for (let i = 0; i < data.length; i++) {
       children.push(
-        <Select.Option key={data[i].id} value={data[i].name}>
-        </Select.Option>
+        <Select.Option key={data[i].id} value={data[i].name}></Select.Option>
       );
     }
   }
@@ -117,10 +115,10 @@ const SignupForm = () => {
   function handleChange(value) {
     const temp = [];
     value.map(title => {
-      function findId(element)  {
-        if(element.name === title) return true
+      function findId(element) {
+        if (element.name === title) return true;
       }
-      const idx = data.findIndex(findId)
+      const idx = data.findIndex(findId);
       temp.push(data[idx].id);
     });
     setCategoryList(temp);
@@ -180,7 +178,7 @@ const SignupForm = () => {
 
     if (pwValidErrMsg) {
       // console.log(pwValidErrMsg)
-      return setPwValidErrMsg(`***${pwValidErrMsg}***`)
+      return setPwValidErrMsg(`***${pwValidErrMsg}***`);
     }
 
     dispatch({
@@ -205,9 +203,6 @@ const SignupForm = () => {
           display: 'inline-block',
         }}
       >
-        <LogoWrapper>
-          <Logo src="/img/logo-colored.png" />
-        </LogoWrapper>
         <SignupTitle>회원가입</SignupTitle>
         <Form
           name="basic"
@@ -269,7 +264,11 @@ const SignupForm = () => {
                 </Form.Item>
               </Col>
               <Col span={8}>
-                <Button onClick={nicknameCheck} style={{ width: '100%' }} disabled={!Boolean(username)}>
+                <Button
+                  onClick={nicknameCheck}
+                  style={{ width: '100%' }}
+                  disabled={!Boolean(username)}
+                >
                   중복확인
                 </Button>
               </Col>

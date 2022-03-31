@@ -188,21 +188,11 @@ const AppLayout = ({ children }) => {
           <SiteLayoutContent>{children}</SiteLayoutContent>
         </Content>
         <Footer style={{ textAlign: 'center' }}>
-          <nav>
-            <a href="https://cocoder.tistory.com" target="_blank">
-              Blog
-            </a>{' '}
-            |
-            <a href="https://github.com/cocoder16" target="_blank">
-              Github
-            </a>
-          </nav>
+          <img src="/img/logo-colored.png" width="150px" />
           <p>
-            <span>저자 : cocoder</span>
+            <span>movingofficialacc@gmail.com</span>
             <br />
-            <span>이메일 : cocoder16@gmail.com</span>
-            <br />
-            <span>Copyright 2020. cocoder. All Rights Reserved.</span>
+            <span>Copyright 2022. C206. All Rights Reserved.</span>
           </p>{' '}
         </Footer>
       </StyledLayout>
