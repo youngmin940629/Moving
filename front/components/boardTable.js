@@ -71,7 +71,7 @@ export default function BoardTable(props) {
       dataIndex: 'title',
       // width: '30rem',
       render: (title, record) => (
-        <a
+        <a className="listTitle"
           style={{ color: 'black', fontWeight: 'bold' }}
           href={`board/${record.id}`}
           value={record.id}
@@ -82,7 +82,7 @@ export default function BoardTable(props) {
             )
           }
         >
-          {title}
+          {title} [{record.comments}]
         </a>
       ),
     },
@@ -99,14 +99,9 @@ export default function BoardTable(props) {
       dataIndex: 'visit_count',
     },
     {
-      title: '댓글수',
-      dataIndex: 'comments',
-    },
-    {
       // width: '5rem',
       render: record => (
         <>
-          {console.log('record', record)}
           {/*
             로그인 사용자ID == 게시글 작성자ID
             삭제 버튼 보여주기
@@ -233,6 +228,7 @@ export default function BoardTable(props) {
           }}
         />
       </TableWrapper>
+
     </>
-  );
+  )
 }

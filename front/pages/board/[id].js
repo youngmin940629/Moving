@@ -4,20 +4,33 @@ import Comment from '../../components/comment';
 import DetailContent from '../../components/boardDetail';
 import axios from "axios";
 import BoardMovieDesc from "../../components/boardMovieDesc";
+import {Button} from "antd"
+import {useRouter} from "next/router";
 
 export default function BoardDetail({post, movieInfo}) {
-
+const router = useRouter();
   return (
     <>
       <Head>
         <title>게시판상세 | moving</title>
       </Head>
       <AppLayout>
+          <div className="Btn">
+            <Button className="boardListBtn" type="primary"
+            onClick={()=>router.push(`/community`)}
+            >목록</Button>
+          </div>
         <DetailContent data={post} movies={movieInfo}></DetailContent>
           <BoardMovieDesc movies={movieInfo}></BoardMovieDesc>
         <Comment data={post}></Comment>
       </AppLayout>
 
+        <style jsx>{`
+            .Btn{
+                width: 80%;
+                margin: auto;
+            }
+        `}</style>
     </>
   );
 }

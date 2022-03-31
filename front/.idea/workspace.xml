@@ -1,34 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="81c468ba-4907-40d3-90c6-973377370f39" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../.gitignore.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../S06P22C206.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.next/cache/next-babel-loader/272f97d0b18ee1b8f87ff6dbb01d77b1.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.next/cache/next-babel-loader/4025e16ebafc46d3245bfb695af78887.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.next/cache/next-babel-loader/b66713ccb10f1419a45c1f623779ef23.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.next/cache/next-babel-loader/d8dd567bbe9dc0d417ffded2c4615f39.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.next/static/webpack/412712c07e11e081dfd8.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.next/static/webpack/64a415b1fea674ed3b56.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.next/static/webpack/f6bd1c6c0a8544e4bf55.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/boardDetail.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/boardWriteModal.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/comment.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pages/board/[id].js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/build-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/.next/build-manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/server/pages-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/.next/server/pages-manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/static/chunks/pages/signup.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/static/chunks/pages/signup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/static/chunks/webpack.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/static/chunks/webpack.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/static/development/_buildManifest.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/static/development/_buildManifest.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/static/webpack/6b40feda0f141c739d04.hot-update.json" beforeDir="false" afterPath="$PROJECT_DIR$/.next/static/webpack/6b40feda0f141c739d04.hot-update.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/boardTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/boardTable.js" afterDir="false" />
-    </list>
+    <list default="true" id="81c468ba-4907-40d3-90c6-973377370f39" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -86,6 +59,7 @@
       <updated>1646657028451</updated>
       <workItem from="1646657037227" duration="2176000" />
       <workItem from="1646659262297" duration="4289000" />
+      <workItem from="1648693818763" duration="6000" />
     </task>
     <servers />
   </component>
