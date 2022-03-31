@@ -106,11 +106,12 @@ export default function BoardTable(props) {
       // width: '5rem',
       render: record => (
         <>
+          {console.log('record', record)}
           {/*
             로그인 사용자ID == 게시글 작성자ID
             삭제 버튼 보여주기
             */}
-          {userID == record.user ? (
+          {userID == record.user.id ? (
             <Button
               type="primary"
               danger
