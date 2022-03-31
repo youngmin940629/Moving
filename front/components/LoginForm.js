@@ -28,11 +28,11 @@ const LoginFormWrapper = styled.div`
   justify-content: center;
 `;
 
-const SignupLinkWrapper = styled.div`
-  margin-top: 10px;
+const LoginLinkWrapper = styled.div`
   display: block;
   text-align: center;
 `;
+
 
 const LoginForm = ({ setIsModalVisible }) => {
   const onFinishFailed = errorInfo => {
@@ -105,26 +105,18 @@ const LoginForm = ({ setIsModalVisible }) => {
             />
           </Form.Item>
           <Form.Item
-            style={{justifyContent: 'center'}}
+            wrapperCol={{
+              span: 24,
+            }}
           >
             <Button 
-              style={{
-                width: '100%',
-                height: '50px',
-                backgroundColor: '#2cd4ac',
-                borderColor: 'transparent',
-                color: 'white',
-                fontSize: '20px',
-                fontWeight: 'bold',
-              }}
-              type="primary" 
-              htmlType="submit" 
+              style={{ width: '100%', backgroundColor: '#2cd4ac', borderColor: 'transparent' }}
+              type="primary"
+              htmlType="submit"
+              loading={loginLoading}
             >
               로그인
             </Button>
-            <SignupLinkWrapper>
-              <Link href="/signup">회원가입</Link>
-            </SignupLinkWrapper>
           </Form.Item>
         </Form>
       </LoginFormWrapper>
