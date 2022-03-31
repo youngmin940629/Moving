@@ -1,12 +1,13 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { List, Form, Input, Button } from 'antd';
+import { Form, Input, Button, Table } from 'antd';
 
 export default function DetailReviews({id, isLogined}) {
 
+  const [userID, setUserID] =  useState(null);
   const [reviews, setReviews] = useState([]);
   const [myreview, setMyreivew] = useState(null);
-  const [myrank, setMyrank] = useState(null);
+  const [myrank, setMyrank] = useState(10);
 
   useEffect(()=>{
     if(id){
@@ -16,12 +17,55 @@ export default function DetailReviews({id, isLogined}) {
         console.log(res.data)
       })
     }
+    if(sessionStorage.getItem("id")){
+      setUserID(sessionStorage.getItem("id"));
+    }else{
+      setUserID(null);
+    }
   },[])
+
+  const columns = [
+    {
+      title: '별점',
+      dataIndex: 'rank'
+    },
+    {
+      title: '댓글',
+      dataIndex: 'content'
+    },
+    {
+      title: '작성일',
+      dataIndex: 'created_at'
+    },
+    {
+      render: (review) => (
+          <>
+            {userID == review.id ?
+                <Button 
+                  type="primary" 
+                  danger 
+                  ghost
+                  key={review.id} 
+                  onClick={()=>deleteBoard(record.id)}
+                >
+                  삭제
+                </Button>
+            : null}
+          </>
+      ),
+    },
+  ]
 
   const postReview = () => {
     let user = sessionStorage.getItem('id');
     let token = localStorage.getItem('JWT token')
     if (user !== undefined) {
+
+      var today = new Date();
+      var year = today.getFullYear();
+      var month = ('0' + (today.getMonth() + 1)).slice(-2);
+      var day = ('0' + today.getDate()).slice(-2);
+      var dateString = year + '-' + month  + '-' + day;
 
       if(myreview !== null && myrank !== null){
         axios({
@@ -34,6 +78,20 @@ export default function DetailReviews({id, isLogined}) {
             movie:Number(id),
           },
           headers: { Authorization: `JWT ${token}` }
+        }).then(()=>{
+          let reviews_copy = [...reviews]
+          console.log(reviews_copy)
+          reviews_copy = reviews_copy.concat([
+            {
+              'user':user,
+              'content': myreview,
+              'rank':myrank,
+              'created_at':dateString,
+            }
+          ])
+          setReviews(reviews_copy)
+          setMyreivew("")
+          setMyrank(10)
         })
       }else{
         alert('글을쓰거나, 랭크를 주세요..')
@@ -48,47 +106,31 @@ export default function DetailReviews({id, isLogined}) {
   return (
     <>
       <div className='container'>
-        {
-          <List
-              itemLayout="horizontal"
-              dataSource={reviews}
-              renderItem={(review, idx)=>(
-                  <List.Item>
-                      <List.Item.Meta
-                          key={idx}
-                          title={review.rank}
-                          description={review.content}
-                      />
-                      <span>{review.created_at}</span>
-                      {/* {item.user == userID? (
-                          <Button onClick={()=>{
-                              commentDelete(item.id)
-                          }}>삭제</Button>
-                      ):null} */}
-                  </List.Item>
-              )}
-          />
-        }
+
+        <Table
+          columns={columns}
+          dataSource={reviews}
+          pagination={{
+            position:["bottomCenter"],
+            pageSize:5,
+          }}
+        />
+
         <Form
         >
-          <div className="commentDiv-area">
-              <Form.Item
-                  name="comment"
-              >
-              <Input.TextArea defaultValue="" rows={1} style={{resize: "none"}} onChange={(e)=>{setMyreivew(e.target.value)}}/>
-              <input type="number" max={10} min={1} onChange={(e)=>{setMyrank(Number(e.target.value))}}></input>
-              </Form.Item>
+          <div className="commentDiv-area" style={{display:'flex',flexDirection:'row'}}>
+              <input value={myrank} type="number" max={10} min={1} onChange={(e)=>{setMyrank(Number(e.target.value))}}></input>
+              <Input.TextArea value={myreview} rows={1} style={{resize: "none"}} onChange={(e)=>{setMyreivew(e.target.value)}}/>
+              <div className="commentBtn">
+              {/* {userID != null ?( */}
+                  <Button type="primary" onClick={()=>{postReview()}}>
+                      댓글 작성
+                  </Button>
+              {/* ) : <span>댓글 작성은 로그인 후 이용해 주세요</span>
+              } */}
+              </div>
           </div>
-          <Form.Item>
-            <div className="commentBtn">
-                {/* {userID != null ?( */}
-                    <Button type="primary" onClick={()=>{postReview()}}>
-                        댓글 작성
-                    </Button>
-                {/* ) : <span>댓글 작성은 로그인 후 이용해 주세요</span>
-                } */}
-            </div>
-          </Form.Item>
+
         </Form>
       </div>
       <style jsx>
