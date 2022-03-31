@@ -70,10 +70,11 @@ function* logIn(action) {
       })
       .then(() => {
         action.data.setIsModalVisible(false);
-        if (window.location.pathname === '/') {
-          document.location.href = '/';
-        }
-        Router.push('/');
+        // if (window.location.pathname === '/') {
+        //   document.location.href = '/';
+        // }
+        // Router.push('/');
+        window.location.reload()
       });
   } catch (err) {
     action.data.setIsModalVisible(true);
