@@ -24,24 +24,27 @@ export default function DetailReviews({ id, isLogined }) {
     }
   }, []);
 
-  const deleteReview = (id,index) => {
-    axios.delete(process.env.NEXT_PUBLIC_BASE_URL+`/movies/oneline_review_detail/${id}`)
-    .then(res=>{
-      let reviews_copy = [...reviews];
-      console.log(index.id)
-      let del_index = reviews_copy.findIndex(el=>(el.id==index.id))
-      reviews_copy.splice(del_index,1)
-      setReviews(reviews_copy)
-    })
-  }
+  const deleteReview = (id, index) => {
+    axios
+      .delete(
+        process.env.NEXT_PUBLIC_BASE_URL + `/movies/oneline_review_detail/${id}`
+      )
+      .then(res => {
+        let reviews_copy = [...reviews];
+        console.log(index.id);
+        let del_index = reviews_copy.findIndex(el => el.id == index.id);
+        reviews_copy.splice(del_index, 1);
+        setReviews(reviews_copy);
+      });
+  };
 
   const columns = [
     {
-      title:'user',
-      dataIndex: ['user','username2']
+      title: '닉네임',
+      dataIndex: ['user', 'username2'],
     },
     {
-      title: '별점',
+      title: '점수',
       dataIndex: 'rank',
     },
     {
@@ -53,7 +56,7 @@ export default function DetailReviews({ id, isLogined }) {
       dataIndex: 'created_at',
     },
     {
-      render: (review,index) => (
+      render: (review, index) => (
         <>
           {userID == review.user.id ? (
             <Button
@@ -61,7 +64,7 @@ export default function DetailReviews({ id, isLogined }) {
               danger
               ghost
               key={index}
-              onClick={() => deleteReview(review.id,index)}
+              onClick={() => deleteReview(review.id, index)}
             >
               삭제
             </Button>
@@ -73,7 +76,7 @@ export default function DetailReviews({ id, isLogined }) {
 
   const postReview = () => {
     let user = sessionStorage.getItem('id');
-    let username = sessionStorage.getItem('username')
+    let username = sessionStorage.getItem('username');
     let token = localStorage.getItem('JWT token');
     if (user !== undefined) {
       var today = new Date();
@@ -99,8 +102,8 @@ export default function DetailReviews({ id, isLogined }) {
           reviews_copy = reviews_copy.concat([
             {
               user: {
-                id:userID,
-                username2:username,
+                id: userID,
+                username2: username,
               },
               id:res.data.id,
               content: myreview,
