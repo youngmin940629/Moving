@@ -169,4 +169,3 @@ def activate(request, uid64, token):
     user.is_active = True
     user.save()
     return render(request,'activate.html')
-
