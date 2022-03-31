@@ -88,7 +88,7 @@ export default function BoardTable(props) {
     },
     {
       title: '작성자',
-      dataIndex: 'username',
+      dataIndex: 'username2',
     },
     {
       title: '작성일',
@@ -165,6 +165,23 @@ export default function BoardTable(props) {
       )
       .then(res => {
         console.log('res.data', res.data);
+        const temp = [];
+        res.data.map(item => {
+          console.log('item', item);
+          temp.push({
+            key: item.id,
+            comments: item.comments.length,
+            content: item.content,
+            created_at: item.created_at,
+            id: item.id,
+            title: item.title,
+            username2: item.user.username2,
+            visit_count: item.visit_count,
+            user: item.user,
+          });
+          console.log('temp', temp);
+        });
+        props.setData(temp);
       })
       .catch(err => {
         console.log('err', err);
@@ -189,6 +206,7 @@ export default function BoardTable(props) {
           onChange={handleChange}
         >
           <Option value="title">제목</Option>
+          <Option value="content">내용</Option>
           <Option value="comment">댓글</Option>
           <Option value="nickname">닉네임</Option>
         </Select>

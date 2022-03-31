@@ -16,7 +16,7 @@ export default function Community({ boards }) {
         created_at: item.created_at,
         id: item.id,
         title: item.title,
-        username: item.username,
+        username2: item.user.username2,
         visit_count: item.visit_count,
         user: item.user,
       });
