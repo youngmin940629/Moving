@@ -1,10 +1,11 @@
 import pandas as pd
 import numpy as np
 import sqlite3
+import threading
 
 
 # 데이터베이스에서 영화, 평점 데이터 불러오기
-con = sqlite3.connect("db.sqlite3")
+con = sqlite3.connect("db.sqlite3", check_same_thread=False)
 try:
     rating_data = pd.read_sql_query("SELECT * from movies_rating", con )
     if len(rating_data)>200:

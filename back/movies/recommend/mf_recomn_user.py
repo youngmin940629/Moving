@@ -7,7 +7,7 @@ import threading
 
 svd_predicts = rating_data = movie_data = []
 # 데이터베이스에서 영화, 평점 데이터 불러오기
-con = sqlite3.connect("db.sqlite3")
+con = sqlite3.connect("db.sqlite3", check_same_thread=False)
 def recommend():
     global svd_predicts, rating_data, movie_data
     try:
