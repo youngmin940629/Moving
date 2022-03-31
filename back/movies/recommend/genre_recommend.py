@@ -105,6 +105,11 @@ def find_sim_movie(id, top_n=10):
 
     return genre_rec_df.iloc[similar_indexes].sort_values('weighted_vote', ascending=False)[:top_n]
 
-similar_movies = find_sim_movie(547)
+# similar_movies = find_sim_movie(547, top_n=200)
+# print(similar_movies)
 # print(similar_movies[['title', 'ratings', 'weighted_vote']])
+# import random
 # print(similar_movies['title'].values.tolist())
+# temp = similar_movies['title'].values.tolist()
+# rec_list = random.sample(temp, 20)
+# print(rec_list)

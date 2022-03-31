@@ -4,7 +4,6 @@ from rest_framework import response
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from accounts.models import User
-from movies.recommend.genre_recommend import find_sim_movie
 from .models import Movie, Genre, Rating, OnelineReview
 from .serializers import MovieListSerializer, MovieSerializer, GenreSerializer, MovieIdSerializer,MoviePosterSerializer,MovieDetailSerializer, OnelinereviewSerializer
 from rest_framework import serializers, status
@@ -14,6 +13,7 @@ import random
 from bs4 import BeautifulSoup
 from community.models import Review
 from datetime import datetime
+from .recommend.genre_recommend import find_sim_movie
 from .recommend.mf_recommend import mf_recomnend
 from .recommend.mf_recomn_user import user_recommend
 from .recommend.categorylist import categoryPick
@@ -163,12 +163,18 @@ def recommend_genre(request, movie_id):
 def mf_recommend(request,movie_id):
     if request.method == 'GET':
         recommend_movie_list = mf_recomnend(movie_id)
-        if not recommend_movie_list:
-            recommend_movie_list = find_sim_movie(movie_id)
         movie_list = []
-        for recommend in recommend_movie_list:
-            movie = Movie.objects.filter(pk=recommend)
-            movie_list.append(movie[0])
+        if not recommend_movie_list:
+            movie_df = find_sim_movie(movie_id, top_n=200)
+            temp = movie_df['title'].values.tolist()
+            recommend_movie_list = random.sample(temp, 20)
+            for movie in recommend_movie_list:
+                movie_object = Movie.objects.filter(title=movie)
+                movie_list.append(movie_object[0])
+        else:
+            for recommend in recommend_movie_list:
+                movie = Movie.objects.filter(pk=recommend)
+                movie_list.append(movie[0])
         serializer = MovieListSerializer(movie_list, many=True)
         return Response(serializer.data)
 
