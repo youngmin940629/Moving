@@ -44,7 +44,7 @@ const SearchInput = () => {
       onChange={(value) => {router.push(`/movie/${value}`)}}
       placeholder="영화 검색"
       style={{ width: 200 }}
-      suffixIcon={<SearchOutlined onClick={handleSearch} style={{ color:'grey', cursor:'default'}}/>}
+      suffixIcon={<SearchOutlined style={{ color:'grey', cursor:'default'}}/>}
     >
       {options}
     </Select>

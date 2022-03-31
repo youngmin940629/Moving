@@ -28,7 +28,8 @@ const LoginFormWrapper = styled.div`
   justify-content: center;
 `;
 
-const LoginLinkWrapper = styled.div`
+const SignupLinkWrapper = styled.div`
+  margin-top: 10px;
   display: block;
   text-align: center;
 `;
@@ -81,7 +82,7 @@ const LoginForm = ({ setIsModalVisible }) => {
             ]}
           >
             <Input
-              placeholder="이메일  입력"
+              placeholder="이메일 입력"
               type="username"
               value={username}
               onChange={onChangeUsername}
@@ -104,18 +105,26 @@ const LoginForm = ({ setIsModalVisible }) => {
             />
           </Form.Item>
           <Form.Item
-            wrapperCol={{
-              span: 24,
-            }}
+            style={{justifyContent: 'center'}}
           >
-            <Button
-              style={{ width: '100%', backgroundColor: '#2cd4ac' }}
-              type="primary"
-              htmlType="submit"
-              loading={loginLoading}
+            <Button 
+              style={{
+                width: '100%',
+                height: '50px',
+                backgroundColor: '#2cd4ac',
+                borderColor: 'transparent',
+                color: 'white',
+                fontSize: '20px',
+                fontWeight: 'bold',
+              }}
+              type="primary" 
+              htmlType="submit" 
             >
               로그인
             </Button>
+            <SignupLinkWrapper>
+              <Link href="/signup">회원가입</Link>
+            </SignupLinkWrapper>
           </Form.Item>
         </Form>
       </LoginFormWrapper>

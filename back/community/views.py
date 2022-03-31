@@ -170,22 +170,26 @@ def nickname_search(request, word):
             return Response(data, status=status.HTTP_204_NO_CONTENT)
 
 
-
-
-@api_view(['POST'])
+@api_view(['POST', 'GET'])
 @permission_classes([AllowAny])
 def like_user(request, review_pk):
-    user_id = request.data['id']
-    review = get_object_or_404(Review, pk=review_pk)
-    likeUser = review.like_users.all()
-    if likeUser.filter(pk=user_id):
-        review.like_users.remove(user_id)
-        liked = False
+    if request.method == 'POST':
+        user_id = request.data['id']
+        review = get_object_or_404(Review, pk=review_pk)
+        likeUser = review.like_users.all()
+        if likeUser.filter(pk=user_id):
+            review.like_users.remove(user_id)
+            liked = False
+        else:
+            review.like_users.add(user_id)
+            liked = True
+        data = {
+            'liked' : liked,
+            'count' : review.like_users.count()
+        }
     else:
-        review.like_users.add(user_id)
-        liked = True
-    data = {
-        'liked' : liked,
-        'count' : review.like_users.count()
-    }
+        review = get_object_or_404(Review, pk=review_pk)
+        data = {
+            'count' : review.like_users.count()
+        }
     return Response(data)
