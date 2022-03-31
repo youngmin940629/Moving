@@ -10,7 +10,7 @@ movie_id=[]
 movie_id_list=[]
 # 데이터베이스에서 영화, 평점 데이터 불러오기
 con = sqlite3.connect("db.sqlite3")
-def mf_recommend():
+def recommend():
     global corr, movie_id, movie_id_list
     try:
         print('hi')
@@ -35,14 +35,14 @@ def mf_recommend():
 
         movie_id = user_movie_rank.columns
         movie_id_list = list(movie_id)
-        mf_timer = threading.Timer(interval=60, function=mf_recommend)
+        mf_timer = threading.Timer(interval=60, function=recommend)
         mf_timer.start()
         
     except Exception as e:
-        mf_timer = threading.Timer(interval=60, function=mf_recommend)
+        mf_timer = threading.Timer(interval=60, function=recommend)
         mf_timer.start()
 
-mf_recommend()
+recommend()
 
 
 
