@@ -158,7 +158,7 @@ from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 @permission_classes((IsAuthenticated, ))
 @authentication_classes((JSONWebTokenAuthentication,))
 def get_userpk(request):
-    data = {'pk' : request.user.pk,'email_authenticated':request.user.is_active}
+    data = {'pk' : request.user.pk,'email_authenticated':request.user.is_active,'username':request.user.username2}
     return Response(data)
 
 

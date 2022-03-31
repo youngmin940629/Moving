@@ -16,6 +16,7 @@ const App = ({ Component, pageProps }) => {
         headers: { Authorization: `JWT ${token}` },
       }).then(function (res) {
         sessionStorage.setItem('id', res.data.pk);
+        sessionStorage.setItem('username',res.data.username);
       });
     }
     return () => {

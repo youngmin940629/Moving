@@ -24,7 +24,22 @@ export default function DetailReviews({ id, isLogined }) {
     }
   }, []);
 
+  const deleteReview = (id,index) => {
+    axios.delete(process.env.NEXT_PUBLIC_BASE_URL+`/movies/oneline_review_detail/${id}`)
+    .then(res=>{
+      let reviews_copy = [...reviews];
+      console.log(index.id)
+      let del_index = reviews_copy.findIndex(el=>(el.id==index.id))
+      reviews_copy.splice(del_index,1)
+      setReviews(reviews_copy)
+    })
+  }
+
   const columns = [
+    {
+      title:'user',
+      dataIndex: ['user','username2']
+    },
     {
       title: '별점',
       dataIndex: 'rank',
@@ -38,15 +53,15 @@ export default function DetailReviews({ id, isLogined }) {
       dataIndex: 'created_at',
     },
     {
-      render: review => (
+      render: (review,index) => (
         <>
-          {userID == review.id ? (
+          {userID == review.user.id ? (
             <Button
               type="primary"
               danger
               ghost
-              key={review.id}
-              onClick={() => deleteBoard(record.id)}
+              key={index}
+              onClick={() => deleteReview(review.id,index)}
             >
               삭제
             </Button>
@@ -58,6 +73,7 @@ export default function DetailReviews({ id, isLogined }) {
 
   const postReview = () => {
     let user = sessionStorage.getItem('id');
+    let username = sessionStorage.getItem('username')
     let token = localStorage.getItem('JWT token');
     if (user !== undefined) {
       var today = new Date();
@@ -82,7 +98,10 @@ export default function DetailReviews({ id, isLogined }) {
           console.log(reviews_copy);
           reviews_copy = reviews_copy.concat([
             {
-              user: user,
+              user: {
+                id:userID,
+                username2:username,
+              },
               content: myreview,
               rank: myrank,
               created_at: dateString,
