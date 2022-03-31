@@ -2,6 +2,7 @@ import {useEffect, useState} from "react"
 import {useRouter} from "next/router";
 import {Button} from "antd";
 import ReviewLike from "./ReviewLike";
+import axios from "axios";
 
 export default function detailContent(props){
     const [userID, setUserID] = useState(0);
@@ -9,11 +10,20 @@ export default function detailContent(props){
     useEffect(()=>{
         if(sessionStorage.getItem("id")){
             setUserID(sessionStorage.getItem("id"));
-        }else{
-            setUserID(null);
         }
-        console.log(props.data)
     },[])
+    
+    // 게시글 삭제 함수
+    const deleteBoard = (id) => {
+        if (confirm('삭제하시겠습니까?')) {
+            axios
+                .delete(`${process.env.NEXT_PUBLIC_BASE_URL}/community/review/${id}/`)
+                .then(() => {
+                    alert("삭제 완료")
+                    router.push('/community')
+                })
+        };
+    }
 
     return(
         <div className="boardInfo">
@@ -32,10 +42,25 @@ export default function detailContent(props){
                             <span>&nbsp;&nbsp;&nbsp;조회수:&nbsp;&nbsp;{props.data.visit_count}</span>
                             <span>&nbsp;&nbsp;&nbsp;댓글수:&nbsp;&nbsp;{props.data.comments.length}</span>
                         </div>
-                        {props.data.user == userID? (
+                        {props.data.user.id == userID? (
                             <div className="modifyBtn">
-                                <Button onClick={()=>router.push(`/board/modify/${props.data.id}`)}>
+                                <Button
+                                    type="primary"
+                                    ghost
+                                    key={props.data.id}
+                                    onClick={()=>router.push(`/board/modify/${props.data.id}`)}
+                                    style={{marginRight:'5px'}}
+                                >
                                     수정
+                                </Button>
+                                <Button
+                                    type="primary"
+                                    danger
+                                    ghost
+                                    key={props.data.id}
+                                    onClick={() => deleteBoard(props.data.id)}
+                                >
+                                    삭제
                                 </Button>
                             </div>
                         ) : null}
@@ -72,6 +97,8 @@ export default function detailContent(props){
                 .postInfo-header-subtitle{
                     display: flex;
                     justify-content: space-between;
+                    margin-bottom: 5px;
+
                 }
                 .contentDiv{
                      font-size: 20px;

@@ -103,15 +103,26 @@ export default function BoardTable(props) {
             삭제 버튼 보여주기
             */}
           {userID == record.user.id ? (
-            <Button
-              type="primary"
-              danger
-              ghost
-              key={record.id}
-              onClick={() => deleteBoard(record.id)}
-            >
-              삭제
-            </Button>
+            <>
+              <Button
+                type="primary"
+                ghost
+                key={record.id}
+                onClick={()=>router.push(`/board/modify/${record.id}`)}
+                style={{marginRight:'5px'}}
+              >
+                수정
+              </Button>
+              <Button
+                type="primary"
+                danger
+                ghost
+                key={record.id}
+                onClick={() => deleteBoard(record.id)}
+              >
+                삭제
+              </Button>
+            </>
           ) : null}
         </>
       ),
