@@ -9,6 +9,7 @@ svd_predicts = rating_data = movie_data = []
 # 데이터베이스에서 영화, 평점 데이터 불러오기
 con = sqlite3.connect("db.sqlite3")
 def recommend():
+    global svd_predicts, rating_data, movie_data
     try:
         movie_data = pd.read_sql_query("SELECT id,title from movies_movie", con)
         rating_data = pd.read_sql_query("SELECT * from movies_rating", con)
