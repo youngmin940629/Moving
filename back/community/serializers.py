@@ -30,7 +30,7 @@ class ReviewSerializer(serializers.ModelSerializer):
     def getUsername(self, obj):
         return obj.user.username
         
-    username = serializers.SerializerMethodField("getUsername")
+    user = UserSerializer(read_only=True)
 
     class Meta:
         model = Review
