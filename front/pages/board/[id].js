@@ -21,7 +21,8 @@ const router = useRouter();
             >목록</Button>
           </div>
         <DetailContent data={post} movies={movieInfo}></DetailContent>
-          <BoardMovieDesc movies={movieInfo}></BoardMovieDesc>
+        <BoardMovieDesc movies={movieInfo}></BoardMovieDesc>
+        
         <Comment data={post}></Comment>
       </AppLayout>
 

@@ -1,9 +1,10 @@
 import {useEffect, useState} from "react"
 import {useRouter} from "next/router";
 import {Button} from "antd";
+import ReviewLike from "./ReviewLike";
 
 export default function detailContent(props){
-    const [userID, setUserID] = useState(null);
+    const [userID, setUserID] = useState(0);
     const router = useRouter();
     useEffect(()=>{
         if(sessionStorage.getItem("id")){
@@ -46,6 +47,8 @@ export default function detailContent(props){
                         {props.data.content}
                     </section>
                 </div>
+
+                <ReviewLike userId={userID} reviewId={props.data.id} />
 
 
             </div>
