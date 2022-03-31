@@ -57,12 +57,6 @@ const MovingLogo = styled.img`
   cursor: pointer;
 `;
 
-const UserButton = styled(Button)`
-  .ant-click-animating-node {
-    display: none;
-  }
-`;
-
 const AppLayout = ({ children }) => {
   const logout = () => {
     console.log(dispatch(logoutRequestAction()));

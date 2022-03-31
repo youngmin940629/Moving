@@ -74,7 +74,7 @@ function* logIn(action) {
         //   document.location.href = '/';
         // }
         // Router.push('/');
-        window.location.reload()
+        window.location.reload() // 기존 경로 유지 + 새로고침
       });
   } catch (err) {
     action.data.setIsModalVisible(true);

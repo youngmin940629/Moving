@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AppLayout from '../components/AppLayout';
 import MainCarousel from '../components/MainCarousel';
-import MoviePoster from '../components/MoviePoster';
 import IndexRecommend from '../components/IndexRecommend';
 import IndexRecommend2 from '../components/IndexRecommend2';
 import { useDispatch, useSelector } from 'react-redux';

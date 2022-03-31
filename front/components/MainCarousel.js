@@ -45,33 +45,51 @@ const MainCarousel = () => {
   const settings = {
     infinite: true,
     lazyLoad: true,
-    speed: 300,
     slidesToShow: 3,
     centerMode: true,
     centerPadding: 0,
     autoplay: true,
-    autoplaySpeed: 5000,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
     beforeChange: (current, next) => setImageIndex(next),
   };
   return (
-    <div className="App">
-      <Slider {...settings}>
-        {movies.map((movie, idx) => (
-          <div
-            className={idx === imageIndex ? 'slide activeSlide' : 'slide'}
-            key={idx}
-          >
-            <StyledImg
-              src={movie.poster_path}
-              alt={`${movie.title} poster image`}
-              onClick={() => Router.push(`/movie/${movie.id}`)}
-            />
-          </div>
-        ))}
-      </Slider>
-    </div>
+    <>
+      <div className="App">
+        <Slider {...settings}>
+          {movies.map((movie, idx) => (
+            <div
+              className={idx === imageIndex ? 'slide activeSlide' : 'slide'}
+              key={idx}
+            >
+              <StyledImg
+                src={movie.backdrop_path}
+                alt={`${movie.title} poster image`}
+                onClick={() => Router.push(`/movie/${movie.id}`)}
+              />
+              <span className='im-text'>{movie.title}<span className='year-text'>&nbsp;{movie.vote_average}</span></span>
+            </div>
+          ))}
+        </Slider>
+      </div>
+    <style jsx>
+      {`
+        .im-text {
+          position:absolute;
+          top:90px;
+          left:60px;
+          z-index:5;
+          color:white;
+          font-size:30px;
+          font-weight:bold;
+        }
+        .year-text {
+          font-size:15px;
+          color:green;
+        }
+      `}
+    </style>
+  </>
   );
 };
 
