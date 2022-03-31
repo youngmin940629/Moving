@@ -10,7 +10,7 @@ class OnelinereviewSerializer(serializers.ModelSerializer):
     class UserSerializer(serializers.ModelSerializer):
         class Meta:
             model = User
-            fields = ('id', 'nickname2')
+            fields = ('id', 'username2')
     user = UserSerializer(read_only=True)
 
     class Meta:
