@@ -41,6 +41,7 @@ def recommend():
         mf_timer.start()
         con.close()
     
+recommend()
 def user_recommend(user_index,user_id):
     try:
         sorted_user_prediction = svd_predicts.iloc[user_index].sort_values(ascending=False)
@@ -54,5 +55,5 @@ def user_recommend(user_index,user_id):
 
         return user_history, recommendations.head(20)
     except:
-        return []
+        return [], []
 # print(user_recommend(4, 6))
