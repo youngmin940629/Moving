@@ -11,7 +11,6 @@ try:
     if len(rating_data) > 100:
         movie_data = pd.read_sql_query("SELECT id,title from movies_movie", con)
         rating_data.drop('id', axis=1, inplace=True)
-        print(rating_data)
         user_movie_ratings = rating_data.pivot(
             index='user_id',
             columns='movie_id',

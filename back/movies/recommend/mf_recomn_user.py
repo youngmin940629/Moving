@@ -31,7 +31,6 @@ try:
     svd_user_predicted_ratings = np.dot(np.dot(U, sigma), Vt) + user_rating_mean.reshape(-1,1)
 
     svd_predicts = pd.DataFrame(svd_user_predicted_ratings, columns = user_movie_ratings.columns)
-    print(svd_predicts)
 except Exception as e:
     print(e)
     con.close()
