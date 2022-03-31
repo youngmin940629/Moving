@@ -1,4 +1,4 @@
-import { Button, Select, Space, Table, Input } from 'antd';
+import { Button, Select, Space, Table, Input, Col } from 'antd';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -20,10 +20,9 @@ const BoardTitle = styled.h2`
   color: #2cd4ac;
 `;
 
-const TableWrapper = styled.div`
-  width: 70rem;
-  margin: auto;
-`;
+// const TableWrapper = styled(Col)`
+  
+// `;
 
 const BoardWriteBtn = styled(Button)`
   float: right;
@@ -78,7 +77,7 @@ export default function BoardTable(props) {
             )
           }
         >
-          {title} [{record.comments.length}]
+          {title} <span style={{color:'grey', fontSize:'5px;'}}>[{record.comments.length}]</span>
         </a>
       ),
     },
@@ -192,11 +191,11 @@ export default function BoardTable(props) {
 
   return (
     <>
-      <TableWrapper>
-        <LogoWrapper>
-          <Logo src="/img/logo-colored.png" />
-        </LogoWrapper>
-        <BoardTitle>Review Board</BoardTitle>
+      <LogoWrapper>
+        <Logo src="/img/logo-colored.png" />
+      </LogoWrapper>
+      <BoardTitle>Review Board</BoardTitle>
+      <Col xs={{ offset: 0 }} sm={{ offset: 1, span: 22 }} md={{ offset:2, span:20 }}>
         {userID != null ? (
           <BoardWriteBtn type="primary" onClick={goWrite}>
             게시글 쓰기
@@ -233,7 +232,7 @@ export default function BoardTable(props) {
             position: ['bottomCenter'],
           }}
         />
-      </TableWrapper>
+      </Col>
 
     </>
   )
