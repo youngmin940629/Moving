@@ -29,8 +29,8 @@ const LoginFormWrapper = styled.div`
 `;
 
 const LoginLinkWrapper = styled.div`
-  margin-top: 10px;
   display: block;
+  text-align: center;
 `;
 
 const LoginForm = ({ setIsModalVisible }) => {
@@ -52,7 +52,6 @@ const LoginForm = ({ setIsModalVisible }) => {
       <LogoWrapper>
         <Logo src="/img/logo-colored.png" />
       </LogoWrapper>
-      <LoginTitle>로그인</LoginTitle>
       <LoginFormWrapper>
         <Form
           name="basic"
@@ -106,19 +105,23 @@ const LoginForm = ({ setIsModalVisible }) => {
           </Form.Item>
           <Form.Item
             wrapperCol={{
-              offset: 8,
-              span: 8,
+              span: 24,
             }}
           >
-            <Button type="primary" htmlType="submit" loading={loginLoading}>
+            <Button
+              style={{ width: '100%', backgroundColor: '#2cd4ac' }}
+              type="primary"
+              htmlType="submit"
+              loading={loginLoading}
+            >
               로그인
             </Button>
-            <LoginLinkWrapper>
-              <Link href="/signup">회원가입</Link>
-            </LoginLinkWrapper>
           </Form.Item>
         </Form>
       </LoginFormWrapper>
+      <LoginLinkWrapper>
+        <Link href="/signup">회원가입 하러 가기</Link>
+      </LoginLinkWrapper>
     </>
   );
 };
