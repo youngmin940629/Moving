@@ -213,7 +213,7 @@ export default function BoardTable(props) {
           <Option value="nickname">닉네임</Option>
         </Select>
         <Search
-          placeholder="input search text"
+          placeholder="검색어를 입력해주세요"
           onSearch={onSearch}
           style={{ width: 200 }}
         />
