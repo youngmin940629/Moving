@@ -3,9 +3,15 @@ from django.db import models
 from rest_framework import serializers
 
 from .models import Cast, Movie, Genre, OnelineReview
-
+from accounts.models import User
 
 class OnelinereviewSerializer(serializers.ModelSerializer):
+
+    class UserSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = User
+            fields = ('id', 'nickname2')
+    user = UserSerializer(read_only=True)
 
     class Meta:
         model = OnelineReview

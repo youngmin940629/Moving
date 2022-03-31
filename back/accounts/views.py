@@ -7,14 +7,7 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from .models import User
 from movies.models import Rating,Movie
-from django.core.mail import send_mail
-from django.conf import settings
-from .tokens import account_activation_token
-from django.template.loader import render_to_string
-from django.contrib.sites.shortcuts import get_current_site
-from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
-from django.utils.encoding import force_bytes, force_text
-from django.shortcuts import render
+
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -35,11 +28,12 @@ def signup(request):
     data.pop("email")
     data["username"] = email
     data["username2"] = username
-    data["is_active"] = False
+
 
     # 2. UserSerializer를 통해 데이터 직렬화
     serializer = UserSignupSerializer(data=data)
 
+    print(serializer)
     # 3. validation 작업 진행 -> password도 같이 직렬화 진행
     if serializer.is_valid(raise_exception=True):
         user = serializer.save()
@@ -50,23 +44,6 @@ def signup(request):
         movie_id = Movie.objects.get(pk=5)
         rating = Rating.objects.create(user=user_id,rank=0,movie=movie_id)
         rating.save()
-
-        current_site = get_current_site(request)
-        message = render_to_string('activation_email.html',
-        {
-            'user':user,
-            'domain':current_site.domain,
-            'uid':urlsafe_base64_encode(force_bytes(user.pk)).encode().decode(),
-            'token':account_activation_token.make_token(user),
-        })
-        send_mail(
-            subject='Moving | email 인증으로 계정을 활성화하세요.',
-            message=message,
-            from_email = settings.EMAIL_HOST_USER,
-            recipient_list=[email],
-            html_message=message,
-        )
-        print(account_activation_token)
 
         # password는 직렬화 과정에는 포함 되지만 → 표현(response)할 때는 나타나지 않는다.
         return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -123,8 +100,6 @@ def edit(request,user_id):
                 user.category_list.clear()
                 for genre in genres_list:
                     user.category_list.add(Genre.objects.get(pk=genre))
-            elif d=="picture":
-                user.picture = data[d]
         user.save()
         return Response(status=status.HTTP_200_OK)
     else:
@@ -150,17 +125,16 @@ def changePassword(request,user_id):
         user.save()
         return Response(status=status.HTTP_200_OK)
 
-
-
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 @api_view(['POST'])
 @permission_classes((IsAuthenticated, ))
 @authentication_classes((JSONWebTokenAuthentication,))
 def get_userpk(request):
-    data = {'pk' : request.user.pk,'email_authenticated':request.user.is_active}
+    data = {'pk' : request.user.pk}
     return Response(data)
 
+<<<<<<< Updated upstream
 
 
 def activate(request, uid64, token):
@@ -176,3 +150,5 @@ def activate(request, uid64, token):
     user.is_active = True
     user.save()
     return render(request,'activate.html')
+=======
+>>>>>>> Stashed changes
