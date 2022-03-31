@@ -43,19 +43,14 @@ export default function BoardTable(props) {
     } else {
       setUserID(null);
     }
-    console.log('props.boards', props.boards);
-    console.log('props.data', props.data);
-  }, [props.data]);
+  },[props]);
 
   // 게시글 삭제 함수 id : 게시글 번호
   const deleteBoard = id => {
-    console.log(id);
     try {
       if (confirm('삭제하사겠습니까?')) {
-        axios.delete(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/community/review/${id}/`
-        );
-        alert('삭제완료');
+        axios.delete(`${process.env.NEXT_PUBLIC_BASE_URL}/community/review/${id}/`)
+        alert("삭제 완료");
         router.replace(router.asPath);
       }
     } catch (e) {}
@@ -71,7 +66,7 @@ export default function BoardTable(props) {
       dataIndex: 'title',
       // width: '30rem',
       render: (title, record) => (
-        <a className="listTitle"
+        <a
           style={{ color: 'black', fontWeight: 'bold' }}
           href={`board/${record.id}`}
           value={record.id}
@@ -82,13 +77,13 @@ export default function BoardTable(props) {
             )
           }
         >
-          {title} [{record.comments}]
+          {title} [{record.comments.length}]
         </a>
       ),
     },
     {
       title: '작성자',
-      dataIndex: 'username2',
+      dataIndex: ["user", "username2"],
     },
     {
       title: '작성일',
@@ -131,7 +126,6 @@ export default function BoardTable(props) {
   const [item, setItem] = useState(null);
   const { Option } = Select;
   const handleChange = value => {
-    console.log(`selected ${value}`);
     setItem(value);
   };
   const handleChange2 = value => {
@@ -221,7 +215,7 @@ export default function BoardTable(props) {
           <Option value="created_at">작성일</Option>
         </Select>
         <Table
-          dataSource={props.data}
+          dataSource={props.boards}
           columns={columns}
           pagination={{
             position: ['bottomCenter'],
