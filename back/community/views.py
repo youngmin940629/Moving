@@ -90,7 +90,64 @@ def comment_create(request, review_pk):
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
-def review_search(request, word):
+def title_search(request, word):
+    if request.method == 'GET':
+        reviews = Review.objects.all()
+        search_list = []
+        for review in reviews:
+            if word in review.title:
+                search_list.append(review)
+        if search_list:
+            serializer = ReviewSearchSerializer(search_list, many=True)
+            return Response(serializer.data)
+        else:
+            data = {
+                "일치하는 게시글이 없습니다."
+            }
+            return Response(data, status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def comment_search(request, word):
+    if request.method == 'GET':
+        reviews = Review.objects.all()
+        search_list = []
+        for review in reviews:
+            if review.comments.all():
+                for comment in review.comments.all():
+                    if word in comment.content:
+                        search_list.append(review)
+                        break
+        if search_list:
+            serializer = ReviewSearchSerializer(search_list, many=True)
+            return Response(serializer.data)
+        else:
+            data = {
+                "일치하는 게시글이 없습니다."
+            }
+            return Response(data, status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def content_search(request, word):
+    if request.method == 'GET':
+        reviews = Review.objects.all()
+        search_list = []
+        for review in reviews:
+            if word in review.content:
+                search_list.append(review)
+        if search_list:
+            serializer = ReviewSearchSerializer(search_list, many=True)
+            return Response(serializer.data)
+        else:
+            data = {
+                "일치하는 게시글이 없습니다."
+            }
+            return Response(data, status=status.HTTP_204_NO_CONTENT)
+    
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def nickname_search(request, word):
     if request.method == 'GET':
         reviews = Review.objects.all()
         try:
@@ -98,36 +155,21 @@ def review_search(request, word):
             userID = user.id
         except:
             userID = 0
-        search_list = {
-            'title' : [],
-            'content' : [],
-            'review' : [],
-            'username': []
-        }
+        search_list = []
 
         for review in reviews:
             if review.user.id == userID:
-                serializer = ReviewSearchSerializer([review], many=True)
-                search_list['username'].append(serializer.data)
-            if word in review.title:
-                serializer = ReviewSearchSerializer([review], many=True)
-                search_list['title'].append(serializer.data)
-            elif word in review.content:
-                serializer = ReviewSearchSerializer([review], many=True)
-                search_list['content'].append(serializer.data)
-            elif review.comments.all():
-                for comment in review.comments.all():
-                    if word in comment.content:
-                        serializer = ReviewSearchSerializer([review], many=True)
-                        search_list['review'].append(serializer.data)
-                        break
+                search_list.append(review)
         if search_list:
-            return Response(search_list)
+            serializer = ReviewSearchSerializer(search_list, many=True)
+            return Response(serializer.data)
         else:
             data = {
                 "일치하는 게시글이 없습니다."
             }
             return Response(data, status=status.HTTP_204_NO_CONTENT)
+
+
 
 
 @api_view(['POST'])
