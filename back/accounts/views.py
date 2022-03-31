@@ -169,3 +169,10 @@ def activate(request, uid64, token):
     user.is_active = True
     user.save()
     return render(request,'activate.html')
+
+def activate(request, uid64, token):
+    uid = force_text(urlsafe_base64_decode(uid64))
+    user = User.objects.get(pk=uid)
+    user.is_active = True
+    user.save()
+    return render(request,'activate.html')
