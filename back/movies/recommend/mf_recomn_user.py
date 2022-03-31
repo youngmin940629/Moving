@@ -40,7 +40,6 @@ def recommend():
     except Exception as e:
         mf_timer = threading.Timer(interval=60, function=recommend)
         mf_timer.start()
-        con.close()
     
 recommend()
 def user_recommend(user_index,user_id):

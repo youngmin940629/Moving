@@ -13,7 +13,6 @@ con = sqlite3.connect("db.sqlite3", check_same_thread=False)
 def recommend():
     global corr, movie_id, movie_id_list
     try:
-        print('hi')
         movie_data = pd.read_sql_query("SELECT id,title from movies_movie", con)    
         rating_data = pd.read_sql_query("SELECT * from movies_rating", con)
         rating_data.drop('id', axis=1, inplace=True)
@@ -47,12 +46,15 @@ recommend()
 
 
 def mf_recomnend(id):
-    coffey_hands = movie_id_list.index(id)
-    corr_coffey_hands = corr[coffey_hands]
-    corr_coffey_hands = pd.DataFrame(corr_coffey_hands)
-    top_20_corr_coffey_hands = corr_coffey_hands.nlargest(20, 0)
-    movie_list = []
-    for idx in top_20_corr_coffey_hands.index:
-        movie_list.append(movie_id[idx])
-        
-    return movie_list
+    try:
+        coffey_hands = movie_id_list.index(id)
+        corr_coffey_hands = corr[coffey_hands]
+        corr_coffey_hands = pd.DataFrame(corr_coffey_hands)
+        top_20_corr_coffey_hands = corr_coffey_hands.nlargest(20, 0)
+        movie_list = []
+        for idx in top_20_corr_coffey_hands.index:
+            movie_list.append(movie_id[idx])
+            
+        return movie_list
+    except:
+        return []

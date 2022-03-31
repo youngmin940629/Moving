@@ -163,6 +163,8 @@ def recommend_genre(request, movie_id):
 def mf_recommend(request,movie_id):
     if request.method == 'GET':
         recommend_movie_list = mf_recomnend(movie_id)
+        if not recommend_movie_list:
+            recommend_movie_list = find_sim_movie(movie_id)
         movie_list = []
         for recommend in recommend_movie_list:
             movie = Movie.objects.filter(pk=recommend)
@@ -183,9 +185,10 @@ def mf_user_recommend(request,user_id):
                 break
         user_history, recommendationList = user_recommend(index, user_id)
         movie_list = []
-        for recommend in recommendationList.values:
-            movie = Movie.objects.filter(pk=recommend[0])
-            movie_list.append(movie[0])
+        if recommendationList:
+            for recommend in recommendationList.values:
+                movie = Movie.objects.filter(pk=recommend[0])
+                movie_list.append(movie[0])
         serializer = MovieListSerializer(movie_list, many=True)
         return Response(serializer.data)
 
@@ -279,7 +282,6 @@ def scrap_cancel(request,user_id):
 @api_view(['GET','POST'])
 @permission_classes([AllowAny])
 def oneline_review(request,movie_id):
-    print(request.data)
     if request.method == 'GET':
         try:
             onelinereview = get_list_or_404(OnelineReview, movie=movie_id)
