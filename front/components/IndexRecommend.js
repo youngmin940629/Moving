@@ -74,7 +74,6 @@ const IndexRecommend = () => {
         setMovies(res.data);
       });
   }, []);
-  console.log(movies)
 
   return (
     <>

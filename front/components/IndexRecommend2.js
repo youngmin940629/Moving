@@ -73,7 +73,6 @@ const IndexRecommend2 = ({ movies, setMovies }) => {
         }/movies/mf_user_recommend/${sessionStorage.getItem('id')}/`
       )
       .then(res => {
-        console.log('res', res);
         setMovies(res.data);
       })
       .catch(err => {

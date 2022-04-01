@@ -15,7 +15,7 @@ const RecommendTitle = ({title, title2}) => {
   return (
     <>
       <Divider>
-        <Title><PlaySquareFilled style={{color:'#2cd4ac'}}/>&nbsp;<span style={{color:'#2cd4ac'}}>{title}</span>&nbsp;{title2} 영화 추천</Title>
+        <Title ><PlaySquareFilled style={{color:'#2cd4ac'}}/>&nbsp;<span style={{color:'#2cd4ac'}}>{title}</span>&nbsp;{title2} 영화 추천</Title>
       </Divider>
     </>
 

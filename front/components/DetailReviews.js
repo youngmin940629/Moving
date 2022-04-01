@@ -186,7 +186,7 @@ export default function DetailReviews({ id, isLogined }) {
                   postReview();
                 }}
               >
-                댓글 작성
+                한줄평 작성
               </Button>
               {/* ) : <span>댓글 작성은 로그인 후 이용해 주세요</span>
               } */}

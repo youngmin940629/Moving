@@ -95,7 +95,7 @@ const GenreRecommend = () => {
 
   return (
     <>
-      <Divider orientation="left" style={{ marginBottom: '0' }}>
+      <Divider orientation="left" style={{ marginBottom: '0'}}>
         <Title
           style={{
             color: 'white',

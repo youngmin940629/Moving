@@ -20,7 +20,6 @@ const MainCarousel = () => {
 
   useEffect(() => {
     axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/movies/`).then(res => {
-      // console.log(res.data);
       setMovies(res.data);
     });
   }, []);

@@ -67,13 +67,10 @@ const IndexRecommend4 = () => {
 
   const [movies, setMovies] = useState([]);
 
-  console.log(movies)
-
   useEffect(() => {
     axios
       .get(`${process.env.NEXT_PUBLIC_BASE_URL}/movies/top_rate/`)
       .then(res => {
-        console.log(res.data)
         setMovies(res.data);
       });
   }, []);
