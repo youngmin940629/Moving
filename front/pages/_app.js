@@ -29,6 +29,7 @@ const App = ({ Component, pageProps }) => {
   return (
     <>
       <Head>
+        <link rel="shortcut icon" href="/favicon.ico" />
         <title>moving</title>
       </Head>
       <Component {...pageProps} />
