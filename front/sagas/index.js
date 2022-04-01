@@ -112,7 +112,8 @@ function* signUp(action) {
       Router.push('/');
     });
   } catch (err) {
-    yield put({ type: SIGN_UP_FAILURE, error: err.response.data });
+      yield put({ type: SIGN_UP_FAILURE, error: err.response.data });
+      alert(Object.values(err.response.data)[0])
   }
 }
 
