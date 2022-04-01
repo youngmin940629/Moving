@@ -5,13 +5,28 @@ import { Typography, Divider } from 'antd';
 import Router, { useRouter } from 'next/router';
 import Slider from 'react-slick';
 import { MdArrowForwardIos, MdArrowBackIos } from 'react-icons/md';
+import styled from 'styled-components';
 
 const { Title } = Typography;
+
+const MyNextArrow = styled(MdArrowForwardIos)`
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
+`;
+
+const MyPrevArrow = styled(MdArrowBackIos)`
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
+`;
 
 const NextArrow = ({ onClick }) => {
   return (
     <div className="arrow next" onClick={onClick}>
-      <MdArrowForwardIos />
+      <MyNextArrow />
     </div>
   );
 };
@@ -19,7 +34,7 @@ const NextArrow = ({ onClick }) => {
 const PrevArrow = ({ onClick }) => {
   return (
     <div className="arrow prev" onClick={onClick}>
-      <MdArrowBackIos />
+      <MyPrevArrow />
     </div>
   );
 };
@@ -68,30 +83,40 @@ const MovieMfRecommend = () => {
 
   const router = useRouter();
   const { query } = router;
-  const movieId = query.id
+  const movieId = query.id;
 
   useEffect(() => {
     axios
-      .get(`${process.env.NEXT_PUBLIC_BASE_URL}/movies/mf_recommend/${movieId}/`)
+      .get(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/movies/mf_recommend/${movieId}/`
+      )
       .then(res => {
         setMovies(res.data);
       })
-      .catch(
-        setMovies([])
-      )
+      .catch(setMovies([]));
   }, [movieId]);
 
-  if (movies.length !== 0) {  
+  if (movies.length !== 0) {
     return (
       <>
-        <Divider orientation="left" style={{marginBottom:'0'}}>
-          <Title level={5}>유저 평점 기준 영화 추천</Title>
+        <Divider orientation="left" style={{ marginBottom: '0' }}>
+          <Title
+            style={{
+              color: 'white',
+              fontWeight: 'bold',
+              textShadow: '-1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000',
+              fontSize: '20px',
+            }}
+            level={5}
+          >
+            유저 평점 기준 영화 추천
+          </Title>
         </Divider>
         <Slider {...settings}>
           {movies.map(movie => {
             return (
               <img
-                className='posterImg'
+                className="posterImg"
                 key={movie.id}
                 alt={`${movie.title} 포스터 이미지`}
                 src={movie.poster_path}
@@ -103,18 +128,19 @@ const MovieMfRecommend = () => {
         </Slider>
         <style jsx>
           {`
-            .posterImg{
+            .posterImg {
               cursor: pointer;
               height: 150px;
             }
-            .posterImg:hover{
+            .posterImg:hover {
               box-shadow: 0 1px 8px black;
             }
           `}
         </style>
       </>
-  )} else {
-    return <></> // 유저 평점 기준 영화 추천 없는 경우
+    );
+  } else {
+    return <></>; // 유저 평점 기준 영화 추천 없는 경우
   }
 };
 
