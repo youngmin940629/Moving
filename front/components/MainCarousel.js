@@ -49,6 +49,7 @@ const MainCarousel = () => {
     centerMode: true,
     centerPadding: 0,
     autoplay: true,
+    autoplaySpeed: 7000,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
     beforeChange: (current, next) => setImageIndex(next),

@@ -2,7 +2,8 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { LikeOutlined, LikeFilled } from '@ant-design/icons';
 import styled from 'styled-components';
-import { Tooltip, Button } from 'antd';
+import { Tooltip, Button, Modal } from 'antd';
+import LoginForm from './LoginForm';
 
 const IconWrapper = styled(Button)`
   height:100%;
@@ -27,6 +28,18 @@ export default function ReviewLike({userId, reviewId}) {
 
   const [likeCount, setLikeCount] = useState('')
   const [isLiked, setIsLiked] = useState(false)
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
 
   const Like = () => {
     return (
@@ -56,7 +69,8 @@ export default function ReviewLike({userId, reviewId}) {
           setLikeCount(res.data.count)
         });
     } else {
-        alert('리뷰를 좋아요하려면 로그인해주세요.')
+      const goLogin = confirm('리뷰 추천하려면 로그인해주세요. 로그인하시겠습니까?')
+      if (goLogin) showModal()
     }
   }
 
@@ -69,5 +83,17 @@ export default function ReviewLike({userId, reviewId}) {
       });
   }, [])
 
-  return <Like />
+  return (
+    <>
+      <Like />
+      <Modal
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={null}
+      >
+        <LoginForm setIsModalVisible={setIsModalVisible} />
+      </Modal>
+    </>
+  )
 }

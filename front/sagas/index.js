@@ -92,6 +92,8 @@ function* logOut() {
     });
     yield localStorage.removeItem('JWT token');
     yield sessionStorage.removeItem('id');
+    Router.push('/');
+    alert('로그아웃이 정상적으로 완료되었습니다.')
   } catch (err) {
     yield put({ type: LOG_OUT_FAILURE, error: err.response.data });
   }

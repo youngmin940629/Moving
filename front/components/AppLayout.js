@@ -60,7 +60,6 @@ const MovingLogo = styled.img`
 const AppLayout = ({ children }) => {
   const logout = () => {
     console.log(dispatch(logoutRequestAction()));
-    Router.push('/');
   };
 
   const menu = (

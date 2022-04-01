@@ -2,7 +2,8 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { HeartFilled, HeartOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
-import { Tooltip } from 'antd';
+import { Tooltip, Modal } from 'antd';
+import LoginForm from './LoginForm';
 
 const IconWrapper = styled.div`
   position:absolute;
@@ -26,6 +27,18 @@ export default function ScrapIcon({id}) {
   const [isScrapped, setIsScrapped] = useState(false)
   const [userId, setUserId] = useState('');
 
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+  
   const movieId = id
   const BeforeScrap = () => {
     return (
@@ -55,7 +68,8 @@ export default function ScrapIcon({id}) {
         setIsScrapped(!isScrapped)
       );
     } else {
-        alert('영화를 스크랩하려면 로그인해주세요.')
+        const goLogin = confirm('영화를 스크랩하려면 로그인해주세요. 로그인하시겠습니까?')
+        if (goLogin) showModal()
     }
   }
 
@@ -83,6 +97,16 @@ export default function ScrapIcon({id}) {
   return isScrapped ? (
       <AfterScrap /> 
     ) : (
+      <>
       <BeforeScrap />
+        <Modal
+          visible={isModalVisible}
+          onOk={handleOk}
+          onCancel={handleCancel}
+          footer={null}
+        >
+          <LoginForm setIsModalVisible={setIsModalVisible} />
+        </Modal>
+      </>
     )
 }
