@@ -93,48 +93,52 @@ const GenreRecommend = () => {
       });
   }, [movieId]);
 
-  return (
-    <>
-      <Divider orientation="left" style={{ marginBottom: '0'}}>
-        <Title
-          style={{
-            color: 'white',
-            fontWeight: 'bold',
-            textShadow: '-1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000',
-            fontSize: '20px',
-          }}
-          level={5}
-        >
-          비슷한 장르 영화 추천
-        </Title>
-      </Divider>
-      <Slider {...settings}>
-        {movies.map(movie => {
-          return (
-            <img
-              className="posterImg"
-              key={movie.id}
-              alt={`${movie.title} 포스터 이미지`}
-              src={movie.poster_path}
-              onError={onErrorImg}
-              onClick={() => Router.push(`/movie/${movie.id}`)}
-            />
-          );
-        })}
-      </Slider>
-      <style jsx>
-        {`
-          .posterImg {
-            cursor: pointer;
-            height: 150px;
-          }
-          .posterImg:hover {
-            box-shadow: 0 1px 8px black;
-          }
-        `}
-      </style>
-    </>
-  );
+  if (movies.length !== 0) {
+    return (
+      <>
+        <Divider orientation="left" style={{ marginBottom: '0'}}>
+          <Title
+            style={{
+              color: 'white',
+              fontWeight: 'bold',
+              textShadow: '-1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000',
+              fontSize: '20px',
+            }}
+            level={5}
+          >
+            비슷한 장르 영화 추천
+          </Title>
+        </Divider>
+        <Slider {...settings}>
+          {movies.map(movie => {
+            return (
+              <img
+                className="posterImg"
+                key={movie.id}
+                alt={`${movie.title} 포스터 이미지`}
+                src={movie.poster_path}
+                onError={onErrorImg}
+                onClick={() => Router.push(`/movie/${movie.id}`)}
+              />
+            );
+          })}
+        </Slider>
+        <style jsx>
+          {`
+            .posterImg {
+              cursor: pointer;
+              height: 150px;
+            }
+            .posterImg:hover {
+              box-shadow: 0 1px 8px black;
+            }
+          `}
+        </style>
+      </>
+    );
+  } else {
+    return <></>
+  }
 };
 
 export default GenreRecommend;
