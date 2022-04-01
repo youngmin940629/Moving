@@ -12,7 +12,7 @@ export default function DetailReviews({ id, isLogined }) {
   useEffect(() => {
     if (id) {
       axios
-        .get(`http://localhost:8000/movies/oneline_review/${id}`)
+        .get(process.env.NEXT_PUBLIC_BASE_URL+`/movies/oneline_review/${id}`)
         .then(res => {
           let resreviews = res.data
           for (let i = 0; i < resreviews.length; i++) {
@@ -48,7 +48,7 @@ export default function DetailReviews({ id, isLogined }) {
       )
       .then(res => {
         let reviews_copy = [...reviews];
-        console.log(index.id);
+        // console.log(index.id);
         let del_index = reviews_copy.findIndex(el => el.id == index.id);
         reviews_copy.splice(del_index, 1);
         setReviews(reviews_copy);
@@ -92,9 +92,7 @@ export default function DetailReviews({ id, isLogined }) {
   ];
 
   const postReview = () => {
-    console.log(userID)
     let user = sessionStorage.getItem('id');
-    console.log(user)
     let username = sessionStorage.getItem('username');
     let token = localStorage.getItem('JWT token');
     if (user !== null) {
@@ -107,7 +105,7 @@ export default function DetailReviews({ id, isLogined }) {
       if (myreview !== null && myrank !== null) {
         axios({
           method: 'post',
-          url: `http://localhost:8000/movies/oneline_review/${id}/`,
+          url: process.env.NEXT_PUBLIC_BASE_URL+`/movies/oneline_review/${id}/`,
           data: {
             content: myreview,
             rank: myrank,
@@ -129,7 +127,7 @@ export default function DetailReviews({ id, isLogined }) {
             rate="⭐⭐⭐⭐⭐"
           }
           let reviews_copy = [...reviews];
-          console.log(reviews_copy);
+          // console.log(reviews_copy);
           reviews_copy = reviews_copy.concat([
             {
               user: {
