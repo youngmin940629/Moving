@@ -17,23 +17,15 @@ export default function MovieDetail({ id, detail }) {
   }, []);
   return (
     <>
-<<<<<<< Updated upstream
-      <div className='container'>
-        <ScrapIcon id={id}/>
-        <div className='content'>
-          <h1 className='movie_title'>{detail.title}<span style={{fontSize:'30px', color:'green'}}>&nbsp;{detail.vote_average ? detail.vote_average : ''}</span></h1>
-          {isLogined ? 
-          <div className='star_rating'>
-            <StarRating id={id}/>
-          </div> : null
-          }
-          <div className='movie_menu'>
-            <DetailMenu isLogined={isLogined} id={id} overview={detail.overview} youtube_url={detail.youtube_url}/>
-=======
       <div className="container">
         <ScrapIcon id={id} />
         <div className="content">
-          <h1 className="movie_title">{detail.title}</h1>
+          <h1 className="movie_title">
+            {detail.title}
+            <span style={{ fontSize: '30px', color: 'green' }}>
+              &nbsp;{detail.vote_average ? detail.vote_average : ''}
+            </span>
+          </h1>
           {isLogined ? (
             <div className="star_rating">
               <StarRating id={id} />
@@ -46,7 +38,6 @@ export default function MovieDetail({ id, detail }) {
               overview={detail.overview}
               youtube_url={detail.youtube_url}
             />
->>>>>>> Stashed changes
           </div>
         </div>
       </div>

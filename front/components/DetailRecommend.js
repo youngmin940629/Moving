@@ -12,11 +12,7 @@ export default function DetailRecommend() {
       <style jsx>
         {`
           .container {
-<<<<<<< Updated upstream
-            // background: white;
-=======
             background: none;
->>>>>>> Stashed changes
             width: 50%;
             height: 50%;
           }
