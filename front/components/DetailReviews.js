@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Form, Input, Button, Table } from 'antd';
+import WriteRating from './DetailReviewStarrating/WriteRating'
 
 export default function DetailReviews({ id, isLogined }) {
   const [userID, setUserID] = useState(null);
@@ -13,8 +14,24 @@ export default function DetailReviews({ id, isLogined }) {
       axios
         .get(`http://localhost:8000/movies/oneline_review/${id}`)
         .then(res => {
-          setReviews(res.data);
-          console.log(res.data);
+          let resreviews = res.data
+          for (let i = 0; i < resreviews.length; i++) {
+
+            let rate = resreviews[i].rank
+            if(0<=rate && rate<2){
+              resreviews[i].rank="⭐"
+            }else if(2<=rate && rate<4){
+              resreviews[i].rank="⭐⭐"
+            }else if(4<=rate && rate<6){
+              resreviews[i].rank="⭐⭐⭐"
+            }else if(6<=rate && rate<8){
+              resreviews[i].rank="⭐⭐⭐⭐"
+            }else{
+              resreviews[i].rank="⭐⭐⭐⭐⭐"
+            }
+
+          }
+          setReviews(resreviews);
         });
     }
     if (sessionStorage.getItem('id')) {
@@ -97,6 +114,18 @@ export default function DetailReviews({ id, isLogined }) {
           },
           headers: { Authorization: `JWT ${token}` },
         }).then((res) => {
+          let rate;
+          if(0<=myrank && myrank<2){
+            rate="⭐"
+          }else if(2<=myrank && myrank<4){
+            rate="⭐⭐"
+          }else if(4<=myrank && myrank<6){
+            rate="⭐⭐⭐"
+          }else if(6<=myrank && myrank<8){
+            rate="⭐⭐⭐⭐"
+          }else{
+            rate="⭐⭐⭐⭐⭐"
+          }
           let reviews_copy = [...reviews];
           console.log(reviews_copy);
           reviews_copy = reviews_copy.concat([
@@ -107,7 +136,7 @@ export default function DetailReviews({ id, isLogined }) {
               },
               id:res.data.id,
               content: myreview,
-              rank: myrank,
+              rank: rate,
               created_at: dateString,
             },
           ]);
@@ -140,15 +169,7 @@ export default function DetailReviews({ id, isLogined }) {
             className="commentDiv-area"
             style={{ display: 'flex', flexDirection: 'row' }}
           >
-            <input
-              value={myrank}
-              type="number"
-              max={10}
-              min={1}
-              onChange={e => {
-                setMyrank(Number(e.target.value));
-              }}
-            ></input>
+            <WriteRating setMyrank={setMyrank}/>
             <Input.TextArea
               value={myreview}
               rows={1}
