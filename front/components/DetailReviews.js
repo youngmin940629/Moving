@@ -92,10 +92,12 @@ export default function DetailReviews({ id, isLogined }) {
   ];
 
   const postReview = () => {
+    console.log(userID)
     let user = sessionStorage.getItem('id');
+    console.log(user)
     let username = sessionStorage.getItem('username');
     let token = localStorage.getItem('JWT token');
-    if (user !== undefined) {
+    if (user !== null) {
       var today = new Date();
       var year = today.getFullYear();
       var month = ('0' + (today.getMonth() + 1)).slice(-2);
@@ -160,7 +162,7 @@ export default function DetailReviews({ id, isLogined }) {
           dataSource={reviews}
           pagination={{
             position: ['bottomCenter'],
-            pageSize: 5,
+            pageSize: 4,
           }}
         />
 
