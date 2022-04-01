@@ -6,9 +6,7 @@ import Router from 'next/router';
 import Slider from 'react-slick';
 import { MdArrowForwardIos, MdArrowBackIos } from 'react-icons/md';
 
-// import styled from 'styled-components';
-
-const { Title } = Typography; // Typograpy.Title
+const { Title } = Typography;
 const { Meta } = Card;
 
 const NextArrow = ({ onClick }) => {
@@ -104,14 +102,13 @@ const IndexRecommend3 = () => {
                           alt={`${item2.title} 포스터 이미지`}
                           src={item2.poster_path}
                           onError={onErrorImg}
-                          height="280"
+                          height="300"
                         />
                       }
                       onClick={() => Router.push(`/movie/${item2.id}`)}
                     >
                       <Meta
                         title={item2.title}
-                        description={`${item2.overview.slice(0, 100)}...`}
                       />
                     </Card>
                   );
