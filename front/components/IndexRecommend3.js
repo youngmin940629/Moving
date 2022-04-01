@@ -88,7 +88,7 @@ const IndexRecommend3 = () => {
         movies.map(item => {
           return (
             <div key={item}>
-              <Divider orientation="left" orientationMargin="0">
+              <Divider orientation="left" orientationMargin="0" style={{marginTop:"22px"}}>
                 <Title level={2}><MdPlayCircleFilled style={{color:'#2cd4ac'}}/>&nbsp;{item[0]}<span style={{fontSize:'20px', color:'grey'}}>(선호 장르별 추천)</span></Title>
               </Divider>
               <Slider {...settings}>
