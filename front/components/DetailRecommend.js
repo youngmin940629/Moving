@@ -12,7 +12,7 @@ export default function DetailRecommend() {
       <style jsx>
         {`
           .container {
-            background: white;
+            // background: white;
             width: 50%;
             height: 50%;
           }

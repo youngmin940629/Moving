@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Typography, Card, Row, Col, Divider } from 'antd';
 import Router from 'next/router';
 import Slider from 'react-slick';
-import { MdArrowForwardIos, MdArrowBackIos } from 'react-icons/md';
+import { MdArrowForwardIos, MdArrowBackIos, MdPlayCircleFilled } from 'react-icons/md';
 
 const { Title } = Typography;
 const { Meta } = Card;
@@ -89,7 +89,7 @@ const IndexRecommend3 = () => {
           return (
             <div key={item}>
               <Divider orientation="left" orientationMargin="0">
-                <Title level={2}>{item[0]}</Title>
+                <Title level={2}><MdPlayCircleFilled style={{color:'#2cd4ac'}}/>&nbsp;{item[0]}<span style={{fontSize:'20px', color:'grey'}}>(선호 장르별 추천)</span></Title>
               </Divider>
               <Slider {...settings}>
                 {item[1].map(item2 => {
@@ -108,7 +108,10 @@ const IndexRecommend3 = () => {
                       onClick={() => Router.push(`/movie/${item2.id}`)}
                     >
                       <Meta
-                        title={item2.title}
+                        title={
+                          <b>{item2.title}&nbsp;<span style={{fontSize:'5px', color:'green'}}>{item2.vote_average}</span></b>
+                        }
+                        description={item2.release_date ? `개봉일: ${item2.release_date.slice(0, 4)}년 ${item2.release_date.slice(5, 7)}월 ${movie.release_date.slice(8, 10)}일` : '개봉일: 미정'}
                       />
                     </Card>
                   );

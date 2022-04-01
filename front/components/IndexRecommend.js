@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Typography, Card, Row, Col, Divider } from 'antd';
 import Router from 'next/router';
 import Slider from 'react-slick';
-import { MdArrowForwardIos, MdArrowBackIos } from 'react-icons/md';
+import { MdArrowForwardIos, MdArrowBackIos, MdPlayCircleFilled } from 'react-icons/md';
 
 const { Title } = Typography; // Typograpy.Title
 const { Meta } = Card;
@@ -74,11 +74,12 @@ const IndexRecommend = () => {
         setMovies(res.data);
       });
   }, []);
+  console.log(movies)
 
   return (
     <>
       <Divider orientation="left" orientationMargin="0">
-        <Title level={2}>랜덤 추천 영화</Title>
+        <Title level={2}><MdPlayCircleFilled style={{color:'#2cd4ac'}}/>&nbsp;랜덤 추천</Title>
       </Divider>
       <Slider {...settings}>
         {movies.map(movie => {
@@ -97,7 +98,10 @@ const IndexRecommend = () => {
               onClick={() => Router.push(`/movie/${movie.id}`)}
             >
               <Meta
-                title={movie.title}
+                title={
+                  <b>{movie.title}&nbsp;<span style={{fontSize:'5px', color:'green'}}>{movie.vote_average}</span></b>
+                }
+                description={movie.release_date ? `개봉일: ${movie.release_date.slice(0, 4)}년 ${movie.release_date.slice(5, 7)}월 ${movie.release_date.slice(8, 10)}일` : '개봉일: 미정'}
               />
             </Card>
           );
