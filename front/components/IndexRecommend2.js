@@ -104,7 +104,7 @@ const IndexRecommend2 = ({ movies, setMovies }) => {
             >
               <Meta
                 title={
-                  <b>{movie.title}&nbsp;<span style={{fontSize:'5px', color:'green'}}>{movie.vote_average}</span></b>
+                  <b>{movie.title}&nbsp;<span style={{fontSize:'5px', color:'green'}}>{movie.vote_average? movie.vote_average : ''}</span></b>
                 }
                 description={movie.release_date ? `개봉일: ${movie.release_date.slice(0, 4)}년 ${movie.release_date.slice(5, 7)}월 ${movie.release_date.slice(8, 10)}일` : '개봉일: 미정'}
               />

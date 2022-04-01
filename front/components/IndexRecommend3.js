@@ -109,7 +109,7 @@ const IndexRecommend3 = () => {
                     >
                       <Meta
                         title={
-                          <b>{item2.title}&nbsp;<span style={{fontSize:'5px', color:'green'}}>{item2.vote_average}</span></b>
+                          <b>{item2.title}&nbsp;<span style={{fontSize:'5px', color:'green'}}>{item2.vote_average? item2.vote_average : ''}</span></b>
                         }
                         description={item2.release_date ? `개봉일: ${item2.release_date.slice(0, 4)}년 ${item2.release_date.slice(5, 7)}월 ${item2.release_date.slice(8, 10)}일` : '개봉일: 미정'}
                       />

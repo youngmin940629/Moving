@@ -20,7 +20,7 @@ export default function MovieDetail({id, detail}) {
       <div className='container'>
         <ScrapIcon id={id}/>
         <div className='content'>
-          <h1 className='movie_title'>{detail.title}</h1>
+          <h1 className='movie_title'>{detail.title}<span style={{fontSize:'30px', color:'green'}}>&nbsp;{detail.vote_average ? detail.vote_average : ''}</span></h1>
           {isLogined ? 
           <div className='star_rating'>
             <StarRating id={id}/>

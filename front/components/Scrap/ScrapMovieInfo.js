@@ -34,7 +34,7 @@ const ScrapMovieInfo = ({movies, deleteScrapList}) => {
                 />
                 <Meta
                   avatar={<Avatar shape="square" size={100} src={movie.poster_path} alt={`${movie.title} 포스터 이미지`} onError={onErrorImg} />}
-                  title={<><h4>{movie.title} <span style={{fontSize:'10px', color:'red', fontWeight:'bold'}}>{movie.vote_average}</span></h4> </>}
+                  title={<><h4>{movie.title} <span style={{fontSize:'10px', color:'red', fontWeight:'bold'}}>{movie.vote_average? movie.vote_average : ''}</span></h4> </>}
                   description={<><p>개봉일: {movie.release_date}</p><p style={{marginBottom:'0'}}>줄거리: {movie.overview.slice(0, 50)}... <a href={`/movie/${movie.id}`}>자세히 보기</a></p></>}
                 />
               </Card>

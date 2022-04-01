@@ -68,7 +68,7 @@ const MainCarousel = () => {
                 alt={`${movie.title} poster image`}
                 onClick={() => Router.push(`/movie/${movie.id}`)}
               />
-              <span className='im-text'>{movie.title}<span className='year-text'>&nbsp;{movie.vote_average}</span></span>
+              <span className='im-text'>{movie.title}<span className='year-text'>&nbsp;{movie.vote_average? movie.vote_average : ''}</span></span>
             </div>
           ))}
         </Slider>
