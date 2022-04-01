@@ -1,6 +1,6 @@
 import Head from "next/head";
 import AppLayout from "../../components/AppLayout";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Button, Form, Input, Select} from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import axios from "axios";
@@ -26,7 +26,12 @@ const BoardTitle = styled.h2`
 
 export default function Write(){
     const router = useRouter();
-
+    useEffect(()=>{
+        if(sessionStorage.getItem("id") == null){
+            // alert("로그인 후 이용해주세요")
+            router.push("/")
+        }
+    },[])
     const [movies, setMovies] = useState([[{}]]);
     const [selects, setSelects] = useState("");
 
@@ -176,4 +181,3 @@ export default function Write(){
         </>    
     )
 }
-
