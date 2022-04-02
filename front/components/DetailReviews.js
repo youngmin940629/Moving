@@ -197,8 +197,9 @@ export default function DetailReviews({ id, isLogined }) {
       <style jsx>
         {`
           .container {
+            margin: 10px 0;
             background: white;
-            width: 50%;
+            width: 60%;
             height: 50%;
           }
         `}

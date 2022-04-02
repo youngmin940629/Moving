@@ -35,8 +35,7 @@ export default function MovieDetail({ id, detail }) {
             <DetailMenu
               isLogined={isLogined}
               id={id}
-              overview={detail.overview}
-              youtube_url={detail.youtube_url}
+              detail={detail}
             />
           </div>
         </div>

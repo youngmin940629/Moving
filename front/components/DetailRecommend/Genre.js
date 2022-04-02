@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Typography, Divider } from 'antd';
 import Router, { useRouter } from 'next/router';
 import Slider from 'react-slick';
-import { MdArrowForwardIos, MdArrowBackIos } from 'react-icons/md';
+import { MdArrowForwardIos, MdArrowBackIos, MdPlayCircleOutline } from 'react-icons/md';
 import styled from 'styled-components';
 
 const { Title } = Typography;
@@ -106,7 +106,7 @@ const GenreRecommend = () => {
             }}
             level={5}
           >
-            비슷한 장르 영화 추천
+            <MdPlayCircleOutline style={{color:'#2cd4ac'}}/>&nbsp;비슷한 장르 영화 추천
           </Title>
         </Divider>
         <Slider {...settings}>
