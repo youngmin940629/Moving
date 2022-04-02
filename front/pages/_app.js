@@ -18,6 +18,7 @@ const App = ({ Component, pageProps }) => {
         sessionStorage.setItem('id', res.data.pk);
         sessionStorage.setItem('username',res.data.username);
       });
+        document.cookie= `id=${sessionStorage.getItem("id")}`;
     }
     return () => {
       let id = sessionStorage.getItem('id');
