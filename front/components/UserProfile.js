@@ -140,8 +140,8 @@ const UserProfile = () => {
                     </h2>
                     <div className="social-container">
                       <div className="scraps">
-                        <h1 className="bold-text">{userInfo.scrap_count}</h1>
-                        <h2 className="smaller-text">Scraps</h2>
+                        <h1 className="bold-text" onClick={() => router.push('/scrap')}>{userInfo.scrap_count}</h1>
+                        <h2 className="smaller-text" onClick={() => router.push('/scrap')}>Scraps</h2>
                       </div>
                     </div>
                   </div>
@@ -286,6 +286,10 @@ const UserProfile = () => {
           }
           .scraps {
             flex: 1;
+            cursor: pointer;
+          }
+          .scraps:hover > .bold-text {
+            color: #2cd4ac;
           }
         `}
       </style>
