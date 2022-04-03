@@ -78,7 +78,7 @@ const IndexRecommend = () => {
   return (
     <>
       <Divider orientation="left" orientationMargin="0" style={{marginTop:"22px"}}>
-        <Title level={2}><MdPlayCircleFilled style={{color:'#2cd4ac'}}/>&nbsp;랜덤 추천</Title>
+        <Title style={{fontSize:'2vw'}}><MdPlayCircleFilled style={{color:'#2cd4ac'}}/>&nbsp;랜덤 추천</Title>
       </Divider>
       <Slider {...settings}>
         {movies.map(movie => {
