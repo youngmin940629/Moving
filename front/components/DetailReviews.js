@@ -141,16 +141,17 @@ export default function DetailReviews({ id, isLogined }) {
             },
           ]);
           setReviews(reviews_copy);
-          setMyreivew('');
-          setMyrank(10);
+          setMyreivew(null);
+          setMyrank(null);
         });
       } else {
-        alert('글을쓰거나, 랭크를 주세요..');
+        alert('글을 쓰거나, 랭크를 주세요..');
       }
     } else {
       alert('로그인을 하세요..');
     }
   };
+  
 
   return (
     <>
@@ -163,16 +164,15 @@ export default function DetailReviews({ id, isLogined }) {
             pageSize: 4,
           }}
         />
-
         <Form>
           <div
             className="commentDiv-area"
             style={{ display: 'flex', flexDirection: 'row' }}
           >
             <WriteRating setMyrank={setMyrank}/>
-            <Input.TextArea
+            <Input
               value={myreview}
-              rows={1}
+              placeholder="한줄평을 남겨주세요."
               style={{ resize: 'none' }}
               onChange={e => {
                 setMyreivew(e.target.value);

@@ -12,7 +12,7 @@ export default function BoardMovieDesc(props){
                             <img className="posterImg" src={props.movies[0].poster_path}
                                  alt="이미지가 없습니다."
                             />
-                            <figcaption>{props.movies[0].title}</figcaption>
+                            <figcaption><h3>{props.movies[0].title}</h3></figcaption>
                         </figure>
                     </div>
 
