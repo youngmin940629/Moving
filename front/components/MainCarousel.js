@@ -76,15 +76,15 @@ const MainCarousel = () => {
       {`
         .im-text {
           position:absolute;
-          top:90px;
-          left:60px;
+          top:25%;
+          left:20%;
           z-index:5;
           color:white;
-          font-size:30px;
+          font-size:2vw;
           font-weight:bold;
         }
         .year-text {
-          font-size:15px;
+          font-size:1vw;
           color:green;
         }
       `}

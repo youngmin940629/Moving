@@ -92,6 +92,7 @@ function* logOut() {
     });
     yield localStorage.removeItem('JWT token');
     yield sessionStorage.removeItem('id');
+    yield sessionStorage.removeItem('username');
     Router.push('/');
   } catch (err) {
     yield put({ type: LOG_OUT_FAILURE, error: err.response.data });
