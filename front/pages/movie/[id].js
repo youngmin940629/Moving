@@ -3,7 +3,6 @@ import React,{useState,useEffect} from 'react'
 import AppLayout from '../../components/AppLayout'
 import MovieDetail from '../../components/MovieDetail'
 import axios from 'axios'
-import jwtDecode from 'jwt-decode'
 
 export default function Movie({id, detail}) {
   return (

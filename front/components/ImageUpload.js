@@ -20,8 +20,8 @@ const ImageUpload = ({
   };
 
   const onFileChange = file => {
-    console.log('file', file);
-    console.log('me.data', me.data);
+    // console.log('file', file);
+    // console.log('me.data', me.data);
     const temp = [];
     me.data.category_list.map(item => {
       temp.push(item.id);

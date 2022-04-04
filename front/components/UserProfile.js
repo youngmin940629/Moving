@@ -6,15 +6,11 @@ import { MdOutlineCategory } from 'react-icons/md';
 import { RiGenderlessLine } from 'react-icons/ri';
 import styled from 'styled-components';
 import axios from 'axios';
-import jwt_decode from 'jwt-decode';
-import UseInput from '../hooks/useInput';
 import { useRouter } from 'next/router';
-import Router from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   loaduserRequestAction,
   LOAD_USER_REQUEST,
-  logoutRequestAction,
   withdrawalRequestAction,
 } from '../reducers/user';
 import ImageUpload from './ImageUpload';
@@ -57,11 +53,6 @@ const UserProfile = () => {
   const onChangePassword = e => {
     setPassword(e.target.value);
     setPasswordError(false);
-  };
-
-  const logout = () => {
-    console.log(dispatch(logoutRequestAction()));
-    Router.push('/');
   };
 
   const dispatch = useDispatch();
@@ -168,7 +159,6 @@ const UserProfile = () => {
                     centered
                     visible={visible}
                     onOk={() => {
-                      console.log('password', password);
                       axios
                         .post(
                           `${process.env.NEXT_PUBLIC_BASE_URL}/accounts/login/`,
