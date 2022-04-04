@@ -25,7 +25,6 @@ const BoardTitle = styled.h2`
 
 export default function ModifyBoard({post,movieTitle}){
     const router = useRouter();
-
     const [movies, setMovies] = useState([[{}]]);
     const [selects, setSelects] = useState("");
     const [userID, setUserID] = useState(null);
@@ -55,10 +54,8 @@ export default function ModifyBoard({post,movieTitle}){
         }
     ])
     const onFinish = (data)=>{
-        data["rank"] = parseInt(data.rank);
-        data["movie"] = parseInt(data.movie);
+        data["movie"] = parseInt(post.movie);
         data["user"] = userID;
-        console.log(data);
         axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/community/review/${post.id}/`,
             {
                 data
@@ -70,6 +67,7 @@ export default function ModifyBoard({post,movieTitle}){
         await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/movies/search/${id}`)
             .then(res => {
                 setMovies([res.data]);
+                console.log(res.data)
             })
     }
     const inputEnter=(e)=>{
@@ -140,18 +138,6 @@ export default function ModifyBoard({post,movieTitle}){
                                     </Select> */}
                                 </Form.Item>
 
-                            <Form.Item 
-                                label="평점" 
-                                name="rank"
-                                rules={[
-                                    {
-                                    required: true,
-                                    message: '수정할 평점을 등록해주세요.',
-                                    },
-                                ]}
-                            >
-                                <Input type="number" placeholder="수정할 평점을 입력해주세요."></Input>
-                            </Form.Item>
                         </div>
 
                         <Form.Item 

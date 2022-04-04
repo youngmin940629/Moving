@@ -35,7 +35,7 @@ export default function BoardTable(props) {
   const router = useRouter();
   const [userID, setUserID] = useState(null);
   const [hit, setHit] = useState(null);
-
+  console.log(props.data)
   useEffect(() => {
     if (sessionStorage.getItem('id')) {
       setUserID(sessionStorage.getItem('id'));
@@ -92,39 +92,35 @@ export default function BoardTable(props) {
       title: '조회수',
       dataIndex: 'visit_count',
     },
-    {
-      // width: '5rem',
-      render: record => (
-        <>
-          {/*
-            로그인 사용자ID == 게시글 작성자ID
-            삭제 버튼 보여주기
-            */}
-          {userID == record.user.id ? (
-            <>
-              <Button
-                type="primary"
-                ghost
-                key={record.id}
-                onClick={()=>router.push(`/board/modify/${record.id}`)}
-                style={{marginRight:'5px'}}
-              >
-                수정
-              </Button>
-              <Button
-                type="primary"
-                danger
-                ghost
-                key={record.id}
-                onClick={() => deleteBoard(record.id)}
-              >
-                삭제
-              </Button>
-            </>
-          ) : null}
-        </>
-      ),
-    },
+    // {
+    //   // width: '5rem',
+    //   render: record => (
+    //     <>
+    //       {userID == record.user.id ? (
+    //         <>
+    //           <Button
+    //             type="primary"
+    //             ghost
+    //             key={record.id}
+    //             onClick={()=>router.push(`/board/modify/${record.id}`)}
+    //             style={{marginRight:'5px'}}
+    //           >
+    //             수정
+    //           </Button>
+    //           <Button
+    //             type="primary"
+    //             danger
+    //             ghost
+    //             key={record.id}
+    //             onClick={() => deleteBoard(record.id)}
+    //           >
+    //             삭제
+    //           </Button>
+    //         </>
+    //       ) : null}
+    //     </>
+    //   ),
+    // },
   ];
 
   // 게시글 등록 창으로 이동
