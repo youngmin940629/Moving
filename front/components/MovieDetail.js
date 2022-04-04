@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { Form, Input, Button, Checkbox } from 'antd';
 import StarRating from './StarRating';
 import DetailMenu from './DetailMenu';
 import ScrapIcon from './ScrapIcon';
@@ -31,11 +32,7 @@ export default function MovieDetail({ id, detail }) {
             </div>
           ) : null}
           <div className="movie_menu">
-            <DetailMenu
-              isLogined={isLogined}
-              id={id}
-              detail={detail}
-            />
+            <DetailMenu isLogined={isLogined} id={id} detail={detail} />
           </div>
         </div>
       </div>

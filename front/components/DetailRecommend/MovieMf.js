@@ -4,7 +4,11 @@ import axios from 'axios';
 import { Typography, Divider } from 'antd';
 import Router, { useRouter } from 'next/router';
 import Slider from 'react-slick';
-import { MdArrowForwardIos, MdArrowBackIos, MdPlayCircleOutline } from 'react-icons/md';
+import {
+  MdArrowForwardIos,
+  MdArrowBackIos,
+  MdPlayCircleOutline,
+} from 'react-icons/md';
 import styled from 'styled-components';
 
 const { Title } = Typography;
@@ -109,7 +113,8 @@ const MovieMfRecommend = () => {
             }}
             level={5}
           >
-            <MdPlayCircleOutline style={{color:'#2cd4ac'}}/>&nbsp;유저 평점 기준 영화 추천
+            <MdPlayCircleOutline style={{ color: '#2cd4ac' }} />
+            &nbsp;유저 평점 기준 영화 추천
           </Title>
         </Divider>
         <Slider {...settings}>
