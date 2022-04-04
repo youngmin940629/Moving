@@ -92,11 +92,8 @@ function* logOut() {
     });
     yield localStorage.removeItem('JWT token');
     yield sessionStorage.removeItem('id');
-<<<<<<< Updated upstream
     yield sessionStorage.removeItem('username');
-=======
     yield document.cookie = 'id=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
->>>>>>> Stashed changes
     Router.push('/');
   } catch (err) {
     yield put({ type: LOG_OUT_FAILURE, error: err.response.data });
