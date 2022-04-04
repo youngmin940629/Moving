@@ -92,7 +92,11 @@ function* logOut() {
     });
     yield localStorage.removeItem('JWT token');
     yield sessionStorage.removeItem('id');
+<<<<<<< Updated upstream
     yield sessionStorage.removeItem('username');
+=======
+    yield document.cookie = 'id=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+>>>>>>> Stashed changes
     Router.push('/');
   } catch (err) {
     yield put({ type: LOG_OUT_FAILURE, error: err.response.data });
@@ -132,6 +136,7 @@ function* withDrawal(action) {
       alert('탈퇴가 완료되었습니다. 메인페이지로 이동합니다.');
       localStorage.removeItem('JWT token');
       sessionStorage.removeItem('id');
+      document.cookie = 'id=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
       Router.push('/');
     });
   } catch (err) {
