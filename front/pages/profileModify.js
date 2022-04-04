@@ -29,7 +29,5 @@ export function getServerSideProps(context){
         context.res.end();
     }
 
-    return{
-        props:{}
-    }
+    return{props:{}}
 }
