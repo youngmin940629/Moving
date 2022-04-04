@@ -76,7 +76,7 @@ export default function BoardTable(props) {
             )
           }
         >
-          {title} <span style={{color:'grey', fontSize:'5px'}}>[{record.comments.length}]</span>
+          {title} <span style={{color:'grey', fontSize:'5px'}}>[{record.comments}]</span>
         </a>
       ),
     },
@@ -225,7 +225,7 @@ export default function BoardTable(props) {
           <Option value="created_at">작성일</Option>
         </Select>
         <Table
-          dataSource={props.boards}
+          dataSource={props.data}
           columns={columns}
           pagination={{
             position: ['bottomCenter'],
