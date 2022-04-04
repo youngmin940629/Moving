@@ -7,8 +7,10 @@ con = sqlite3.connect("db.sqlite3", check_same_thread=False)
 movie_mean_data = pd.read_sql_query("SELECT id,title,vote_average from movies_movie", con)
 movie_mean_data.rename(columns={"id":"movie_id"}, inplace=True)
 movie_mean_data.rename(columns={"vote_average":"평점평균"}, inplace=True)
+con.close()
 # 데이터베이스에서 영화, 평점 데이터 불러오기
 def recommend():
+    con = sqlite3.connect("db.sqlite3", check_same_thread=False)
     try:
         rating_data = pd.read_sql_query("SELECT * from movies_rating", con )
         if len(rating_data)>200:
@@ -33,11 +35,13 @@ def recommend():
             movie_mean_data.rename(columns={"id":"movie_id"}, inplace=True)
             movie_mean_data.rename(columns={"vote_average":"평점평균"}, inplace=True)
 
+        con.close()
         mf_timer = threading.Timer(interval=60, function=recommend)
         mf_timer.start()
 
         
     except:
+        con.close()
         mf_timer = threading.Timer(interval=60, function=recommend)
         mf_timer.start()
 

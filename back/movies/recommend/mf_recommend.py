@@ -9,8 +9,8 @@ corr=[]
 movie_id=[]
 movie_id_list=[]
 # 데이터베이스에서 영화, 평점 데이터 불러오기
-con = sqlite3.connect("db.sqlite3", check_same_thread=False)
 def recommend():
+    con = sqlite3.connect("db.sqlite3", check_same_thread=False)
     global corr, movie_id, movie_id_list
     try:
         movie_data = pd.read_sql_query("SELECT id,title from movies_movie", con)    
@@ -34,10 +34,12 @@ def recommend():
 
         movie_id = user_movie_rank.columns
         movie_id_list = list(movie_id)
+        con.close()
         mf_timer = threading.Timer(interval=60, function=recommend)
         mf_timer.start()
         
     except Exception as e:
+        con.close()
         mf_timer = threading.Timer(interval=60, function=recommend)
         mf_timer.start()
 

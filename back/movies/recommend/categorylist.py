@@ -31,8 +31,10 @@ try:
 except:
   pass
 # 데이터베이스에서 영화, 평점 데이터 불러오기
+con.close()
 
 def recommend():
+    con = sqlite3.connect("db.sqlite3", check_same_thread=False)
     try:
         rating_data = pd.read_sql_query("SELECT * from movies_rating", con )
         if len(rating_data) > 100:
@@ -56,9 +58,11 @@ def recommend():
             movie_data.rename(columns={"id":"movie_id"}, inplace=True)
             movie_genre_mean_data = pd.merge(movie_genre_data, movie_data, on='movie_id')
             movie_genre_mean_data.rename(columns={"vote_average" : '평점평균'},inplace=True)
+        con.close()
         mf_timer = threading.Timer(interval=60, function=recommend)
         mf_timer.start()
     except:
+        con.close()
         mf_timer = threading.Timer(interval=60, function=recommend)
         mf_timer.start()
 

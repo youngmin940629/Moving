@@ -7,8 +7,8 @@ import threading
 
 svd_predicts = rating_data = movie_data = []
 # 데이터베이스에서 영화, 평점 데이터 불러오기
-con = sqlite3.connect("db.sqlite3", check_same_thread=False)
 def recommend():
+    con = sqlite3.connect("db.sqlite3", check_same_thread=False)
     global svd_predicts, rating_data, movie_data
     try:
         movie_data = pd.read_sql_query("SELECT id,title from movies_movie", con)
@@ -35,11 +35,14 @@ def recommend():
         svd_user_predicted_ratings = np.dot(np.dot(U, sigma), Vt) + user_rating_mean.reshape(-1,1)
 
         svd_predicts = pd.DataFrame(svd_user_predicted_ratings, columns = user_movie_ratings.columns)
+        con.close
         mf_timer = threading.Timer(interval=60, function=recommend)
         mf_timer.start()
     except Exception as e:
+        con.close
         mf_timer = threading.Timer(interval=60, function=recommend)
         mf_timer.start()
+        
     
 recommend()
 def user_recommend(user_index,user_id):
