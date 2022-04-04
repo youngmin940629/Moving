@@ -172,6 +172,7 @@ def mf_recommend(request,movie_id):
                 movie_object = Movie.objects.filter(title=movie)
                 movie_list.append(movie_object[0])
         else:
+            recommend_movie_list = random.sample(recommend_movie_list, 10)
             for recommend in recommend_movie_list:
                 movie = Movie.objects.filter(pk=recommend)
                 movie_list.append(movie[0])

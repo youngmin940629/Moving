@@ -52,9 +52,9 @@ def mf_recomnend(id):
         coffey_hands = movie_id_list.index(id)
         corr_coffey_hands = corr[coffey_hands]
         corr_coffey_hands = pd.DataFrame(corr_coffey_hands)
-        top_20_corr_coffey_hands = corr_coffey_hands.nlargest(20, 0)
+        top_30_corr_coffey_hands = corr_coffey_hands.nlargest(30, 0)
         movie_list = []
-        for idx in top_20_corr_coffey_hands.index:
+        for idx in top_30_corr_coffey_hands.index:
             movie_list.append(movie_id[idx])
             
         return movie_list
