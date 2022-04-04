@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Input, Modal, Tag } from 'antd';
+import { Button, Col, Form, Input, Modal, Row, Tag } from 'antd';
 import { MailFilled } from '@ant-design/icons';
 import { FaBirthdayCake } from 'react-icons/fa';
 import { MdOutlineCategory } from 'react-icons/md';
@@ -99,43 +99,47 @@ const UserProfile = () => {
   return (
     <>
       <div style={{ textAlign: 'center' }}>
-        <div style={{ width: '600px', display: 'inline-block' }}>
+        <div >
           {userInfo != null && category !== null && (
-            <div style={{ width: '100%' }}>
+            <div>
               <div
                 style={{
                   textAlign: 'center',
-                  width: '100%',
+                  // width: '100%',
                   borderRadius: '10px',
                 }}
               >
+                <SignupTitle>프로필</SignupTitle>
                 <div>
-                  <SignupTitle>프로필</SignupTitle>
-                  <div className="card-container">
-                    <header>
-                      <img src={userInfo.picture} alt={`${userInfo.username2}_프로필 이미지`} />
-                    </header>
-                    <h1 className="bold-text">
-                      {userInfo.username2} {userInfo.birthDate ? <span className="normal-text">({today.getFullYear() - birthDate(userInfo.birthDate).getFullYear()})</span> : <></>}
-                    </h1>
-                    <h2 className="normal-text"><MailFilled style={{color:'#2cd4ac'}} />&nbsp;e-mail : {userInfo.username}</h2>
-                    <h2 className="normal-text"><FaBirthdayCake style={{color:'#2cd4ac'}} />&nbsp;생년월일 : {userInfo.birthDate}</h2>
-                    <h2 className="normal-text"><RiGenderlessLine style={{color:'#2cd4ac'}} />&nbsp;성별 : {userInfo.gender ? '남' : '여'}</h2>
-                    <h2 className="normal-text"><MdOutlineCategory style={{color:'#2cd4ac'}} />&nbsp;선호 장르 : {category.map(item => {
-                          return (
-                            <span key={item.id}>
-                              <Tag color="green">{item.name}</Tag>
-                            </span>
-                          );
-                        })}
-                    </h2>
-                    <div className="social-container">
-                      <div className="scraps">
-                        <h1 className="bold-text" onClick={() => router.push('/scrap')}>{userInfo.scrap_count}</h1>
-                        <h2 className="smaller-text" onClick={() => router.push('/scrap')}>Scraps</h2>
+                  <Row justify="center">
+                    <Col sm={24} md={15}>
+                      <div className="card-container">
+                        <header>
+                          <img src={userInfo.picture} alt={`${userInfo.username2}_프로필 이미지`} />
+                        </header>
+                        <h1 className="bold-text">
+                          {userInfo.username2} {userInfo.birthDate ? <span className="normal-text">({today.getFullYear() - birthDate(userInfo.birthDate).getFullYear()})</span> : <></>}
+                        </h1>
+                        <h2 className="normal-text"><MailFilled style={{color:'#2cd4ac'}} />&nbsp;e-mail : {userInfo.username}</h2>
+                        <h2 className="normal-text"><FaBirthdayCake style={{color:'#2cd4ac'}} />&nbsp;생년월일 : {userInfo.birthDate}</h2>
+                        <h2 className="normal-text"><RiGenderlessLine style={{color:'#2cd4ac'}} />&nbsp;성별 : {userInfo.gender ? '남' : '여'}</h2>
+                        <h2 className="normal-text"><MdOutlineCategory style={{color:'#2cd4ac'}} />&nbsp;선호 장르 : {category.map(item => {
+                              return (
+                                <span key={item.id}>
+                                  <Tag color="green">{item.name}</Tag>
+                                </span>
+                              );
+                            })}
+                        </h2>
+                        <div className="social-container">
+                          <div className="scraps">
+                            <h1 className="bold-text" onClick={() => router.push('/scrap')}>{userInfo.scrap_count}</h1>
+                            <h2 className="smaller-text" onClick={() => router.push('/scrap')}>Scraps</h2>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
+                    </Col>
+                  </Row>
                   <div>
                     <MyButton
                       type="primary"
@@ -217,8 +221,6 @@ const UserProfile = () => {
         {`
           .card-container {
             background-color: white;
-            min-width: 350px;
-            max-width: 600px;
             height: auto;
             border-radius: 14px;
             box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
