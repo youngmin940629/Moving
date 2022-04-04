@@ -31,21 +31,23 @@ export default function BoardTable(props) {
   const router = useRouter();
   const [userID, setUserID] = useState(null);
   const [hit, setHit] = useState(null);
-  console.log(props.data)
+  console.log(props.data);
   useEffect(() => {
     if (sessionStorage.getItem('id')) {
       setUserID(sessionStorage.getItem('id'));
     } else {
       setUserID(null);
     }
-  },[props]);
+  }, [props]);
 
   // 게시글 삭제 함수 id : 게시글 번호
   const deleteBoard = id => {
     try {
       if (confirm('삭제하사겠습니까?')) {
-        axios.delete(`${process.env.NEXT_PUBLIC_BASE_URL}/community/review/${id}/`)
-        alert("삭제 완료");
+        axios.delete(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/community/review/${id}/`
+        );
+        alert('삭제 완료');
         router.replace(router.asPath);
       }
     } catch (e) {}
@@ -72,13 +74,16 @@ export default function BoardTable(props) {
             )
           }
         >
-          {title} <span style={{color:'grey', fontSize:'5px'}}>[{record.comments.length}]</span>
+          {title}{' '}
+          <span style={{ color: 'grey', fontSize: '5px' }}>
+            [{record.comments}]
+          </span>
         </a>
       ),
     },
     {
       title: '작성자',
-      dataIndex: ["user", "username2"],
+      dataIndex: ['user', 'username2'],
     },
     {
       title: '작성일',
@@ -155,7 +160,11 @@ export default function BoardTable(props) {
         <Logo src="/img/logo-colored.png" />
       </LogoWrapper>
       <BoardTitle>Review Board</BoardTitle>
-      <Col xs={{ offset: 0 }} sm={{ offset: 1, span: 22 }} md={{ offset:2, span:20 }}>
+      <Col
+        xs={{ offset: 0 }}
+        sm={{ offset: 1, span: 22 }}
+        md={{ offset: 2, span: 20 }}
+      >
         {userID != null ? (
           <BoardWriteBtn type="primary" onClick={goWrite}>
             게시글 쓰기
@@ -186,14 +195,13 @@ export default function BoardTable(props) {
           <Option value="created_at">작성일</Option>
         </Select>
         <Table
-          dataSource={props.boards}
+          dataSource={props.data}
           columns={columns}
           pagination={{
             position: ['bottomCenter'],
           }}
         />
       </Col>
-
     </>
-  )
+  );
 }
