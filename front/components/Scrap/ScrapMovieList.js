@@ -38,12 +38,11 @@ const ScrapMovieList = () => {
   function deleteScrap() {
     if (deleteScrapList.length !== 0) {
       deleteScrapList.map(item => {
-        console.log(item)
         axios
           .post(`${process.env.NEXT_PUBLIC_BASE_URL}/movies/scrap_cancel/${userId}/`,{ "movie_id": item })
-          .then(res => {
-            console.log(res)
-          });
+          // .then(res => {
+          //   console.log(res)
+          // });
         
       })
       return (

@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Form, Input, Button, Checkbox } from 'antd';
 import StarRating from './StarRating';
 import DetailMenu from './DetailMenu';
 import ScrapIcon from './ScrapIcon';
@@ -13,7 +12,7 @@ export default function MovieDetail({ id, detail }) {
     } else {
       setIsLogined(true);
     }
-    console.log(isLogined);
+    // console.log(isLogined);
   }, []);
   return (
     <>

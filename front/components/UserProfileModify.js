@@ -71,12 +71,12 @@ const UserProfileModify = ({ imageUploader }) => {
     }
   }
   function handleChange(value) {
-    console.log('선택된 장르 : ', value);
+    // console.log('선택된 장르 : ', value);
     const temp = [];
     value.map(item => {
       temp.push(Number(item));
     });
-    console.log('temp', temp);
+    // console.log('temp', temp);
     setCategoryList(temp);
     setState(true);
   }
@@ -127,7 +127,7 @@ const UserProfileModify = ({ imageUploader }) => {
       category_list: category_list,
       picture: image,
     };
-    console.log('data', data);
+    // console.log('data', data);
 
     axios({
       url: `${process.env.NEXT_PUBLIC_BASE_URL}/accounts/edit/${id}/`,
@@ -135,7 +135,7 @@ const UserProfileModify = ({ imageUploader }) => {
       data: data,
     })
       .then(res => {
-        console.log(res);
+        // console.log(res);
         alert('프로필이 수정되었습니다. 프로필 페이지로 이동합니다.');
         router.push('/profile');
       })
@@ -160,7 +160,6 @@ const UserProfileModify = ({ imageUploader }) => {
       axios
         .get(`${process.env.NEXT_PUBLIC_BASE_URL}/accounts/${id}`)
         .then(res => {
-          console.log(res.data);
           setCategory(res.data.category_list);
           const temp = [];
           res.data.category_list.map(item => {
@@ -240,7 +239,6 @@ const UserProfileModify = ({ imageUploader }) => {
                                 }
                               )
                               .then(res => {
-                                console.log(res);
                                 res.data
                                   ? nicknameCheckTrue()
                                   : nicknameCheckFalse();

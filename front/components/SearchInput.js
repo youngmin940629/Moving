@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import "antd/dist/antd.css";
 import { Select } from "antd";
 import axios from 'axios';
-import Link from 'next/link';
-import { ConsoleSqlOutlined, SearchOutlined } from '@ant-design/icons';
+import { SearchOutlined } from '@ant-design/icons';
 import router from 'next/router';
 
 const { Option } = Select;

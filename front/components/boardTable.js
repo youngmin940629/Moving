@@ -20,10 +20,6 @@ const BoardTitle = styled.h2`
   color: #2cd4ac;
 `;
 
-// const TableWrapper = styled(Col)`
-  
-// `;
-
 const BoardWriteBtn = styled(Button)`
   float: right;
   margin-bottom: 20px;
@@ -35,21 +31,23 @@ export default function BoardTable(props) {
   const router = useRouter();
   const [userID, setUserID] = useState(null);
   const [hit, setHit] = useState(null);
-
+  console.log(props.data);
   useEffect(() => {
     if (sessionStorage.getItem('id')) {
       setUserID(sessionStorage.getItem('id'));
     } else {
       setUserID(null);
     }
-  },[props]);
+  }, [props]);
 
   // 게시글 삭제 함수 id : 게시글 번호
   const deleteBoard = id => {
     try {
       if (confirm('삭제하사겠습니까?')) {
-        axios.delete(`${process.env.NEXT_PUBLIC_BASE_URL}/community/review/${id}/`)
-        alert("삭제 완료");
+        axios.delete(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/community/review/${id}/`
+        );
+        alert('삭제 완료');
         router.replace(router.asPath);
       }
     } catch (e) {}
@@ -76,13 +74,16 @@ export default function BoardTable(props) {
             )
           }
         >
-          {title} <span style={{color:'grey', fontSize:'5px'}}>[{record.comments}]</span>
+          {title}{' '}
+          <span style={{ color: 'grey', fontSize: '5px' }}>
+            [{record.comments}]
+          </span>
         </a>
       ),
     },
     {
       title: '작성자',
-      dataIndex: ["user", "username2"],
+      dataIndex: ['user', 'username2'],
     },
     {
       title: '작성일',
@@ -91,39 +92,6 @@ export default function BoardTable(props) {
     {
       title: '조회수',
       dataIndex: 'visit_count',
-    },
-    {
-      // width: '5rem',
-      render: record => (
-        <>
-          {/*
-            로그인 사용자ID == 게시글 작성자ID
-            삭제 버튼 보여주기
-            */}
-          {userID == record.user.id ? (
-            <>
-              <Button
-                type="primary"
-                ghost
-                key={record.id}
-                onClick={()=>router.push(`/board/modify/${record.id}`)}
-                style={{marginRight:'5px'}}
-              >
-                수정
-              </Button>
-              <Button
-                type="primary"
-                danger
-                ghost
-                key={record.id}
-                onClick={() => deleteBoard(record.id)}
-              >
-                삭제
-              </Button>
-            </>
-          ) : null}
-        </>
-      ),
     },
   ];
 
@@ -158,7 +126,6 @@ export default function BoardTable(props) {
   };
   const { Search } = Input;
   const onSearch = value => {
-    console.log(value);
     axios
       .get(
         `${process.env.NEXT_PUBLIC_BASE_URL}/community/review/search/${item}/${value}/`
@@ -167,7 +134,6 @@ export default function BoardTable(props) {
         console.log('res.data', res.data);
         const temp = [];
         res.data.map(item => {
-          console.log('item', item);
           temp.push({
             key: item.id,
             comments: item.comments.length,
@@ -194,7 +160,11 @@ export default function BoardTable(props) {
         <Logo src="/img/logo-colored.png" />
       </LogoWrapper>
       <BoardTitle>Review Board</BoardTitle>
-      <Col xs={{ offset: 0 }} sm={{ offset: 1, span: 22 }} md={{ offset:2, span:20 }}>
+      <Col
+        xs={{ offset: 0 }}
+        sm={{ offset: 1, span: 22 }}
+        md={{ offset: 2, span: 20 }}
+      >
         {userID != null ? (
           <BoardWriteBtn type="primary" onClick={goWrite}>
             게시글 쓰기
@@ -232,7 +202,6 @@ export default function BoardTable(props) {
           }}
         />
       </Col>
-
     </>
-  )
+  );
 }

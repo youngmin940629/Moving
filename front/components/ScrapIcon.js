@@ -88,7 +88,6 @@ export default function ScrapIcon({id}) {
       axios
       .get(`${process.env.NEXT_PUBLIC_BASE_URL}/movies/scrap_check/${userId}/${movieId}/`)
       .then(res => {
-        // console.log(res.data[0]);
         setIsScrapped(res.data[0]);
       });
     }

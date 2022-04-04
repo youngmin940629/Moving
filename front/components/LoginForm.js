@@ -1,10 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { Form, Input, Button, Checkbox } from 'antd';
+import React, { useCallback } from 'react';
+import { Form, Input, Button } from 'antd';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { loaduserRequestAction, loginRequestAction } from '../reducers/user';
-import Router from 'next/router';
 import useInput from '../hooks/useInput';
 
 const LogoWrapper = styled.div`
