@@ -112,7 +112,7 @@ const UserProfile = () => {
                 <SignupTitle>프로필</SignupTitle>
                 <div>
                   <Row justify="center">
-                    <Col sm={24} md={15}>
+                    <Col sm={24} md={12}>
                       <div className="card-container">
                         <header>
                           <img src={userInfo.picture} alt={`${userInfo.username2}_프로필 이미지`} />
