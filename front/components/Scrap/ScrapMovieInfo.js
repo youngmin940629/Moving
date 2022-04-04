@@ -23,9 +23,9 @@ const ScrapMovieInfo = ({movies, deleteScrapList}) => {
       <Row>
         {movies.map(movie => {
           return (
-            <Col span={12} style={{ margin: '16px 0' }}>
+            <Col xs={24} md={12} style={{ margin: '16px 0' }}>
               <Card
-                style={{ margin: 16,  height: '100%' }}
+                style={{ margin: 'auto 16px',  height: '100%' }}
                 key={movie.id}
               >
                 <Checkbox 
