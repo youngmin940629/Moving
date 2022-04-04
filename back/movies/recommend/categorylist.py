@@ -5,28 +5,31 @@ from sklearn.decomposition import TruncatedSVD
 import threading
 import scipy
 con = sqlite3.connect("db.sqlite3", check_same_thread=False)
-rating_data = pd.read_sql_query("SELECT * from movies_rating", con )
-if len(rating_data) > 100:
-    movie_data = pd.read_sql_query("SELECT id,title from movies_movie", con)
-    rating_data.drop('id', axis=1, inplace=True)
-    user_movie_ratings = rating_data.pivot(
-        index='user_id',
-        columns='movie_id',
-        values='rank'
-    )
-
-    movie_genre_data = movie_data = pd.read_sql_query("SELECT movie_id,genre_id from movies_movie_genres", con)
-    movie_mean_vote = np.mean(user_movie_ratings.T, axis=1)
-    movie_mean_vote = pd.DataFrame(movie_mean_vote)
-
-    movie_genre_mean_data = pd.merge(movie_genre_data, movie_mean_vote, on='movie_id')
-    movie_genre_mean_data.rename(columns={0:'평점평균'}, inplace=True)
-else:
-    movie_genre_data = pd.read_sql_query("SELECT movie_id,genre_id from movies_movie_genres", con)
-    movie_data = pd.read_sql_query("SELECT id,title,vote_average from movies_movie", con)
-    movie_data.rename(columns={"id":"movie_id"}, inplace=True)
-    movie_genre_mean_data = pd.merge(movie_genre_data, movie_data, on='movie_id')
-    movie_genre_mean_data.rename(columns={"vote_average" : '평점평균'},inplace=True)
+try:
+  rating_data = pd.read_sql_query("SELECT * from movies_rating", con )
+  if len(rating_data) > 100:
+      movie_data = pd.read_sql_query("SELECT id,title from movies_movie", con)
+      rating_data.drop('id', axis=1, inplace=True)
+      user_movie_ratings = rating_data.pivot(
+          index='user_id',
+          columns='movie_id',
+          values='rank'
+      )
+  
+      movie_genre_data = movie_data = pd.read_sql_query("SELECT movie_id,genre_id from movies_movie_genres", con)
+      movie_mean_vote = np.mean(user_movie_ratings.T, axis=1)
+      movie_mean_vote = pd.DataFrame(movie_mean_vote)
+  
+      movie_genre_mean_data = pd.merge(movie_genre_data, movie_mean_vote, on='movie_id')
+      movie_genre_mean_data.rename(columns={0:'평점평균'}, inplace=True)
+  else:
+      movie_genre_data = pd.read_sql_query("SELECT movie_id,genre_id from movies_movie_genres", con)
+      movie_data = pd.read_sql_query("SELECT id,title,vote_average from movies_movie", con)
+      movie_data.rename(columns={"id":"movie_id"}, inplace=True)
+      movie_genre_mean_data = pd.merge(movie_genre_data, movie_data, on='movie_id')
+      movie_genre_mean_data.rename(columns={"vote_average" : '평점평균'},inplace=True)
+except:
+  pass
 # 데이터베이스에서 영화, 평점 데이터 불러오기
 
 def recommend():
