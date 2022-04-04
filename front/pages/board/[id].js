@@ -30,6 +30,7 @@ const router = useRouter();
             .Btn{
                 width: 80%;
                 margin: auto;
+                margin-bottom: 10px;
             }
         `}</style>
     </>

@@ -67,20 +67,17 @@ const IndexRecommend4 = () => {
 
   const [movies, setMovies] = useState([]);
 
-  console.log(movies)
-
   useEffect(() => {
     axios
       .get(`${process.env.NEXT_PUBLIC_BASE_URL}/movies/top_rate/`)
       .then(res => {
-        console.log(res.data)
         setMovies(res.data);
       });
   }, []);
   return (
     <>
-      <Divider orientation="left" orientationMargin="0">
-        <Title level={2}><MdPlayCircleFilled style={{color:'#2cd4ac'}}/>&nbsp;평점순</Title>
+      <Divider orientation="left" orientationMargin="0" style={{marginTop:"22px"}}>
+        <Title style={{fontSize:'2vw'}}><MdPlayCircleFilled style={{color:'#2cd4ac'}}/>&nbsp;평점순</Title>
       </Divider>
       <Slider {...settings}>
         {movies.map(movie => {

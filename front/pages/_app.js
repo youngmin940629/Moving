@@ -18,6 +18,7 @@ const App = ({ Component, pageProps }) => {
         sessionStorage.setItem('id', res.data.pk);
         sessionStorage.setItem('username',res.data.username);
       });
+        document.cookie= `id=${sessionStorage.getItem("id")}`;
     }
     return () => {
       let id = sessionStorage.getItem('id');
@@ -29,6 +30,7 @@ const App = ({ Component, pageProps }) => {
   return (
     <>
       <Head>
+        <link rel="shortcut icon" href="/favicon.ico" />
         <title>moving</title>
       </Head>
       <Component {...pageProps} />

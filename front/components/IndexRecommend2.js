@@ -73,7 +73,6 @@ const IndexRecommend2 = ({ movies, setMovies }) => {
         }/movies/mf_user_recommend/${sessionStorage.getItem('id')}/`
       )
       .then(res => {
-        console.log('res', res);
         setMovies(res.data);
       })
       .catch(err => {
@@ -83,8 +82,8 @@ const IndexRecommend2 = ({ movies, setMovies }) => {
 
   return (
     <>
-      <Divider orientation="left" orientationMargin="0">
-        <Title level={2}><MdPlayCircleFilled style={{color:'#2cd4ac'}}/>&nbsp;나와 비슷한 취향을 가진 사용자들이 시청한 영화</Title>
+      <Divider orientation="left" orientationMargin="0" style={{marginTop:"22px"}}>
+        <Title style={{fontSize:'2vw'}}><MdPlayCircleFilled style={{color:'#2cd4ac'}}/>&nbsp;나와 비슷한 취향을 가진 사용자들이 시청한 영화</Title>
       </Divider>
       <Slider {...settings}>
         {movies.map(movie => {

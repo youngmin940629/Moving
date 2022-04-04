@@ -60,6 +60,7 @@ const MovingLogo = styled.img`
 const AppLayout = ({ children }) => {
   const logout = () => {
     console.log(dispatch(logoutRequestAction()));
+    document.cookie = 'id=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
   };
 
   const menu = (

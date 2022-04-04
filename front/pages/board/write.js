@@ -26,12 +26,7 @@ const BoardTitle = styled.h2`
 
 export default function Write(){
     const router = useRouter();
-    useEffect(()=>{
-        if(sessionStorage.getItem("id") == null){
-            // alert("로그인 후 이용해주세요")
-            router.push("/")
-        }
-    },[])
+
     const [movies, setMovies] = useState([[{}]]);
     const [selects, setSelects] = useState("");
 
@@ -178,6 +173,19 @@ export default function Write(){
                     text-align: center;
                 }  
             `}</style>
-        </>    
+        </>
     )
+}
+
+export function getServerSideProps(context){
+
+    const cookie = context.req.cookies["id"] ? context.req.cookies["id"] : null;
+    if(cookie == null){
+        context.res.writeHead(301, { location: "/" } );
+        context.res.end();
+    }
+
+    return{
+        props:{}
+    }
 }

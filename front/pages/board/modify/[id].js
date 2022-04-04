@@ -184,19 +184,28 @@ export default function ModifyBoard({post,movieTitle}){
     )
 }
 
-export async function getServerSideProps({ params }) {
+export async function getServerSideProps(context) {
     console.log("id[] call")
-    const id = parseInt(params.id);
+
+    const id = parseInt(context.params.id);
     let post;
     let movieTitle;
-    await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/community/review/${id}`)
-        .then(async res => {
-            post = res.data;
-            await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/movies/${post.movie}/`)
-                .then(res => {
-                    movieTitle = res.data[0].title;
-                });
-        })
+    const cookie = context.req.cookies["id"] ? context.req.cookies["id"] : null;
+    console.log(cookie)
+    if(cookie != null) {
+        await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/community/review/${id}`)
+            .then(async res => {
+                post = res.data;
+                await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/movies/${post.movie}/`)
+                    .then(res => {
+                        movieTitle = res.data[0].title;
+                    });
+            })
+
+    }else {
+        context.res.writeHead(301, { location: "/" } );
+        context.res.end();
+    }
 
     return {
         props: {

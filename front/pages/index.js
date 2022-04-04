@@ -13,12 +13,9 @@ const { Title } = Typography;
 
 const RecommendTitle = ({title, title2}) => {
   return (
-    <>
-      <Divider>
-        <Title><PlaySquareFilled style={{color:'#2cd4ac'}}/>&nbsp;<span style={{color:'#2cd4ac'}}>{title}</span>&nbsp;{title2} 영화 추천</Title>
-      </Divider>
-    </>
-
+    <Divider>
+      <Title style={{fontSize:'2.5vw'}}><PlaySquareFilled style={{color:'#2cd4ac'}}/>&nbsp;<span style={{color:'#2cd4ac'}}>{title}</span>&nbsp;{title2} 영화 추천</Title>
+    </Divider>
   )
 }
 

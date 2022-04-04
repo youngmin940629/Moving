@@ -42,7 +42,6 @@ export default function BoardTable(props) {
     } else {
       setUserID(null);
     }
-    console.log(props.boards)
   },[props]);
 
   // 게시글 삭제 함수 id : 게시글 번호
@@ -77,7 +76,7 @@ export default function BoardTable(props) {
             )
           }
         >
-          {title} <span style={{color:'grey', fontSize:'5px;'}}>[{record.comments.length}]</span>
+          {title} <span style={{color:'grey', fontSize:'5px'}}>[{record.comments.length}]</span>
         </a>
       ),
     },
