@@ -18,7 +18,7 @@ from .recommend.mf_recommend import mf_recomnend
 from .recommend.mf_recomn_user import user_recommend
 from .recommend.categorylist import categoryPick
 from .recommend.toprate import toprate
-
+import pandas as pd
 # Create your views here.
 
 key = "733c7d5145ecf236ad387093e2d52047"
@@ -186,12 +186,11 @@ def mf_user_recommend(request,user_id):
         index = 0
         for i in range(len(user_list)):
             if user_list[i].pk == user_id:
-                print(i)
                 index = i
                 break
         user_history, recommendationList = user_recommend(index, user_id)
         movie_list = []
-        if recommendationList:
+        if len(recommendationList) > 0:
             for recommend in recommendationList.values:
                 movie = Movie.objects.filter(pk=recommend[0])
                 movie_list.append(movie[0])
