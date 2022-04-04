@@ -4,7 +4,6 @@ import axios from 'axios';
 
 export default function Comments(props) {
   const [comments, setComments] = useState([{}]);
-  console.log('props', props);
   const dateFormat = data => {
     let originDate;
     for (let i = 0; i < data.length; i++) {
@@ -34,7 +33,6 @@ export default function Comments(props) {
 
   // 댓글 등록 요청
   const submitComment = data => {
-    console.log(data.comment);
     form.resetFields();
     axios
       .post(

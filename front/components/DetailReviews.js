@@ -48,7 +48,6 @@ export default function DetailReviews({ id, isLogined }) {
       )
       .then(res => {
         let reviews_copy = [...reviews];
-        // console.log(index.id);
         let del_index = reviews_copy.findIndex(el => el.id == index.id);
         reviews_copy.splice(del_index, 1);
         setReviews(reviews_copy);
@@ -127,7 +126,6 @@ export default function DetailReviews({ id, isLogined }) {
             rate="⭐⭐⭐⭐⭐"
           }
           let reviews_copy = [...reviews];
-          // console.log(reviews_copy);
           reviews_copy = reviews_copy.concat([
             {
               user: {

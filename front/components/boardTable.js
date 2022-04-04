@@ -20,10 +20,6 @@ const BoardTitle = styled.h2`
   color: #2cd4ac;
 `;
 
-// const TableWrapper = styled(Col)`
-  
-// `;
-
 const BoardWriteBtn = styled(Button)`
   float: right;
   margin-bottom: 20px;
@@ -76,7 +72,7 @@ export default function BoardTable(props) {
             )
           }
         >
-          {title} <span style={{color:'grey', fontSize:'5px'}}>[{record.comments}]</span>
+          {title} <span style={{color:'grey', fontSize:'5px'}}>[{record.comments.length}]</span>
         </a>
       ),
     },
@@ -92,35 +88,6 @@ export default function BoardTable(props) {
       title: '조회수',
       dataIndex: 'visit_count',
     },
-    // {
-    //   // width: '5rem',
-    //   render: record => (
-    //     <>
-    //       {userID == record.user.id ? (
-    //         <>
-    //           <Button
-    //             type="primary"
-    //             ghost
-    //             key={record.id}
-    //             onClick={()=>router.push(`/board/modify/${record.id}`)}
-    //             style={{marginRight:'5px'}}
-    //           >
-    //             수정
-    //           </Button>
-    //           <Button
-    //             type="primary"
-    //             danger
-    //             ghost
-    //             key={record.id}
-    //             onClick={() => deleteBoard(record.id)}
-    //           >
-    //             삭제
-    //           </Button>
-    //         </>
-    //       ) : null}
-    //     </>
-    //   ),
-    // },
   ];
 
   // 게시글 등록 창으로 이동
@@ -154,7 +121,6 @@ export default function BoardTable(props) {
   };
   const { Search } = Input;
   const onSearch = value => {
-    console.log(value);
     axios
       .get(
         `${process.env.NEXT_PUBLIC_BASE_URL}/community/review/search/${item}/${value}/`
@@ -163,7 +129,6 @@ export default function BoardTable(props) {
         console.log('res.data', res.data);
         const temp = [];
         res.data.map(item => {
-          console.log('item', item);
           temp.push({
             key: item.id,
             comments: item.comments.length,
@@ -221,7 +186,7 @@ export default function BoardTable(props) {
           <Option value="created_at">작성일</Option>
         </Select>
         <Table
-          dataSource={props.data}
+          dataSource={props.boards}
           columns={columns}
           pagination={{
             position: ['bottomCenter'],

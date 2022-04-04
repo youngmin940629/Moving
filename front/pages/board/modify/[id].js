@@ -171,13 +171,13 @@ export default function ModifyBoard({post,movieTitle}){
 }
 
 export async function getServerSideProps(context) {
-    console.log("id[] call")
+    // console.log("id[] call")
 
     const id = parseInt(context.params.id);
     let post;
     let movieTitle;
     const cookie = context.req.cookies["id"] ? context.req.cookies["id"] : null;
-    console.log(cookie)
+    // console.log(cookie)
     if(cookie != null) {
         await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/community/review/${id}`)
             .then(async res => {

@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import {
   Button,
-  Checkbox,
   Form,
   Input,
   Col,
@@ -27,19 +26,11 @@ const LogoWrapper = styled.div`
   margin: 20px;
 `;
 
-const Logo = styled.img``;
-
 const SignupTitle = styled.h2`
   text-align: center;
   padding-bottom: 5px;
   font-weight: bold;
   color: #2cd4ac;
-`;
-
-const CheckboxWrapper = styled.div`
-  margin: 20px auto 20px;
-  display: flex;
-  justify-content: center;
 `;
 
 const SignupButton = styled.div`

@@ -4,13 +4,9 @@ import Link from 'next/link';
 import {
   Layout,
   Menu,
-  Input,
-  Button,
   Dropdown,
-  message,
   Row,
   Col,
-  Divider,
   Modal,
 } from 'antd';
 import styled from 'styled-components';
@@ -21,12 +17,10 @@ import {
   logoutRequestAction,
 } from '../reducers/user';
 import {
-  DownOutlined,
   UserOutlined,
   HeartOutlined,
   LogoutOutlined,
 } from '@ant-design/icons';
-import jwt_decode from 'jwt-decode';
 import Router from 'next/router';
 import SearchInput from './SearchInput';
 import LoginForm from './LoginForm';
@@ -59,7 +53,8 @@ const MovingLogo = styled.img`
 
 const AppLayout = ({ children }) => {
   const logout = () => {
-    console.log(dispatch(logoutRequestAction()));
+    // console.log(dispatch(logoutRequestAction()));
+    dispatch(logoutRequestAction());
   };
 
   const menu = (
