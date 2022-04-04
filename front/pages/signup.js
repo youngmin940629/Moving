@@ -20,7 +20,7 @@ export default Signup;
 
 export function getServerSideProps(context){
 
-  const cookie = context.req.cookies["id"] ? context.req.cookies["id"] : null;
+  let cookie = context.req.cookies["id"] ? context.req.cookies["id"] : null;
   if(cookie != null){
     context.res.writeHead(301, { location: "/" } );
     context.res.end();

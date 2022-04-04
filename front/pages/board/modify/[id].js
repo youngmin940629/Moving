@@ -191,7 +191,7 @@ export async function getServerSideProps(context) {
   const id = parseInt(context.params.id);
   let post;
   let movieTitle;
-  const cookie = context.req.cookies['id'] ? context.req.cookies['id'] : null;
+  let cookie = context.req.cookies['id'] ? context.req.cookies['id'] : null;
   // console.log(cookie)
   if (cookie != null) {
     await axios
