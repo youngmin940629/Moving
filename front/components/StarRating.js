@@ -5,26 +5,40 @@ import React, { useEffect, useState } from 'react'
 export default function StarRating({id}) {
   const [rating,setRating] = useState(0);
   const [user, setUser] = useState(null)
-  const [originRating, setOriginRating] = useState(0);
+  const [originRating, setOriginRating] = useState(null);
   
   useEffect(()=>{
-    const token = localStorage.getItem('JWT token');
-    const decoded = jwtDecode(token);
-    setUser(decoded.user_id);
-    axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/movies/rating/${id}/${decoded.user_id}`)
-    .then(function(res){
-      if (res.data) {
-        setOriginRating(res.data)
-      } else {
-        setOriginRating(0)
-      }
-    })
+    // console.log('영화바꼇다',id)
+    let userid = sessionStorage.getItem('id')
+    setRating(0)
+    setUser(userid);
+    if(userid){
+      axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/movies/rating/${id}/${userid}`)
+      .then(function(res){
+        // console.log(res.data)
+        // console.log(res.data=="")
+        if (res.data=="") {
+          // console.log('맞지?',originRating)
+          setOriginRating(0)
+          for (let i = 0; i < 5; i++) {
+            let star_array = document.querySelector(`.star${i+1}`)
+            star_array.style.color="#ccc"
+          }
+        } else {
+          setOriginRating(res.data)
+        }
+      })
+    }
+  },[id])
 
+  useEffect(()=>{
     const star_array = new Array(5)
     for (let i = 0; i < star_array.length; i++) {
       star_array[i] = document.querySelector(`.star${i+1}`)
+      // console.log(star_array[i])
     }
     const click = (i) => {
+      // console.log('!!')
       for (let j = 0; j < star_array.length; j++) {
         star_array[j].style.color="#ccc";
       }
@@ -36,12 +50,28 @@ export default function StarRating({id}) {
     for (let i = 0; i < star_array.length; i++) {
       star_array[i].addEventListener("click",()=>click(i))
     }
+
+
+    // let userid = sessionStorage.getItem('id')
+    // setUser(userid);
+    // if(userid){
+    //   axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/movies/rating/${id}/${userid}`)
+    //   .then(function(res){
+    //     console.log(res.data)
+    //     if (res.data) {
+    //       setOriginRating(res.data)
+    //     } else {
+    //       setOriginRating(0)
+    //     }
+    //   })
+    // }
+
     return ()=>{
       for (let i = 0; i < star_array.length; i++) {
         star_array[i].removeEventListener("click",()=>click(i))
       }
     }
-  },[id])
+  },[])
 
   useEffect(()=>{
     if(rating!==0){
@@ -63,6 +93,7 @@ export default function StarRating({id}) {
   },[rating])
 
   useEffect(()=>{
+    // console.log('originrating',originRating)
     const originRatingArr = new Array(5)
     for (let i = 0; i < originRatingArr.length; i++) {
       originRatingArr[i] = document.querySelector(`.star${i+1}`)
