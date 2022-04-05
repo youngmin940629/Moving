@@ -101,7 +101,7 @@ const UserProfileModify = ({ imageUploader }) => {
         }
       )
       .then(res => {
-        console.log(res);
+        // console.log(res);
         setState(true);
         setIsModalVisible(false);
       })
@@ -115,13 +115,13 @@ const UserProfileModify = ({ imageUploader }) => {
     setIsModalVisible(false);
   };
   const changePassword = () => {
-    console.log('비밀번호 바꾸기');
+    // console.log('비밀번호 바꾸기');
     setIsModalVisible(true);
   };
 
   const onSubmit = () => {
-    console.log('닉네임 수정', userInfo.username2);
-    console.log('장르 수정', category_list);
+    // console.log('닉네임 수정', userInfo.username2);
+    // console.log('장르 수정', category_list);
     const data = {
       username2: userInfo.username2,
       category_list: category_list,

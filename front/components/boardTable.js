@@ -31,11 +31,12 @@ export default function BoardTable(props) {
   const router = useRouter();
   const [userID, setUserID] = useState(null);
   const [hit, setHit] = useState(null);
-  console.log(props.data);
+  // console.log(props.data);
   useEffect(() => {
     if (sessionStorage.getItem('id')) {
       setUserID(sessionStorage.getItem('id'));
     } else {
+      ``;
       setUserID(null);
     }
   }, [props]);
@@ -107,7 +108,7 @@ export default function BoardTable(props) {
     setItem(value);
   };
   const handleChange2 = value => {
-    console.log(`selected ${value}`);
+    // console.log(`selected ${value}`);
     const _data = [...props.data];
     if (value === 'comment') {
       const temp = _data.sort((a, b) => b.comments - a.comments);
@@ -131,7 +132,7 @@ export default function BoardTable(props) {
         `${process.env.NEXT_PUBLIC_BASE_URL}/community/review/search/${item}/${value}/`
       )
       .then(res => {
-        console.log('res.data', res.data);
+        // console.log('res.data', res.data);
         const temp = [];
         res.data.map(item => {
           temp.push({
@@ -145,7 +146,7 @@ export default function BoardTable(props) {
             visit_count: item.visit_count,
             user: item.user,
           });
-          console.log('temp', temp);
+          // console.log('temp', temp);
         });
         props.setData(temp);
       })
