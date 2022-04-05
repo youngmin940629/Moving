@@ -78,11 +78,11 @@ def random_recommend(request):
 @permission_classes([AllowAny])
 def movie_search(request, word):
     if request.method == 'GET':
-        movies = Movie.objects.all()
+        keyword = ''.join(word.split())
+        Raw_movies = Movie.objects.raw(f"SELECT * FROM movies_movie WHERE REPLACE(title,' ','') LIKE '%{keyword}%'")
         movie_list = []
-        for movie in movies:
-            if word in movie.title:
-                movie_list.append(movie)
+        for movie in Raw_movies:
+            movie_list.append(movie)
         serializer = MovieListSerializer(movie_list, many=True)
         return Response(serializer.data)
 
