@@ -36,11 +36,11 @@ def recommend():
 
         svd_predicts = pd.DataFrame(svd_user_predicted_ratings, columns = user_movie_ratings.columns)
         con.close
-        mf_timer = threading.Timer(interval=60, function=recommend)
+        mf_timer = threading.Timer(interval=5, function=recommend)
         mf_timer.start()
     except Exception as e:
         con.close
-        mf_timer = threading.Timer(interval=60, function=recommend)
+        mf_timer = threading.Timer(interval=5, function=recommend)
         mf_timer.start()
         
     
@@ -48,11 +48,13 @@ recommend()
 def user_recommend(user_index,user_id):
     try:
         sorted_user_prediction = svd_predicts.iloc[user_index].sort_values(ascending=False)
+        print(sorted_user_prediction)
         user_data = rating_data[rating_data.user_id == (user_id)]
         user_history = user_data.merge(movie_data, on='movie_id').sort_values(['rank'], ascending=False)
         recommendations = movie_data[~movie_data['movie_id'].isin(user_history['movie_id'])]
-
+        print('1',recommendations)
         recommendations = recommendations.merge(pd.DataFrame(sorted_user_prediction).reset_index(), on='movie_id')
+        print('2',recommendations)
         recommendations = recommendations.rename(columns = {user_index:'Predictions'}).sort_values('Predictions', ascending=False)
         # print("recommendations= ", recommendations, sep='\n')
 
