@@ -4,7 +4,11 @@ import axios from 'axios';
 import { Typography, Card, Row, Col, Divider } from 'antd';
 import Router from 'next/router';
 import Slider from 'react-slick';
-import { MdArrowForwardIos, MdArrowBackIos, MdPlayCircleFilled } from 'react-icons/md';
+import {
+  MdArrowForwardIos,
+  MdArrowBackIos,
+  MdPlayCircleFilled,
+} from 'react-icons/md';
 
 const { Title } = Typography;
 const { Meta } = Card;
@@ -65,25 +69,17 @@ const IndexRecommend2 = ({ movies, setMovies }) => {
     e.target.src = '/img/default_img.jpg';
   };
 
-  useEffect(() => {
-    axios
-      .get(
-        `${
-          process.env.NEXT_PUBLIC_BASE_URL
-        }/movies/mf_user_recommend/${sessionStorage.getItem('id')}/`
-      )
-      .then(res => {
-        setMovies(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, []);
-
   return (
     <>
-      <Divider orientation="left" orientationMargin="0" style={{marginTop:"22px"}}>
-        <Title style={{fontSize:'2vw'}}><MdPlayCircleFilled style={{color:'#2cd4ac'}}/>&nbsp;나와 비슷한 취향을 가진 사용자들이 시청한 영화</Title>
+      <Divider
+        orientation="left"
+        orientationMargin="0"
+        style={{ marginTop: '22px' }}
+      >
+        <Title style={{ fontSize: '2vw' }}>
+          <MdPlayCircleFilled style={{ color: '#2cd4ac' }} />
+          &nbsp;나와 비슷한 취향을 가진 사용자들이 시청한 영화
+        </Title>
       </Divider>
       <Slider {...settings}>
         {movies.map(movie => {
@@ -103,9 +99,24 @@ const IndexRecommend2 = ({ movies, setMovies }) => {
             >
               <Meta
                 title={
-                  <b>{movie.title}&nbsp;<span style={{fontSize:'5px', color:'green'}}>{movie.vote_average? movie.vote_average : ''}</span></b>
+                  <b>
+                    {movie.title}&nbsp;
+                    <span style={{ fontSize: '5px', color: 'green' }}>
+                      {movie.vote_average ? movie.vote_average : ''}
+                    </span>
+                  </b>
                 }
-                description={movie.release_date ? `개봉일: ${movie.release_date.slice(0, 4)}년 ${movie.release_date.slice(5, 7)}월 ${movie.release_date.slice(8, 10)}일` : '개봉일: 미정'}
+                description={
+                  movie.release_date
+                    ? `개봉일: ${movie.release_date.slice(
+                        0,
+                        4
+                      )}년 ${movie.release_date.slice(
+                        5,
+                        7
+                      )}월 ${movie.release_date.slice(8, 10)}일`
+                    : '개봉일: 미정'
+                }
               />
             </Card>
           );
