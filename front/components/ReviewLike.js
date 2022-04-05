@@ -81,7 +81,7 @@ export default function ReviewLike({userId, reviewId}) {
         setIsLiked(res.data.liked)
         setLikeCount(res.data.count)
       });
-  }, [])
+  }, [userId])
 
   return (
     <>
