@@ -22,7 +22,6 @@ const BoardTitle = styled.h2`
 
 const BoardWriteBtn = styled(Button)`
   float: right;
-  margin-bottom: 20px;
 `;
 
 // 게시글 갯수 : props.boards.length
@@ -173,7 +172,7 @@ export default function BoardTable(props) {
         ) : null}
         <Select
           defaultValue="선택"
-          style={{ width: 120 }}
+          style={{ width: 120, marginBottom: '10px' }}
           onChange={handleChange}
         >
           <Option value="title">제목</Option>
@@ -187,7 +186,7 @@ export default function BoardTable(props) {
           style={{ width: 200 }}
         />
         <Select
-          defaultValue="선택"
+          defaultValue="정렬기준"
           style={{ width: 120 }}
           onChange={handleChange2}
         >
